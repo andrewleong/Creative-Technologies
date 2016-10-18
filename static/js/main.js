@@ -3,7 +3,7 @@
     
 
     //var baseUrl = document.location.protocol + "//" + document.location.host
-    var baseUrl = document.location.protocol + "//" + "10.167.115.126:8080" 
+    var baseUrl = document.location.protocol + "//" + "10.167.118.37:8080" 
     
     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     var ranLength = 50;
