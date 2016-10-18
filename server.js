@@ -15,9 +15,10 @@ app.get('/mobile/:id', function(req, res){
     res.render('mobile.jade', {id: req.params.id});
 });
 
-server.listen(process.env.PORT || 8080, "0.0.0.0");
+server.listen(process.env.PORT || 3000, "0.0.0.0");
 
-console.log("Listening to " + 8080);
+console.log("Listening to " + 3000);
+console.log("Hello!");
 
 var regUsers = {};
 
