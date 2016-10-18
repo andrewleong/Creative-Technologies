@@ -4,7 +4,7 @@
 
     //var baseUrl = document.location.protocol + "//" + document.location.host
     //var baseUrl = document.location.protocol + "//" + "10.167.118.37:3000"
-    var baseUrl = "https://creative-technologies-3000.herokuapp.com/" 
+    var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
     
     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     var ranLength = 50;
