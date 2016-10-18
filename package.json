@@ -3,9 +3,9 @@
   "description": "Control a webpage with your phone!",
   "version": "0.0.1",
   "dependencies": {
-    "express": "*",
+    "express": "^4.14.0",
     "jade": "^1.11.0",
-    "socket.io": "*"
+    "socket.io": "^1.5.0"
   },
   "engines": {
     "node": "4.4.7",
