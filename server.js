@@ -43,14 +43,17 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    // socket.on('mobile-orientation', function(orientation) {
-    //     if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
-    //         deskSocket.emit('orientation', orientation);
-    //     }
-    // });
-    socket.on('change first video', function(data) {
-        
-            deskSocket.emit('replace first video');
-        
+    /*THIS IS MOBILE ORIENTATION */
+    socket.on('mobile-orientation', function(orientation) {
+        if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
+            deskSocket.emit('orientation', orientation);
+        }
     });
+
+    /* THIS IS VIDEO*/
+    // socket.on('change first video', function(data) {
+        
+    //         deskSocket.emit('replace first video');
+        
+    // });
 });

@@ -17,13 +17,13 @@
     });
 
         socket.on('start', function(data) {
-            // MobileReader.bindOrientation({
-            // 	callback: function(orientation) {
-            // 		socket.emit('mobile-orientation', orientation);
-            //         $(".count").text(parseInt($(".count").text()) + 1);
-            // 	},
-            // 	interval: 500
-            // });
+            MobileReader.bindOrientation({
+            	callback: function(orientation) {
+            		socket.emit('mobile-orientation', orientation);
+                    $(".count").text(parseInt($(".count").text()) + 1);
+            	},
+            	interval: 500
+            });
         });
     });
 })();

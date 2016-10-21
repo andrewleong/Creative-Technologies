@@ -37,9 +37,10 @@
             player.loadVideoById("t8zgAag5jn4", 0, "default");
         });
 
-        // socket.on('orientation', function(orientation) {
-        //     $(window).trigger('orientation-change', orientation);
-        // })
+        //Orientation Change in PC browser trigger for game
+        socket.on('orientation', function(orientation) {
+            $(window).trigger('orientation-change', orientation);
+        })
 
     });
 })();
