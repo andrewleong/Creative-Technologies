@@ -18,7 +18,7 @@
     }
     
     $(document).ready(function() {
-        var videoUrl1 = $('#video1').prop('src');
+        //var videoUrl1 = $('#video1').prop('src');
 
         $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);  
         console.log(baseUrl + "/mobile/" + uniqueId);
@@ -29,13 +29,14 @@
 
         socket.on('mobile-on', function(data) {
             $("#content").slideDown(function() { $(window).trigger('content-ready'); });
-               player.playVideo(); 
+               
+               //player.playVideo(); 
                
         });
 
-         socket.on('replace first video', function(data) {
-            player.loadVideoById("t8zgAag5jn4", 0, "default");
-        });
+        //  socket.on('replace first video', function(data) {
+        //     player.loadVideoById("t8zgAag5jn4", 0, "default");
+        // });
 
         //Orientation Change in PC browser trigger for game
         socket.on('orientation', function(orientation) {
