@@ -77,8 +77,8 @@
   var garden = document.querySelector('.garden');
   var output = document.querySelector('.output');
 
- var maxX = garden.width  - ball.width;
- var maxY = garden.height - ball.height;
+ var maxX = garden.clientWidth  - ball.clientWidth;
+ var maxY = garden.clientHeight - ball.clientHeight;
 
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
