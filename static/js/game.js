@@ -83,7 +83,7 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			 console.log("I load first");
+			 console.log(garden);
 
 		};
 
