@@ -77,13 +77,16 @@
   var garden = document.querySelector('.garden');
   var output = document.querySelector('.output');
 
-
+ var maxX = garden.clientWidth  - ball.clientWidth;
+ 			  var maxY = garden.clientHeight - ball.clientHeight;
 
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			  var maxX = garden.clientWidth  - ball.clientWidth;
- 			  var maxY = garden.clientHeight - ball.clientHeight;
+			 // 10 is half the size of the ball
+  // It center the positioning point to the center of the ball
+  ball.style.top  = (maxX*x/180 - 10) + "px";
+  ball.style.left = (maxY*y/180 - 10) + "px";
 
 		};
 
@@ -104,10 +107,7 @@
   x += 90;
   y += 90;
 
-  // 10 is half the size of the ball
-  // It center the positioning point to the center of the ball
-  ball.style.top  = (maxX*x/180 - 10) + "px";
-  ball.style.left = (maxY*y/180 - 10) + "px";
+  
 		};
 
 
