@@ -80,6 +80,7 @@
  var maxX = garden.clientWidth  - ball.clientWidth;
  var maxY = garden.clientHeight - ball.clientHeight;
 
+var x = orientation.beta;
  
   //var x = orientation.beta;  // In degree in the range [-180,180]
   //var y = orientation.gamma; // In degree in the range [-90,90]
@@ -87,17 +88,17 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			 var x = orientation.beta;
-
-  			output.innerHTML  = "beta : " + x + "\n";
-  			//output.innerHTML += "gamma: " + y + "\n";
-
+			 ball.style.top  = (maxX*x/180 - 10) + "px";
 
 		};
 
 		var orientationHandler = function(e, orientation) {
 			
 		
+
+  			output.innerHTML  = "beta : " + x + "\n";
+  			//output.innerHTML += "gamma: " + y + "\n";
+
   // Because we don't want to have the device upside down
   // We constrain the x value to the range [-90,90]
   if (x >  90) { x =  90};
@@ -110,11 +111,11 @@
 
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
-  ball.style.top  = (maxX*x/180 - 10) + "px";
+  
   //ball.style.left = (maxY*y/180 - 10) + "px";
   
   console.log(orientation.beta);
-  console.log("MaxX" + maxX);
+  
 		};
 
 	
