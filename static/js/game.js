@@ -105,7 +105,7 @@
 
   // To make computation easier we shift the range of 
   // x and y to [0,180]
-  x += 10;
+  x += 90;
   //y += 90;
 
   // 10 is half the size of the ball
@@ -114,7 +114,7 @@
   //ball.style.left = (maxY*y/180 - 10) + "px";
   
   console.log(orientation.beta);
-  console.log(maxX);
+  console.log("MaxX" + maxX);
 		};
 
 
