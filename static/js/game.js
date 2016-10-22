@@ -117,7 +117,7 @@
   console.log("MaxX" + maxX);
 		};
 
-	window.addEventListener('deviceorientation', orientationHandler);
+	
 		$(window).bind('content-ready', init);
 
 	});
