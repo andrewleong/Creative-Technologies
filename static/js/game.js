@@ -68,7 +68,7 @@
 
 		// var balls = [];
 		// var ballMass = 10;
-		var curRotation = 0;
+		//var curRotation = 0;
 		// var len = $("#bar").width();
 		// var accelModifier = .005;
   //       var friction = .005;
@@ -109,8 +109,8 @@
   ball.style.top  = (maxX*x/180 - 10) + "px";
   ball.style.left = (maxY*y/180 - 10) + "px";
   
-  console.log(orientation.beta);
-  console.log(maxX);
+  console.log("Beta" + orientation.beta);
+  console.log("MaxX" + maxX);
 		};
 
 

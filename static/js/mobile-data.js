@@ -137,10 +137,11 @@
 	 * we can send data via socket.io per second.  Instead, we will store those variables locally, and allow the user
 	 * to define (via setTimeout) how often they'd like to get an updated value.
 	*/
-	var orientation = {
-		gamma: 0,
-		beta: 0
-	}
+	
+	// var orientation = {
+	// 	gamma: 0,
+	// 	beta: 0
+	// }
 
 	/******* Handler Functions *********/
 
