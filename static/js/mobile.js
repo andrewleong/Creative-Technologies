@@ -22,7 +22,7 @@
             		socket.emit('mobile-orientation', orientation);
                     $(".count").text(parseInt($(".count").text()) + 1);
             	},
-            	interval: 500
+            	interval: 100
             });
         });
     });
