@@ -105,7 +105,7 @@
 
   // To make computation easier we shift the range of 
   // x and y to [0,180]
-  x += 90;
+  x += 10;
   //y += 90;
 
   // 10 is half the size of the ball
