@@ -73,7 +73,12 @@
 		// var accelModifier = .005;
   //       var friction = .005;
   //       var run = false
-  
+  var ball   = document.querySelector('.ball');
+  var garden = document.querySelector('.garden');
+  var output = document.querySelector('.output');
+
+ var maxX = garden.clientWidth  - ball.clientWidth;
+ var maxY = garden.clientHeight - ball.clientHeight;
 
  
   //var x = orientation.beta;  // In degree in the range [-180,180]
@@ -82,22 +87,17 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			 var ball   = document.querySelector('.ball');
-  var garden = document.querySelector('.garden');
-  var output = document.querySelector('.output');
+			 var x = orientation.beta;
 
- var maxX = garden.clientWidth  - ball.clientWidth;
- var maxY = garden.clientHeight - ball.clientHeight;
+  			output.innerHTML  = "beta : " + x + "\n";
+  			//output.innerHTML += "gamma: " + y + "\n";
+
 
 		};
 
 		var orientationHandler = function(e, orientation) {
 			
-		var x = orientation.beta;
-
-  			output.innerHTML  = "beta : " + x + "\n";
-  			//output.innerHTML += "gamma: " + y + "\n";
-
+		
   // Because we don't want to have the device upside down
   // We constrain the x value to the range [-90,90]
   if (x >  90) { x =  90};
