@@ -73,12 +73,7 @@
 		// var accelModifier = .005;
   //       var friction = .005;
   //       var run = false
-  var ball   = document.querySelector('.ball');
-  var garden = document.querySelector('.garden');
-  var output = document.querySelector('.output');
-
- var maxX = garden.clientWidth  - ball.clientWidth;
- var maxY = garden.clientHeight - ball.clientHeight;
+  
 
  
   //var x = orientation.beta;  // In degree in the range [-180,180]
@@ -87,7 +82,12 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			 
+			 var ball   = document.querySelector('.ball');
+  var garden = document.querySelector('.garden');
+  var output = document.querySelector('.output');
+
+ var maxX = garden.clientWidth  - ball.clientWidth;
+ var maxY = garden.clientHeight - ball.clientHeight;
 
 		};
 

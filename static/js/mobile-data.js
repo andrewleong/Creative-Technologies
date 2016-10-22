@@ -139,7 +139,7 @@
 	*/
 	var orientation = {
 		gamma: 0,
-		beta: 0,
+		beta: 0
 	}
 
 	/******* Handler Functions *********/
