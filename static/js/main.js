@@ -71,12 +71,13 @@
 
         socket.emit('desktop-register', {id: uniqueId});
 
-        //Triggers the Game Content
+        //Server says create mobile-on function when user is regiestered.
+        //Triggers the Game Content in mobile-on function
         socket.on('mobile-on', function(data) {
             $("#content").slideDown(function() { $(window).trigger('content-ready'); });       
         });
 
-        //Orientation Change in PC browser trigger for game
+        //Mobile told server to trigger this Orientation Change in PC browser to trigger for game
         socket.on('orientation', function(orientation) {
             $(window).trigger('orientation-change', orientation);
         })

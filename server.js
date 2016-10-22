@@ -44,6 +44,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     /*THIS IS MOBILE ORIENTATION */
+    /*Orientation was triggered from mobile js then if desktop socket is not null then trigger the desktop orientation */
     socket.on('mobile-orientation', function(orientation) {
         if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
             deskSocket.emit('orientation', orientation);

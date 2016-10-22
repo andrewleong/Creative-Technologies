@@ -83,11 +83,12 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			 
+			 console.log("I load first");
 
 		};
 
 		var orientationHandler = function(e, orientation) {
+			console.log("I load first");
 			 var x = orientation.beta;  // In degree in the range [-180,180]
   			 var y = orientation.gamma; // In degree in the range [-90,90]
 
@@ -113,7 +114,7 @@
   console.log("MaxX" + maxX);
 		};
 
-
+		//content-ready function is triggered from main js mobile-on function
 		$(window).bind('content-ready', init);
 
 	});
