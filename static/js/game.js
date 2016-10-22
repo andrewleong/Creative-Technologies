@@ -88,8 +88,8 @@
 		};
 
 		var orientationHandler = function(e, orientation) {
-			 var x = orientation.beta;  // In degree in the range [-180,180]
-  			 var y = orientation.gamma; // In degree in the range [-90,90]
+			 var x = eventData.beta;  // In degree in the range [-180,180]
+  			 var y = eventData.gamma; // In degree in the range [-90,90]
 
   			output.innerHTML  = "beta : " + x + "\n";
   			output.innerHTML += "gamma: " + y + "\n";
