@@ -94,9 +94,9 @@
 
 		var orientationHandler = function(e, orientation) {
 			
-		var x = orientation.beta;
+		var x = orientation.gamma;
 
-  			output.innerHTML  = "beta : " + x + "\n";
+  			output.innerHTML  = "gamma : " + x + "\n";
   			//output.innerHTML += "gamma: " + y + "\n";
 
   // Because we don't want to have the device upside down
@@ -114,7 +114,7 @@
   ball.style.top  = (maxX*x/180 - 10) + "px";
   //ball.style.left = (maxY*y/180 - 10) + "px";
   
-  console.log(orientation.beta);
+  console.log(orientation.gamma);
   
 		};
 

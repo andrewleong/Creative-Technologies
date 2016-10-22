@@ -146,7 +146,7 @@
 
 
 	var orientationHandler = function(eventData) {
-		var gamme;
+		var gamma;
 		var beta;
 
 		if(readers.orientation === "dev") {
