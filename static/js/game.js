@@ -82,13 +82,14 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			var maxX = garden.clientWidth  - ball.clientWidth;
- var maxY = garden.clientHeight - ball.clientHeight;
 			 console.log(garden);
 
 		};
 
 		var orientationHandler = function(e, orientation) {
+			
+			var maxX = garden.clientWidth  - ball.clientWidth;
+ var maxY = garden.clientHeight - ball.clientHeight;
 			console.log(orientation);
 			 var x = orientation.beta;  // In degree in the range [-180,180]
   			 var y = orientation.gamma; // In degree in the range [-90,90]
