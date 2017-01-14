@@ -62,6 +62,8 @@
 
 // 	});
 // })();
+(function() {
+  $(document).ready(function() {
 
 //COLORS
 var Colors = {
@@ -74,14 +76,11 @@ var Colors = {
 };
 
 // THREEJS RELATED VARIABLES
-
-var scene,
-    camera, fieldOfView, aspectRatio, nearPlane, farPlane,
-    renderer, container;
+var scene,camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, container;
 
 //SCREEN & MOUSE VARIABLES
 
-var HEIGHT, WIDTH, mousePos = { x: 0, y: 0 }, touchPos = { x: 0, y: 0 };
+var HEIGHT, WIDTH, mousePos = { x: 0, y: 0 };
 
 //INIT THREE JS, SCREEN AND MOUSE EVENTS
 
@@ -299,8 +298,7 @@ function handleMouseMove(event) {
 window.addEventListener('load', init, false);
 
 
-(function() {
-	$(document).ready(function() {
+
 
 		// var balls = [];
 		// var ballMass = 10;
