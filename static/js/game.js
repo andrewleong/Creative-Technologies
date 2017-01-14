@@ -307,11 +307,15 @@ window.addEventListener('load', init, false);
 		// var accelModifier = .005;
   //       var friction = .005;
   //       var run = false
+
+
   var ball   = document.querySelector('.ball');
   var garden = document.querySelector('.garden');
   var output = document.querySelector('.output');
 
- 
+  var myPlane = scene.getObjectByName(airplane);
+
+  console.log(myPlane);
 
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
