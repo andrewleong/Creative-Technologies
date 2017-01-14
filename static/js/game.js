@@ -313,7 +313,7 @@ window.addEventListener('load', init, false);
   var garden = document.querySelector('.garden');
   var output = document.querySelector('.output');
 
-  var myPlane = scene.getObjectByName(airplane);
+  var myPlane = scene.getObjectByName("airplane");
 
   console.log(myPlane);
 
