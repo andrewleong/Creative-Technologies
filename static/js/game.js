@@ -272,7 +272,7 @@ function init(event){
   
   //Mouse Event Listener
   //document.addEventListener('touchstart', onTouchMove, false);
-  document.addEventListener('touchmove', handleMouseMove, false);
+  //document.addEventListener('touchmove', handleMouseMove, false);
   loop();
 }
 
@@ -326,14 +326,22 @@ window.addEventListener('load', init, false);
 
 		var orientationHandler = function(e, orientation) {
 
-		var maxX = garden.clientWidth  - ball.clientWidth;
- 		var maxY = garden.clientHeight - ball.clientHeight;
-			console.log(orientation);
+
+  event.preventDefault();
+
+  var tx = (event.clientX / WIDTH)*2 - 1;  
+  var ty = -(event.clientY / HEIGHT)*2 + 1;
+  mousePos = {x:tx, y:ty}; 
+
+		//var maxX = garden.clientWidth  - ball.clientWidth;
+ 		//var maxY = garden.clientHeight - ball.clientHeight;
+			
+      console.log(orientation);
 			 var x = orientation.beta;  // In degree in the range [-180,180]
   			 var y = orientation.gamma; // In degree in the range [-90,90]
 
-  			output.innerHTML  = "beta : " + x + "\n";
-  			output.innerHTML += "gamma: " + y + "\n";
+  			//output.innerHTML  = "beta : " + x + "\n";
+  			//output.innerHTML += "gamma: " + y + "\n";
 
   // Because we don't want to have the device upside down
   // We constrain the x value to the range [-90,90]
@@ -347,8 +355,9 @@ window.addEventListener('load', init, false);
 
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
-  ball.style.top  = (maxX*x/180 - 10) + "px";
-  ball.style.left = (maxY*y/180 - 10) + "px";
+  
+  //ball.style.top  = (maxX*x/180 - 10) + "px";
+  //ball.style.left = (maxY*y/180 - 10) + "px";
   
   console.log("Beta" + orientation.beta);
   console.log("MaxX" + maxX);
