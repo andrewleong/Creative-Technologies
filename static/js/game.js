@@ -265,6 +265,10 @@ function init(event){
   createScene();
   createLights();
   createPlane();
+
+  $(window).bind('orientation-change', orientationHandler);
+
+  console.log("orientation change");
   
   //Mouse Event Listener
   //document.addEventListener('touchstart', onTouchMove, false);
@@ -309,20 +313,16 @@ window.addEventListener('load', init, false);
   //       var run = false
 
 
-  var ball   = document.querySelector('.ball');
-  var garden = document.querySelector('.garden');
-  var output = document.querySelector('.output');
+  // var ball   = document.querySelector('.ball');
+  // var garden = document.querySelector('.garden');
+  // var output = document.querySelector('.output');
 
-  var myPlane = scene.getObjectByName("airplane");
+  
 
-  console.log(myPlane);
+		// var init = function(e) {
+			
 
-		var init = function(e) {
-			$(window).bind('orientation-change', orientationHandler);
-
-			 console.log(garden);
-
-		};
+		// };
 
 		var orientationHandler = function(e, orientation) {
 
