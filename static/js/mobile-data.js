@@ -266,7 +266,7 @@ function loop(){
   //updatePlane();
     airplane.updatePlane(xTarget, yTarget);
 
-    console.log(airplane.updatePlane(xTarget, yTarget));
+    console.log(xTarget);
    
   	renderer.render(scene, camera);
   	
