@@ -151,7 +151,14 @@
 
 
 	var orientationHandler = function(eventData) {
-		//COLORS
+
+
+		var gamma;
+		var beta;
+
+		if(readers.orientation === "dev") {
+
+					//COLORS
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -330,17 +337,9 @@ window.addEventListener('load', init, false);
 
 console.log("scene created");
 
-		var gamma;
-		var beta;
-
-		if(readers.orientation === "dev") {
 
 			// gamma is the left-to-right tilt in degrees, where right is positive
 		   orientation.gamma = eventData.gamma;
-
-		   loop();
-		   //xTargetMobile = (mousePos.x-windowHalfX);
-		   //console.log(xTargetMobile);
 
 		    // beta is the front-to-back tilt in degrees, where front is positive
 		   orientation.beta = eventData.beta;
