@@ -82,7 +82,7 @@
 		var init = function(e) {
 			$(window).bind('orientation-change', orientationHandler);
 
-			 console.log(garden);
+			 //console.log(garden);
 
 		};
 

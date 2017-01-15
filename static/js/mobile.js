@@ -8,6 +8,7 @@
         var uniqueId = $("body").attr('data-id');
         console.log("document ready or connected");
         console.log("hehe testing github");
+        
         socket.emit('mobile-register', {id: uniqueId});
 
         $(".button").on("click", function() {
