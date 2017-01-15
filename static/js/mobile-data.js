@@ -250,23 +250,23 @@ var AirPlane = function(){
 
 };
 
-AirPlane.prototype.updatePlane = function(xTarget, yTarget){
+AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
-  this.tPosY = normalize(yTarget, -.5,.25, 175, 25);
-  this.tPosX = normalize(xTarget, -.5,.5,-100, 100);
+  this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
+  this.tPosX = normalize(xTargetMobile, -.5,.5,-100, 100);
   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
 }
 
 function loop(){
 // update the plane on each frame
-	var xTarget = (mousePos.x-windowHalfX);
-  	var yTarget= (mousePos.y-windowHalfY);
+	var xTargetMobile = (mousePos.x-windowHalfX);
+  	var yTargetMobile= (mousePos.y-windowHalfY);
 	
   //updatePlane();
-    airplane.updatePlane(xTarget, yTarget);
+    airplane.updatePlane(xTargetMobile, yTargetMobile);
 
-    console.log(xTarget);
+    console.log(xTargetMobile);
    
   	renderer.render(scene, camera);
   	

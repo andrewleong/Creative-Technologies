@@ -248,7 +248,7 @@ function init(event){
   
   loop();
 }
-
+console.log(xTargetMobile);
 
 window.addEventListener('load', init, false);
 
