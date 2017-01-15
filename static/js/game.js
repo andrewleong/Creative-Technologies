@@ -248,7 +248,7 @@ function init(event){
   
   loop();
 }
-console.log(xTargetMobile);
+
 
 window.addEventListener('load', init, false);
 
@@ -274,7 +274,7 @@ window.addEventListener('load', init, false);
 		};
 
 		var orientationHandler = function(e, orientation) {
-
+      console.log(xTargetMobile);
 		var maxX = garden.clientWidth  - ball.clientWidth;
  		var maxY = garden.clientHeight - ball.clientHeight;
 			console.log(orientation);

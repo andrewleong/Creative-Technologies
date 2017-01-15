@@ -335,8 +335,9 @@ console.log("scene created");
 
 			// gamma is the left-to-right tilt in degrees, where right is positive
 		   orientation.gamma = eventData.gamma;
-		   
+
 		   xTargetMobile = (mousePos.x-windowHalfX);
+		   console.log(xTargetMobile);
 
 		    // beta is the front-to-back tilt in degrees, where front is positive
 		   orientation.beta = eventData.beta;
