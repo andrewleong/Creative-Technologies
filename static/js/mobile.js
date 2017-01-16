@@ -160,7 +160,7 @@ AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
 }
-console.log(xTargetMobile, yTargetMobile);
+
 
 function loop(){
 // update the plane on each frame
@@ -190,6 +190,7 @@ function init(event){
   createLights();
   createPlane();
   loop();
+  console.log(xTargetMobile);
 }
 
 window.addEventListener('load', init, false);
