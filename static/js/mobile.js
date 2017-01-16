@@ -169,8 +169,9 @@ function loop(){
   //updatePlane();
     airplane.updatePlane(xTargetMobile, yTargetMobile);
 
-    console.log(xTargetMobile, yTargetMobile);
-     
+    console.log(xTargetMobile);
+    console.log(yTargetMobile);
+
     renderer.render(scene, camera);
     
     requestAnimationFrame(loop);
