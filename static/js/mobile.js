@@ -18,7 +18,7 @@
     });
 
          socket.on('goTouch', function(xTargetMobile, yTargetMobile) {
-            console.log(airplane.mesh.position.y);
+            console.log(Colors);
 
     });
 
