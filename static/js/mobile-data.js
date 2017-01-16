@@ -115,6 +115,10 @@
 
 (function() {
 
+socket.on('goTouch', function(xTargetMobile, yTargetMobile) {
+            console.log(Colors);
+
+    });
 						//COLORS
 var Colors = {
     red:0xf25346,

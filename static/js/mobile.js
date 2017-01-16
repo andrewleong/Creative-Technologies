@@ -17,10 +17,7 @@
         console.log("clicked");
     });
 
-         socket.on('goTouch', function(xTargetMobile, yTargetMobile) {
-            console.log(Colors);
-
-    });
+         
 
         socket.on('start', function(data) {
             MobileReader.bindOrientation({
