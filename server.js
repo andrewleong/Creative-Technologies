@@ -40,6 +40,9 @@ io.sockets.on('connection', function(socket) {
             console.log("Mobile connected");
             deskSocket.emit('mobile-on');
             mobileSocket.emit('start');
+
+            //
+            mobileSocket.emit('goTouch');
         }
     });
 

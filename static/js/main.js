@@ -56,7 +56,7 @@
     
     var uniqueId = "";
 
-    console.log("heheheh testing");
+    //console.log("heheheh testing");
     
     for(var i=0; i<ranLength; i++) {
         uniqueId += allChars[Math.floor(Math.random() * allChars.length)];

@@ -115,50 +115,7 @@
 
 (function() {
 
-	
-
-
-	var capabilities = {
-		orientation: true
-	}
-
-	var readers = {};
-
-
-	if (window.DeviceOrientationEvent) {
- 		readers.orientation = "dev";
-	} else if (window.OrientationEvent) {
- 		readers.orientation = "moz";
-	} else {
- 		console.log("Device orientation events not available!");
- 		capabilities.orientation = false;
-	}
-
-
-	/******* Holder Vars **********/
-	/*
-	 * For reference, we need these holder vars because the default functionality of the device bindings are event listeners
-	 * This presumably means that they will be called 100s of times per second - obviously way overloading the amount of times
-	 * we can send data via socket.io per second.  Instead, we will store those variables locally, and allow the user
-	 * to define (via setTimeout) how often they'd like to get an updated value.
-	*/
-	var orientation = {
-		gamma: 0,
-		beta: 0
-	}
-
-	/******* Handler Functions *********/
-
-
-	var orientationHandler = function(eventData) {
-
-
-		var gamma;
-		var beta;
-
-		if(readers.orientation === "dev") {
-
-					//COLORS
+						//COLORS
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -337,6 +294,48 @@ window.addEventListener('load', init, false);
 
 console.log("scene created");
 
+//
+
+
+	var capabilities = {
+		orientation: true
+	}
+
+	var readers = {};
+
+
+	if (window.DeviceOrientationEvent) {
+ 		readers.orientation = "dev";
+	} else if (window.OrientationEvent) {
+ 		readers.orientation = "moz";
+	} else {
+ 		console.log("Device orientation events not available!");
+ 		capabilities.orientation = false;
+	}
+
+
+	/******* Holder Vars **********/
+	/*
+	 * For reference, we need these holder vars because the default functionality of the device bindings are event listeners
+	 * This presumably means that they will be called 100s of times per second - obviously way overloading the amount of times
+	 * we can send data via socket.io per second.  Instead, we will store those variables locally, and allow the user
+	 * to define (via setTimeout) how often they'd like to get an updated value.
+	*/
+	var orientation = {
+		gamma: 0,
+		beta: 0
+	}
+
+	/******* Handler Functions *********/
+
+
+	var orientationHandler = function(eventData) {
+
+
+		var gamma;
+		var beta;
+
+		if(readers.orientation === "dev") {
 
 			// gamma is the left-to-right tilt in degrees, where right is positive
 		   orientation.gamma = eventData.gamma;
@@ -358,10 +357,6 @@ console.log("scene created");
 		}
 		
 	} 
-
-
-
-
 
 
 	/********** Reader Object **********/

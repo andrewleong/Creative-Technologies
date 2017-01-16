@@ -7,7 +7,7 @@
         var socket = io.connect();
         var uniqueId = $("body").attr('data-id');
         console.log("document ready or connected");
-        console.log("hehe testing github");
+       
         
         socket.emit('mobile-register', {id: uniqueId});
 
@@ -15,6 +15,11 @@
         //player.loadVideoById("Vw4KVoEVcr0", 0, "default");
         socket.emit('change first video');
         console.log("clicked");
+    });
+
+         socket.on('goTouch', function(xTargetMobile, yTargetMobile) {
+            console.log(airplane.mesh.position.y);
+
     });
 
         socket.on('start', function(data) {
