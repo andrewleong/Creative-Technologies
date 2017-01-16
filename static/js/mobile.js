@@ -18,7 +18,11 @@
     });
 
         socket.on('goTouch', function(data) {
-            //COLORS
+            
+
+    });
+
+//COLORS
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -197,10 +201,6 @@ window.addEventListener('load', init, false);
 
 
 console.log("scene created");
-
-    });
-
-
 
 
 
