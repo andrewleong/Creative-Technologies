@@ -169,13 +169,14 @@ function loop(){
   //updatePlane();
     airplane.updatePlane(xTargetMobile, yTargetMobile);
 
-   
+    console.log(xTargetMobile, yTargetMobile);
+     
     renderer.render(scene, camera);
     
     requestAnimationFrame(loop);
 }
 
-console.log(xTargetMobile, yTargetMobile);
+
 
 function normalize(v,vmin,vmax,tmin, tmax){
   var nv = Math.max(Math.min(v,vmax), vmin);
