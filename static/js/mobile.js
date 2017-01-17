@@ -18,7 +18,7 @@
     });
 
         socket.on('goTouch', function(data) {
-            
+
 
     });
 
@@ -173,7 +173,7 @@ function loop(){
     
   //updatePlane();
     airplane.updatePlane(xTargetMobile, yTargetMobile);
-
+    console.log(xTargetMobile);
    
     renderer.render(scene, camera);
     
@@ -194,7 +194,6 @@ function init(event){
   createLights();
   createPlane();
   loop();
-  console.log(xTargetMobile);
 }
 
 window.addEventListener('load', init, false);
