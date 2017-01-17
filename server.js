@@ -54,8 +54,8 @@ io.sockets.on('connection', function(socket) {
     //    }); 
 
     socket.on('updatePosition', function(data){
-        var newData = deskSocket.airplane(data);
-        deskSocket.broadcast.emit('updatePosition', newData);
+        var newData = mobileSocket.airplane(data);
+        deskSocket.broadcast.emit('lol', newData);
     });
 
 

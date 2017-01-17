@@ -85,7 +85,7 @@
         // socket.on('receiver', function(data) {
         //     console.log(data);      
         // });
-        socket.on('updatePosition', function(data) {
+        socket.on('lol', function(data) {
             console.log(newData);      
          });
 
