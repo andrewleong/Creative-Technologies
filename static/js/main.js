@@ -82,5 +82,9 @@
             $(window).trigger('orientation-change', orientation);
         })
 
+        socket.on('receiver', function(data) {
+            console.log(data);      
+        });
+
     });
 })();

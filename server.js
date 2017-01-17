@@ -48,6 +48,7 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('pushData', function(data) {
 
+            deskSocket.emit('receiver');
             console.log(data);
 
        }); 
