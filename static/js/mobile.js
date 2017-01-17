@@ -172,6 +172,8 @@ function loop(){
     airplane.updatePlane(xTargetMobile, yTargetMobile);
     console.log(xTargetMobile);
    
+   socket.emit('pushData', { data: xTargetMobile});
+
     renderer.render(scene, camera);
     
     requestAnimationFrame(loop);
@@ -198,7 +200,7 @@ window.addEventListener('load', init, false);
 
 console.log("scene created");
 
-socket.emit('pushData', { data: xTargetMobile});
+
 
 // socket.on('goTouch', function(data) {
 //      airplane.updatePlane(xTargetMobile, yTargetMobile);
