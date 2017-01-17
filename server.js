@@ -48,9 +48,9 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('pushData', function(data) {
 
-            deskSocket.emit('receiver');
+            deskSocket.emit('receiver', { data: xTargetMobile});
             console.log(data);
-
+            
        }); 
 
     /*THIS IS MOBILE ORIENTATION */
