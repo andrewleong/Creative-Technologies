@@ -17,11 +17,9 @@
         console.log("clicked");
     });
 
-        socket.on('goTouch', function(data) {
+        
 
-$(function() {
-
-          //COLORS
+//COLORS
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -172,7 +170,7 @@ function loop(){
     
   //updatePlane();
     airplane.updatePlane(xTargetMobile, yTargetMobile);
-    console.log("Hello");
+    console.log(xTargetMobile);
    
     renderer.render(scene, camera);
     
@@ -200,15 +198,12 @@ window.addEventListener('load', init, false);
 
 console.log("scene created");
 
-        });
+socket.emit('pushData', { data.xTargetMobile});
 
-  });
+// socket.on('goTouch', function(data) {
+//      airplane.updatePlane(xTargetMobile, yTargetMobile);
 
-
-
-
-
-
+//     });
 
 
 

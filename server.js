@@ -42,9 +42,15 @@ io.sockets.on('connection', function(socket) {
             mobileSocket.emit('start');
 
             //
-            mobileSocket.emit('goTouch');
+            //mobileSocket.emit('goTouch');
         }
     });
+
+    socket.on('pushData', function(data) {
+
+            console.log(data);
+
+       }); 
 
     /*THIS IS MOBILE ORIENTATION */
     /*Orientation was triggered from mobile js then if desktop socket is not null then trigger the desktop orientation */
