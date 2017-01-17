@@ -82,9 +82,13 @@
             $(window).trigger('orientation-change', orientation);
         })
 
-        socket.on('receiver', function(data) {
-            console.log(data);      
-        });
+        // socket.on('receiver', function(data) {
+        //     console.log(data);      
+        // });
+        socket.on('updatePosition', function(data) {
+            console.log(newData);      
+         });
+
 
     });
 })();

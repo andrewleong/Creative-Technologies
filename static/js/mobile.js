@@ -169,15 +169,23 @@ function loop(){
     var yTargetMobile= (mousePos.y-windowHalfY);
     
   //updatePlane();
-    airplane.updatePlane(xTargetMobile, yTargetMobile);
+    myPlaneUpdate();
+    
     //console.log(xTargetMobile);
    
-   socket.emit('pushData', { hello: xTargetMobile});
+   //socket.emit('pushData', { hello: xTargetMobile});
 
     renderer.render(scene, camera);
     
     requestAnimationFrame(loop);
 }
+
+ var myPlaneUpdate = function(){
+
+ airplane.updatePlane(xTargetMobile, yTargetMobile);
+
+     socket.emit('updatePosition', airplane);
+ }
 
 function normalize(v,vmin,vmax,tmin, tmax){
   var nv = Math.max(Math.min(v,vmax), vmin);

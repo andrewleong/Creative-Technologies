@@ -46,12 +46,18 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    socket.on('pushData', function(data) {
+    // socket.on('pushData', function(data) {
 
-            deskSocket.emit('receiver', data);
-            console.log(data.hello);
+    //         deskSocket.emit('receiver', data);
+    //         console.log(data.hello);
             
-       }); 
+    //    }); 
+
+    socket.on('updatePosition', function(data){
+        var newData = deskSocket.airplane(data);
+        deskSocket.broadcast.emit('updatePosition', newData);
+    });
+
 
     /*THIS IS MOBILE ORIENTATION */
     /*Orientation was triggered from mobile js then if desktop socket is not null then trigger the desktop orientation */
