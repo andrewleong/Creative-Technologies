@@ -165,8 +165,7 @@ AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
 
 function loop(){
 // update the plane on each frame
-    var xTargetMobile = (mousePos.x-windowHalfX);
-    var yTargetMobile= (mousePos.y-windowHalfY);
+    
     
   //updatePlane();
     myPlaneUpdate();
@@ -181,6 +180,9 @@ function loop(){
 }
 
  var myPlaneUpdate = function(){
+
+    var xTargetMobile = (mousePos.x-windowHalfX);
+    var yTargetMobile= (mousePos.y-windowHalfY);
 
  airplane.updatePlane(xTargetMobile, yTargetMobile);
 
