@@ -170,8 +170,8 @@ function loop(){
 
     airplane.updatePlane(xTargetMobile, yTargetMobile);
     
-     socket.emit('updatePosition', airplane);
-     console.log(socket.emit('updatePosition', airplane));
+     socket.emit('updatePosition', xTargetMobile);
+     console.log(socket.emit('updatePosition', xTargetMobile));
 
   //updatePlane();
     //myPlaneUpdate();
