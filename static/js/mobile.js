@@ -170,9 +170,9 @@ function loop(){
     
   //updatePlane();
     airplane.updatePlane(xTargetMobile, yTargetMobile);
-    console.log(xTargetMobile);
+    //console.log(xTargetMobile);
    
-   socket.emit('pushData', { data: xTargetMobile});
+   socket.emit('pushData', { hello: xTargetMobile});
 
     renderer.render(scene, camera);
     
