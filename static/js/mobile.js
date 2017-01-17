@@ -170,8 +170,11 @@ function loop(){
 
     airplane.updatePlane(xTargetMobile, yTargetMobile);
     
+     socket.emit('updatePosition', airplane);
+     console.log(airplane);
+
   //updatePlane();
-    myPlaneUpdate();
+    //myPlaneUpdate();
     
     //console.log(xTargetMobile);
    
@@ -182,11 +185,10 @@ function loop(){
     requestAnimationFrame(loop);
 }
 
- var myPlaneUpdate = function(){
+ //var myPlaneUpdate = function(){
 
-     socket.emit('updatePosition', airplane);
-     console.log("ffs");
- }
+    
+ //}
 
 function normalize(v,vmin,vmax,tmin, tmax){
   var nv = Math.max(Math.min(v,vmax), vmin);
