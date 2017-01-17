@@ -172,7 +172,7 @@ function loop(){
     
   //updatePlane();
     airplane.updatePlane(xTargetMobile, yTargetMobile);
-    console.log(xTargetMobile);
+    console.log("Hello");
    
     renderer.render(scene, camera);
     
