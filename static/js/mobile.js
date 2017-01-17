@@ -198,7 +198,7 @@ window.addEventListener('load', init, false);
 
 console.log("scene created");
 
-socket.emit('pushData', { data.xTargetMobile});
+socket.emit('pushData', { data: xTargetMobile});
 
 // socket.on('goTouch', function(data) {
 //      airplane.updatePlane(xTargetMobile, yTargetMobile);
