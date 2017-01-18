@@ -54,9 +54,17 @@ io.sockets.on('connection', function(socket) {
     //    }); 
 
     socket.on('updatePosition', function(data){
-        var newData = socket.xTargetMobile(data);
-        deskSocket.broadcast.emit('lol', newData);
-    });
+        var newMobileX = data.mobileX;
+        var newMobileY = data.mobileY;
+
+        //setInterval(function(){
+        //deskSocket.emit('lol', {deskX: mobileX, deskY: mobileY });
+        deskSocket.emit('lol', newMobileX, newMobileY);
+        //}, 1000);
+
+        console.log(newMobileX);
+        console.log(newMobileY);
+    }.bind(this));
 
 
     /*THIS IS MOBILE ORIENTATION */

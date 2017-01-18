@@ -115,11 +115,6 @@
 
 (function() {
 
-
-
-//
-
-
 	var capabilities = {
 		orientation: true
 	}

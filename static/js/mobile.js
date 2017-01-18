@@ -33,7 +33,7 @@ var Colors = {
 var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, container;
 
 //SCREEN & MOUSE VARIABLES
-var HEIGHT, WIDTH, windowHalfX, windowHalfY, mousePos = {x:0,y:0};
+var HEIGHT, WIDTH, windowHalfX, windowHalfY, mousePosMobile = {x:0,y:0};
 
 //INIT THREE JS, SCREEN AND MOUSE EVENTS
 
@@ -86,24 +86,24 @@ function handleWindowResize() {
 
 //HANDLE ALL MOUSE/TOUCH STUFF
 function handleMouseMove(event) {
-  mousePos = {x:event.clientX, y:event.clientY};
+  mousePosMobile = {x:event.clientX, y:event.clientY};
 }
 
 function handleTouchStart(event) {
   if (event.touches.length > 1) {
     event.preventDefault();
-        mousePos = {x:event.touches[0].pageX, y:event.touches[0].pageY};
+        mousePosMobile = {x:event.touches[0].pageX, y:event.touches[0].pageY};
   }
 }
 
 function handleTouchEnd(event) {
-    mousePos = {x:windowHalfX, y:windowHalfY};
+    mousePosMobile = {x:windowHalfX, y:windowHalfY};
 }
 
 function handleTouchMove(event) {
   if (event.touches.length == 1) {
     event.preventDefault();
-        mousePos = {x:event.touches[0].pageX, y:event.touches[0].pageY};
+        mousePosMobile = {x:event.touches[0].pageX, y:event.touches[0].pageY};
   }
 }
 
@@ -165,14 +165,15 @@ AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
 
 function loop(){
 // update the plane on each frame
-    var xTargetMobile = (mousePos.x-windowHalfX);
-    var yTargetMobile= (mousePos.y-windowHalfY);
+    var xTargetMobile = (mousePosMobile.x-windowHalfX);
+    var yTargetMobile= (mousePosMobile.y-windowHalfY);
 
     airplane.updatePlane(xTargetMobile, yTargetMobile);
     
-     socket.emit('updatePosition', xTargetMobile);
-     console.log(xTargetMobile);
+    //socket.emit('updatePosition', {mobileX: xTargetMobile, mobileY: yTargetMobile} );
+    socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} );
 
+    
   //updatePlane();
     //myPlaneUpdate();
     
