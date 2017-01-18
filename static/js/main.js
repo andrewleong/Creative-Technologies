@@ -277,7 +277,24 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
   this.tPosX = normalize(xTarget, -.5,.5,-100, 100);
   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
+
+  //var touchTargetY = normalize(touchPos.y,-.75,.75,25, 175);
+  //var touchTargetX = normalize(touchPos.x,-.75,.75,-100, 100);
 }
+
+function myFunction(myStateX, myStateY){
+      
+      
+      var xTarget = (myStateX-windowHalfX);
+      var yTarget = (myStateY-windowHalfY);
+     
+      airplane.updatePlane(xTarget, yTarget);
+  
+    
+    
+        //console.log("MyStateX" + myStateX);
+     
+ }
 
 
 function loop(){
@@ -288,35 +305,21 @@ function loop(){
     //var yTarget = newDeskY; 
 
     
-
-    
   //     var xTarget = (mousePos.x-windowHalfX);
   //     var yTarget = (mousePos.y-windowHalfY);
      
 
   //       console.log("MyStateX" + myStateX);
   //    airplane.updatePlane(xTarget, yTarget);
-  
-   
+    
+   renderer.render(scene, camera);
+   requestAnimationFrame(loop);
 
   // renderer.render(scene, camera);
   // requestAnimationFrame(loop);
 }
-function myFunction(myStateX, myStateY){
-      
-      
-      var xTarget = (myStateX-windowHalfX);
-      var yTarget = (myStateY-windowHalfY);
-     
 
-        console.log("MyStateX" + myStateX);
-     airplane.updatePlane(xTarget, yTarget);
-  
-   
 
-  renderer.render(scene, camera);
-  requestAnimationFrame(loop);
- }
 
 
 function normalize(v,vmin,vmax,tmin, tmax){
