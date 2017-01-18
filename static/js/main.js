@@ -290,7 +290,8 @@ function myFunction(myStateX, myStateY){
      
       airplane.updatePlane(xTarget, yTarget);
   
-    
+    renderer.render(scene, camera);
+   requestAnimationFrame(loop);
     
         //console.log("MyStateX" + myStateX);
      
@@ -312,8 +313,7 @@ function loop(){
   //       console.log("MyStateX" + myStateX);
   //    airplane.updatePlane(xTarget, yTarget);
     
-   renderer.render(scene, camera);
-   requestAnimationFrame(loop);
+   
 
   // renderer.render(scene, camera);
   // requestAnimationFrame(loop);
@@ -345,6 +345,7 @@ function init(event){
   // document.addEventListener('touchmove',handleTouchMove, false);
   
   loop();
+  
 }
 
 // var newCoordinates = function(data) {
