@@ -306,7 +306,7 @@ function myFunction(myStateX, myStateY){
       
       
       var xTarget = (myStateX-windowHalfX);
-      var yTarget = (myStateX-windowHalfY);
+      var yTarget = (myStateY-windowHalfY);
      
 
         console.log("MyStateX" + myStateX);
