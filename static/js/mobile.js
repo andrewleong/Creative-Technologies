@@ -63,8 +63,8 @@ function createScene() {
   container = document.getElementById('world');
   container.appendChild(renderer.domElement);
     
-  windowHalfX = WIDTH / 5;
-  windowHalfY = HEIGHT / 5;
+  windowHalfX = WIDTH / 0.5;
+  windowHalfY = HEIGHT / 0.5;
   window.addEventListener('resize', handleWindowResize, false);
 
     document.addEventListener('mousemove', handleMouseMove, false);
