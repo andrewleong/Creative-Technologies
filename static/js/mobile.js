@@ -63,8 +63,8 @@ function createScene() {
   container = document.getElementById('world');
   container.appendChild(renderer.domElement);
     
-  windowHalfX = WIDTH / 0.5;
-  windowHalfY = HEIGHT / 0.5;
+  windowHalfX = WIDTH / 2;
+  windowHalfY = HEIGHT / 2;
   window.addEventListener('resize', handleWindowResize, false);
 
     document.addEventListener('mousemove', handleMouseMove, false);
@@ -157,7 +157,7 @@ var AirPlane = function(){
 AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-  this.tPosX = normalize(xTargetMobile, -.5,.5,-100, 100);
+  this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
 }
