@@ -304,7 +304,7 @@ function createLights() {
   hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9);
 
   // an ambient light modifies the global color of a scene and makes the shadows softer
-  ambientLight = new THREE.AmbientLight(0x6dcffc, .0);
+  //ambientLight = new THREE.AmbientLight(0x6dcffc, .0);
 
   // A directional light shines from a specific direction.It acts like the sun, that means that all the rays produced are parallel. 
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
@@ -330,7 +330,7 @@ function createLights() {
   // to activate the lights, just add them to the scene
   scene.add(hemisphereLight);
   scene.add(shadowLight);
-  scene.add(ambientLight);
+  //scene.add(ambientLight);
 
 }
 
@@ -545,7 +545,7 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
       this.mesh.remove(ennemy.mesh);
       game.planeCollisionSpeedX = 100 * diffPos.x / d;
       game.planeCollisionSpeedY = 100 * diffPos.y / d;
-      ambientLight.intensity = 2;
+      //ambientLight.intensity = 2;
 
       removeEnergy();
       i--;
@@ -892,7 +892,7 @@ function loop(){
 
   if ( sea.mesh.rotation.z > 2*Math.PI)  sea.mesh.rotation.z -= 2*Math.PI;
 
-  ambientLight.intensity += (.5 - ambientLight.intensity)*deltaTime*0.005;
+  //ambientLight.intensity += (.5 - ambientLight.intensity)*deltaTime*0.005;
 
   coinsHolder.rotateCoins();
   ennemiesHolder.rotateEnnemies();
