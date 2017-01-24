@@ -13,7 +13,8 @@
 	height: 100%;
 	width: 100%;
 	overflow: visible;
-	position: absolute;
+	display:none;
+	/*position: absolute;*/
 	top: 0;
 	left: 0;
 	background-color: #161847;
@@ -46,3 +47,11 @@
 	bottom: 0;
 	left: 0;
 }
+
+
+
+
+
+
+
+

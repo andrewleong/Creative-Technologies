@@ -130,6 +130,18 @@ function createLights() {
   scene.add(shadowLight);
 }
 
+
+//My Ice cream Cone OMGGGG SO SMALL
+var conegeometry;
+
+function createCone(){
+conegeometry = new THREE.CylinderGeometry(0, 0.6, 2, 50, false);
+            var conematerial = new THREE.MeshLambertMaterial({wireframe: true, color: 0x000000});
+            var cone = new THREE.Mesh(conegeometry, conematerial);
+            cone.position.set(4.0,0,0);
+            scene.add(cone);
+ }           
+
 // 3D Models Airplane
 var airplane;
 
@@ -204,6 +216,7 @@ function init(event){
   createScene();
   createLights();
   createPlane();
+  createCone();
   loop();
 }
 
