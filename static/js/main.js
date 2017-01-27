@@ -1,8 +1,8 @@
 
 (function() {
 
-    //var baseUrl = document.location.protocol + "//" + document.location.host
-    var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
+    var baseUrl = document.location.protocol + "//" + document.location.host
+    //var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
     
     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     var ranLength = 50;
