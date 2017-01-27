@@ -132,15 +132,30 @@ function createLights() {
 
 
 //My Ice cream Cone OMGGGG SO SMALL
-var conegeometry;
+var icecream;
 
 function createCone(){
-conegeometry = new THREE.CylinderGeometry(0, 0.6, 2, 50, false);
-            var conematerial = new THREE.MeshLambertMaterial({wireframe: true, color: 0x000000});
-            var cone = new THREE.Mesh(conegeometry, conematerial);
-            cone.position.set(4.0,0,0);
-            scene.add(cone);
- }           
+      icecream = new IceCream();
+      icecream.mesh.scale.set(.25,.25,.25);
+      icecream.mesh.position.y = 10;
+      icecream.mesh.position.z = 100;
+
+      icecream.mesh.rotation.z = Math.PI / -2;
+
+      scene.add(icecream.mesh);
+ }   
+
+ var IceCream = function(){
+    this.mesh = new THREE.Object3D();
+    this.mesh.name = "IceCream";
+
+    var conegeometry = new THREE.CylinderGeometry(10,.10,50,32,1, true);
+    var conematerial = new THREE.MeshPhongMaterial({color:Colors.pink, shading:THREE.FlatShading});
+    var cone = new THREE.Mesh(conegeometry, conematerial);
+    cone.castShadow = true;
+    cone.receiveShadow = true;
+    this.mesh.add(cone); 
+};        
 
 // 3D Models Airplane
 var airplane;
@@ -166,7 +181,8 @@ var AirPlane = function(){
 
 };
 
-AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
+//updating plane function
+IceCream.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
   this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
@@ -174,13 +190,22 @@ AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
 }
 
+// //updating plane function
+// AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
+  
+//   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
+//   this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
+//   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
+//   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
+// }
 
 function loop(){
 // update the plane on each frame
     var xTargetMobile = (mousePosMobile.x-windowHalfX);
     var yTargetMobile= (mousePosMobile.y-windowHalfY);
 
-    airplane.updatePlane(xTargetMobile, yTargetMobile);
+    icecream.updatePlane(xTargetMobile, yTargetMobile);
+    //airplane.updatePlane(xTargetMobile, yTargetMobile);
     
     //socket.emit('updatePosition', {mobileX: xTargetMobile, mobileY: yTargetMobile} );
     socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} );
