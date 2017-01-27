@@ -104,7 +104,7 @@ function resetGame(){
 
           planeDefaultHeight:100,
           planeAmpHeight:75,
-          planeAmpWidth:175,
+          planeAmpWidth:100,
           planeMoveSensivity:0.005,
           planeRotXSensivity:0.0008,
           planeRotZSensivity:0.0004,
@@ -736,8 +736,8 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
 
   game.planeSpeed = normalize(xTarget,-.5,.5,game.planeMinSpeed, game.planeMaxSpeed);
     
-  this.tPosY = normalize(yTarget,-.5,.25, game.planeDefaultHeight + game.planeAmpHeight, game.planeDefaultHeight - game.planeAmpHeight);
-  this.tPosX = normalize(xTarget,-.5,.5, -game.planeAmpWidth *.7, game.planeAmpWidth);
+  this.tPosY = normalize(yTarget,- 1, 25, game.planeDefaultHeight + game.planeAmpHeight, game.planeDefaultHeight - game.planeAmpHeight);
+  this.tPosX = normalize(xTarget,-.5,.5, -game.planeAmpWidth *.2, game.planeAmpWidth);
 
   game.planeCollisionDisplacementX += game.planeCollisionSpeedX;
   this.tPosX += game.planeCollisionDisplacementX;
