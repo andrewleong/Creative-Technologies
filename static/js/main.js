@@ -1,51 +1,3 @@
-// (function() {
-//     //videos variables
-    
-
-//     //var baseUrl = document.location.protocol + "//" + document.location.host
-//     //var baseUrl = document.location.protocol + "//" + "10.167.118.37:3000"
-//     var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
-    
-//     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-//     var ranLength = 50;
-    
-//     var uniqueId = "";
-
-//     console.log("heheheh testing");
-    
-//     for(var i=0; i<ranLength; i++) {
-//         uniqueId += allChars[Math.floor(Math.random() * allChars.length)];
-//     }
-    
-//     $(document).ready(function() {
-//         //var videoUrl1 = $('#video1').prop('src');
-
-//         $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);  
-//         console.log(baseUrl + "/mobile/" + uniqueId);
-        
-//         var socket = io.connect();
-
-//         socket.emit('desktop-register', {id: uniqueId});
-
-//         socket.on('mobile-on', function(data) {
-//             $("#content").slideDown(function() { $(window).trigger('content-ready'); });
-               
-//                //player.playVideo(); 
-               
-//         });
-
-//         //  socket.on('replace first video', function(data) {
-//         //     player.loadVideoById("t8zgAag5jn4", 0, "default");
-//         // });
-
-//         //Orientation Change in PC browser trigger for game
-//         socket.on('orientation', function(orientation) {
-//             $(window).trigger('orientation-change', orientation);
-//         })
-
-//     });
-// })();
-
 
 (function() {
 
@@ -119,6 +71,7 @@ var Colors = {
     brownDark:0x23190f,
     blue:0x68c3c0,
     purple:0x9e5fb8,
+    green:0xb5f8c2
 };
 
 // GAME VARIABLES
@@ -151,7 +104,7 @@ function resetGame(){
 
           planeDefaultHeight:100,
           planeAmpHeight:75,
-          planeAmpWidth:75,
+          planeAmpWidth:175,
           planeMoveSensivity:0.005,
           planeRotXSensivity:0.0008,
           planeRotZSensivity:0.0004,
@@ -486,7 +439,7 @@ Cloud.prototype.rotate = function(){
 Ennemy = function(){
   var geom = new THREE.TetrahedronGeometry(8,2);
   var mat = new THREE.MeshPhongMaterial({
-    color:Colors.red,
+    color:Colors.green,
     shininess:0,
     specular:0xffffff,
     shading:THREE.FlatShading
@@ -784,7 +737,7 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
   game.planeSpeed = normalize(xTarget,-.5,.5,game.planeMinSpeed, game.planeMaxSpeed);
     
   this.tPosY = normalize(yTarget,-.5,.25, game.planeDefaultHeight+game.planeAmpHeight, game.planeDefaultHeight-game.planeAmpHeight);
-  this.tPosX = normalize(xTarget,-.5,.5,-game.planeAmpWidth*.7, game.planeAmpWidth);
+  this.tPosX = normalize(xTarget,-.5,.5,-game.planeAmpWidth*.8, game.planeAmpWidth);
 
   game.planeCollisionDisplacementX += game.planeCollisionSpeedX;
   this.tPosX += game.planeCollisionDisplacementX;

@@ -3,6 +3,32 @@
 <head>
 <title>Test</title>
 <style>
+.title {
+	text-align:center;	
+}
+h8 {
+	color:white;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:48px;
+}
+h7 {
+	color:white;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:28px;
+}
+#wall-logo {
+	text-align:left;	
+}
+#cornetto-logo {
+	text-align:center;	
+}
+.sub-heading{
+	position:relative;
+	width:100%;
+	height:auto;
+	margin:0 auto;
+	text-align:center;	
+}
 .garden {
   position: relative;
   width : 200px;
@@ -217,13 +243,20 @@
 		div(id="game")
 			div(id="field")
 				div(id="bar")
-				div(class="ball") -->
-<h1>Welcome to something, Please scan the QR code with your mobile phone !!</h1>
 
+				div(class="ball") -->
+<div id="wall-logo"><img src="images/wall-logo.png"/></div>
+
+<div id="cornetto-logo"><img src="images/logo.png"/></div>
+
+<div class="title"> <h8>SHOW YOUR LOVE</h8> </div>
 
 <div id="show-qr">
 	<div id="qr"></div>
 </div>
+
+<div class="sub-heading"><h7>Scan the QR code to play the game..</h7></div>
+
 <div id="content">
 	<!--Hide this Video Function first 
 	<div id="player"></div> -->
@@ -233,7 +266,7 @@
 	<div class="game-holder" id="gameHolder">
 			<div class="header">
 				<h1>Cornetto Show your love</h1>
-				<h2>fly it to the end</h2>
+				<!--<h2>fly it to the end</h2>-->
 				<div class="score" id="score">
 					<div class="score__content" id="level">
 						<div class="score__label">level</div>
