@@ -27,6 +27,7 @@ var Colors = {
     pink:0xF5986E,
     brownDark:0x23190f,
     blue:0x68c3c0,
+    yellow:0xffdc34
 };
 
 // THREEJS RELATED Scene VARIABLES
@@ -131,31 +132,31 @@ function createLights() {
 }
 
 
-//My Ice cream Cone OMGGGG SO SMALL
-var icecream;
+// //My Ice cream Cone OMGGGG SO SMALL
+// var icecream;
 
-function createCone(){
-      icecream = new IceCream();
-      icecream.mesh.scale.set(.25,.25,.25);
-      icecream.mesh.position.y = 10;
-      icecream.mesh.position.z = 100;
+// function createCone(){
+//       icecream = new IceCream();
+//       icecream.mesh.scale.set(.25,.25,.25);
+//       icecream.mesh.position.y = 10;
+//       icecream.mesh.position.z = 100;
 
-      icecream.mesh.rotation.z = Math.PI / -2;
+//       icecream.mesh.rotation.z = Math.PI / -2;
 
-      scene.add(icecream.mesh);
- }   
+//       scene.add(icecream.mesh);
+//  }   
 
- var IceCream = function(){
-    this.mesh = new THREE.Object3D();
-    this.mesh.name = "IceCream";
+//  var IceCream = function(){
+//     this.mesh = new THREE.Object3D();
+//     this.mesh.name = "IceCream";
 
-    var conegeometry = new THREE.CylinderGeometry(10,.10,50,32,1, true);
-    var conematerial = new THREE.MeshPhongMaterial({color:Colors.pink, shading:THREE.FlatShading});
-    var cone = new THREE.Mesh(conegeometry, conematerial);
-    cone.castShadow = true;
-    cone.receiveShadow = true;
-    this.mesh.add(cone); 
-};        
+//     var conegeometry = new THREE.CylinderGeometry(10,.10,50,32,1, true);
+//     var conematerial = new THREE.MeshPhongMaterial({color:Colors.pink, shading:THREE.FlatShading});
+//     var cone = new THREE.Mesh(conegeometry, conematerial);
+//     cone.castShadow = true;
+//     cone.receiveShadow = true;
+//     this.mesh.add(cone); 
+// };        
 
 // 3D Models Airplane
 var airplane;
@@ -173,7 +174,7 @@ var AirPlane = function(){
   
   // Create the cabin
     var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
-    var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+    var matCockpit = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
     cockpit.castShadow = true;
     cockpit.receiveShadow = true;
@@ -181,31 +182,22 @@ var AirPlane = function(){
 
 };
 
+
 //updating plane function
-IceCream.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
+AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-  this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
+  this.tPosX = normalize(xTargetMobile, -.10, 70,-100, 100);
   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
 }
-
-// //updating plane function
-// AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
-  
-//   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-//   this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
-//   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
-//   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
-// }
 
 function loop(){
 // update the plane on each frame
     var xTargetMobile = (mousePosMobile.x-windowHalfX);
     var yTargetMobile= (mousePosMobile.y-windowHalfY);
 
-    icecream.updatePlane(xTargetMobile, yTargetMobile);
-    //airplane.updatePlane(xTargetMobile, yTargetMobile);
+    airplane.updatePlane(xTargetMobile, yTargetMobile);
     
     //socket.emit('updatePosition', {mobileX: xTargetMobile, mobileY: yTargetMobile} );
     socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} );
@@ -241,7 +233,7 @@ function init(event){
   createScene();
   createLights();
   createPlane();
-  createCone();
+  //createCone();
   loop();
 }
 
