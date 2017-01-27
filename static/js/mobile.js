@@ -187,11 +187,11 @@ var AirPlane = function(){
 AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-  this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
+  this.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
 
   // Move the plane at each frame by adding a fraction of the remaining distance
- this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
-  this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
+  this.mesh.position.y += (this.tPosY - this.mesh.position.y) *0.1;
+  this.mesh.position.x += (this.tPosX - this.mesh.position.x) *0.1;
   // Rotate the plane proportionally to the remaining distance
     //this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*0.0128;
 }
