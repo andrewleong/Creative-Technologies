@@ -187,7 +187,7 @@ var AirPlane = function(){
 AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-  this.tPosX = normalize(xTargetMobile, -.10, 70,-80, 80);
+  this.tPosX = normalize(xTargetMobile, -.5, 100,-200, 200);
   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
 }
