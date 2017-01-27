@@ -27,7 +27,7 @@ var Colors = {
     pink:0xF5986E,
     brownDark:0x23190f,
     blue:0x68c3c0,
-    yellow:0xffdc34
+    yellow:0xffdc34,
 };
 
 // THREEJS RELATED Scene VARIABLES

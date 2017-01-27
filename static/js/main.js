@@ -205,8 +205,8 @@ function createScene() {
   container = document.getElementById('world');
   container.appendChild(renderer.domElement);
   
-  windowHalfX = WIDTH / 4;
-  windowHalfY = HEIGHT / 4;
+  windowHalfX = WIDTH / 2;
+  windowHalfY = HEIGHT / 2;
 
   // Listen to the screen: if the user resizes it we have to update the camera and the renderer size
   window.addEventListener('resize', handleWindowResize, false);
@@ -217,8 +217,8 @@ function handleWindowResize() {
   // update height and width of the renderer and the camera
   HEIGHT = window.innerHeight;
   WIDTH = window.innerWidth;
-  windowHalfX = WIDTH / 4;
-  windowHalfY = HEIGHT / 4;
+  windowHalfX = WIDTH / 2;
+  windowHalfY = HEIGHT / 2;
   renderer.setSize(WIDTH, HEIGHT);
   camera.aspect = WIDTH / HEIGHT;
   camera.updateProjectionMatrix();
@@ -736,8 +736,8 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
 
   game.planeSpeed = normalize(xTarget,-.5,.5,game.planeMinSpeed, game.planeMaxSpeed);
     
-  this.tPosY = normalize(yTarget,-.5,.25, game.planeDefaultHeight+game.planeAmpHeight, game.planeDefaultHeight-game.planeAmpHeight);
-  this.tPosX = normalize(xTarget,-.5,.5,-game.planeAmpWidth*.8, game.planeAmpWidth);
+  this.tPosY = normalize(yTarget,-.5,.25, game.planeDefaultHeight + game.planeAmpHeight, game.planeDefaultHeight - game.planeAmpHeight);
+  this.tPosX = normalize(xTarget,-.5,.5, -game.planeAmpWidth *.7, game.planeAmpWidth);
 
   game.planeCollisionDisplacementX += game.planeCollisionSpeedX;
   this.tPosX += game.planeCollisionDisplacementX;
