@@ -88,14 +88,20 @@ function resetGame(){
           initSpeed:.00035,
           baseSpeed:.00035,
           targetBaseSpeed:.00035,
-          incrementSpeedByTime:.0000025,
-          incrementSpeedByLevel:.000005,
-          distanceForSpeedUpdate:100,
+
+          // incrementSpeedByTime:.0000025,
+          // incrementSpeedByLevel:.000005,
+          // distanceForSpeedUpdate:100,
+          incrementSpeedByTime:.000000025,
+          incrementSpeedByLevel:.00000005,
+          distanceForSpeedUpdate:1000,
+
           speedLastUpdate:0,
 
           distance:0,
           ratioSpeedDistance:50,
-          energy:100,
+          //energy:100,
+          energy:10000,
           ratioSpeedEnergy:3,
 
           level:1,
@@ -407,8 +413,10 @@ Cloud = function(){
   this.mesh.name = "cloud";
   var geom = new THREE.CubeGeometry(20,20,20);
   var mat = new THREE.MeshPhongMaterial({
-    color:Colors.white,
+    color:Colors.white, transparent: true 
   });
+
+  mat.opacity = 0.6;
 
   var nBlocs = 3+Math.floor(Math.random()*3);
   for (var i=0; i<nBlocs; i++ ){
@@ -492,7 +500,7 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
     var diffPos = airplane.mesh.position.clone().sub(ennemy.mesh.position.clone());
     var d = diffPos.length();
     if (d<game.ennemyDistanceTolerance){
-      particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.red, 3);
+      particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.green, 3);
 
       ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
       this.mesh.remove(ennemy.mesh);
@@ -513,7 +521,8 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
 Particle = function(){
   var geom = new THREE.TetrahedronGeometry(3,0);
   var mat = new THREE.MeshPhongMaterial({
-    color:0x009999,
+    //color:0x009999,
+    color:0xf35454,
     shininess:0,
     specular:0xffffff,
     shading:THREE.FlatShading
@@ -524,7 +533,7 @@ Particle = function(){
 Particle.prototype.explode = function(pos, color, scale){
   var _this = this;
   var _p = this.mesh.parent;
-  this.mesh.material.color = new THREE.Color( color);
+  this.mesh.material.color = new THREE.Color(color);
   this.mesh.material.needsUpdate = true;
   this.mesh.scale.set(scale, scale, scale);
   var targetX = pos.x + (-1 + Math.random()*2)*50;
@@ -566,7 +575,8 @@ ParticlesHolder.prototype.spawnParticles = function(pos, density, color, scale){
 Coin = function(){
   var geom = new THREE.TetrahedronGeometry(5,0);
   var mat = new THREE.MeshPhongMaterial({
-    color:0x009999,
+    //color:0x009999,
+    color: 0xf35454, 
     shininess:0,
     specular:0xffffff,
 
@@ -819,6 +829,7 @@ function loop(){
     //updatePlane();
     updateDistance();
     updateEnergy();
+
     game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02;
     game.speed = game.baseSpeed * game.planeSpeed;
 
@@ -868,7 +879,8 @@ var blinkEnergy=false;
 function updateEnergy(){
   game.energy -= game.speed*deltaTime*game.ratioSpeedEnergy;
   game.energy = Math.max(0, game.energy);
-  energyBar.style.right = (100-game.energy)+"%";
+  // energyBar.style.right = (100-game.energy)+"%";
+  energyBar.style.right = (100000-game.energy)+"%";
   energyBar.style.backgroundColor = (game.energy<50)? "#f25346" : "#68c3c0";
 
   if (game.energy<30){
@@ -888,7 +900,8 @@ function addEnergy(){
 }
 
 function removeEnergy(){
-  game.energy -= game.ennemyValue;
+  // game.energy -= game.ennemyValue;
+  game.energy -= 0.001;
   game.energy = Math.max(0, game.energy);
 }
 

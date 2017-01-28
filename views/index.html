@@ -27,7 +27,7 @@ h7 {
 	position:relative;
 	width:100%;
 	height:auto;
-	margin:0 auto;
+	margin:50px 0 0 0;
 	text-align:center;	
 }
 .garden {
@@ -67,21 +67,21 @@ h7 {
 
 .header {
 	position: absolute;
-	top: 8vh;
+	top: 6vh;
 	left: 0;
 	width: 100%;
 	text-align: center;
 	pointer-events: none;
-	z-index: 200;
+	z-index: 1100;
+	color:#fff;
 }
 
 .header h1 {
-	font-family: 'Playfair Display';
-	font-size: 4.5em;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 3.5em;
 	line-height: 1;
 	margin: 0;
 	letter-spacing: -0.025em;
-	color: #d1b790;
 }
 
 .header h1 span {
@@ -99,7 +99,6 @@ h7 {
 	text-indent: 1em;
 	letter-spacing: 1em;
 	text-transform: uppercase;
-	color: #d6483b;
 }
 
 .score {
@@ -117,8 +116,8 @@ h7 {
 }
 
 .score__content:nth-child(2) {
-	border-right: 1px solid #d1b790;
-	border-left: 1px solid #d1b790;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
 }
 
 .score__label {
@@ -128,13 +127,13 @@ h7 {
 	text-align: center;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: #d1b790;
+	color: #fff;
 }
 
 .score__value {
 	font-family: 'Playfair Display';
 	font-weight: bold;
-	color: #d1b790;
+	color: #fff;
 }
 
 .score__value--level {
@@ -152,6 +151,7 @@ h7 {
 	margin: -37px 0 0 -23px;
 	-webkit-transform: rotate(-90deg);
 	transform: rotate(-90deg);
+	color: #fff;
 }
 
 .score__value--energy {
@@ -160,7 +160,7 @@ h7 {
 	height: 8px;
 	margin-top: 20px;
 	border-radius: 3px;
-	background-color: #d1b790;
+	background-color: #fff;
 }
 
 .energy-bar {
@@ -170,7 +170,7 @@ h7 {
 	bottom: 0;
 	left: 0;
 	margin: 2px;
-	background-color: #f25346;
+	background-color: #fff;
 	-webkit-animation-name: none;
 	animation-name: none;
 	-webkit-animation-duration: 150ms;
@@ -203,12 +203,12 @@ h7 {
 	font-size: 0.85em;
 	bottom: 8vh;
 	letter-spacing: 0.2em;
-	color: #68c3c0;
+	color: red;
 }
 
 .message--instructions span {
 	display: block;
-	color: #d6483b;
+	color: green;
 	white-space: nowrap;
 }
 
@@ -250,7 +250,7 @@ h7 {
 
 <div id="cornetto-logo"><img src="images/logo.png"/></div>
 
-<div class="title"> <h8>SHOW YOUR LOVE</h8> </div>
+<div class="title"> <h8>SHARE YOUR LOVE</h8> </div>
 
 <div id="show-qr">
 	<div id="qr"></div>
@@ -266,14 +266,14 @@ h7 {
 	</div> -->
 	<div class="game-holder" id="gameHolder">
 			<div class="header">
-				<h1>Cornetto Show your love</h1>
+				<h1>Share your love</h1>
 				
 				<div class="score" id="score">
 					<div class="score__content" id="level">
 						<div class="score__label">level</div>
 						<div class="score__value score__value--level" id="levelValue">1</div>
 						<svg class="level-circle" id="levelCircle" viewbox="0 0 200 200">
-							<circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#d1b790" stroke-width="24px" />
+							<circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#fff" stroke-width="24px" />
 							<circle id="levelCircleStroke" r="80" cx="100" cy="100" fill="none" #f25346 stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502" />
 						</svg>
 					</div>
@@ -291,7 +291,7 @@ h7 {
 			</div>
 			<div class="world" id="world"></div>
 			<div class="message message--replay" id="replayMessage">Click to Replay</div>
-			<div class="message message--instructions" id="instructions">Grab the blue pills<span>avoid the red ones</span></div>
+			<div class="message message--instructions" id="instructions">Collect the red love icons<span>avoid the green obstacles</span></div>
 		</div>
 	<div id="game">
 		<!-- <div id="field">
