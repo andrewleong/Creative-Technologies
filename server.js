@@ -17,8 +17,8 @@ app.get('/mobile/:id', function(req, res){
 
 server.listen(process.env.PORT || 3000);
 
-console.log("Listening to " + 3000);
-console.log("Hello!");
+console.log("Hello I am Listening to port " + 3000);
+
 
 var regUsers = {};
 

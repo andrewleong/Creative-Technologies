@@ -163,8 +163,10 @@ var airplane;
 
 function createPlane(){
   airplane = new AirPlane();
-  airplane.mesh.scale.set(.25,.25,.25);
+  // airplane.mesh.scale.set(.25,.25,.25);
+  airplane.mesh.scale.set(2,2,2);
   airplane.mesh.position.y = 100;
+  airplane.mesh.rotation.z = Math.PI / 2;
   scene.add(airplane.mesh);
 }
 
@@ -173,7 +175,8 @@ var AirPlane = function(){
     this.mesh.name = "AirPlane";
   
   // Create the cabin
-    var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
+    // var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
+    var geomCockpit = new THREE.ConeGeometry(5, 15, 8, 1, false, 0, 6.3);
     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
     cockpit.castShadow = true;

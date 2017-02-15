@@ -67,11 +67,13 @@ var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
     brown:0x59332e,
-    pink:0xF5986E,
+    pink:0xfd7cce,
     brownDark:0x23190f,
+    darkBrown:0x4a1506,
     blue:0x68c3c0,
     purple:0x9e5fb8,
-    green:0xb5f8c2
+    green:0xb5f8c2,
+    orange:0xff5d00,
 };
 
 // GAME VARIABLES
@@ -100,8 +102,7 @@ function resetGame(){
 
           distance:0,
           ratioSpeedDistance:50,
-          //energy:100,
-          energy:10000,
+          energy:100,
           ratioSpeedEnergy:3,
 
           level:1,
@@ -263,13 +264,13 @@ function createLights() {
   hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9);
 
   // an ambient light modifies the global color of a scene and makes the shadows softer
-  //ambientLight = new THREE.AmbientLight(0x6dcffc, .0);
+  ambientLight = new THREE.AmbientLight(0xfcc3ee, .5);
 
   // A directional light shines from a specific direction.It acts like the sun, that means that all the rays produced are parallel. 
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
 
   // Set the direction of the light  
-  shadowLight.position.set(150, 350, 350);
+  shadowLight.position.set(350, 350, 350);
 
   // Allow shadow casting 
   shadowLight.castShadow = true;
@@ -289,7 +290,7 @@ function createLights() {
   // to activate the lights, just add them to the scene
   scene.add(hemisphereLight);
   scene.add(shadowLight);
-  //scene.add(ambientLight);
+  scene.add(ambientLight);
 
 }
 
@@ -336,9 +337,9 @@ Sea = function(){
   
   // create the material 
   var mat = new THREE.MeshPhongMaterial({
-    color:Colors.white,
+    color:Colors.pink,
     transparent:true,
-    opacity:.6,
+    opacity:.9,
     shading:THREE.FlatShading,
   });
 
@@ -391,7 +392,7 @@ Sky = function(){
     var h = 750 + Math.random()*200;
     c.mesh.position.y = Math.sin(a)*h;
     c.mesh.position.x = Math.cos(a)*h;
-    c.mesh.position.z = -400-Math.random()*400;
+    c.mesh.position.z = -400-Math.random()*100;
     c.mesh.rotation.z = a + Math.PI/2;
     var s = 1+Math.random()*2;
     c.mesh.scale.set(s,s,s);
@@ -411,12 +412,12 @@ Sky.prototype.moveClouds = function(){
 Cloud = function(){
   this.mesh = new THREE.Object3D();
   this.mesh.name = "cloud";
-  var geom = new THREE.CubeGeometry(20,20,20);
+  var geom = new THREE.DodecahedronGeometry(8,0);
   var mat = new THREE.MeshPhongMaterial({
-    color:Colors.white, transparent: true 
+    color:Colors.white, transparent: true, opacity: 0.9, specular:0xffffff, shading:THREE.FlatShading
   });
 
-  mat.opacity = 0.6;
+  //mat.opacity = 0.6;
 
   var nBlocs = 3+Math.floor(Math.random()*3);
   for (var i=0; i<nBlocs; i++ ){
@@ -443,12 +444,13 @@ Cloud.prototype.rotate = function(){
   }
 }
 
+
 // ----ENEMIES------//
 Ennemy = function(){
   var geom = new THREE.TetrahedronGeometry(8,2);
   var mat = new THREE.MeshPhongMaterial({
-    color:Colors.green,
-    shininess:0,
+    color:Colors.orange,
+    shininess:1,
     specular:0xffffff,
     shading:THREE.FlatShading
   });
@@ -500,7 +502,7 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
     var diffPos = airplane.mesh.position.clone().sub(ennemy.mesh.position.clone());
     var d = diffPos.length();
     if (d<game.ennemyDistanceTolerance){
-      particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.green, 3);
+      particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.orange, 3);
 
       ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
       this.mesh.remove(ennemy.mesh);
@@ -518,11 +520,12 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
   }
 }
 
+
 Particle = function(){
   var geom = new THREE.TetrahedronGeometry(3,0);
   var mat = new THREE.MeshPhongMaterial({
     //color:0x009999,
-    color:0xf35454,
+    color:Colors.red,
     shininess:0,
     specular:0xffffff,
     shading:THREE.FlatShading
@@ -572,37 +575,89 @@ ParticlesHolder.prototype.spawnParticles = function(pos, density, color, scale){
   }
 }
 
-Coin = function(){
-  var geom = new THREE.TetrahedronGeometry(5,0);
+//Coins are the hearts collectibles
+// var loader = new THREE.JSONLoader().load("models/heart.js", function(geometry, materials){
+    
+//   var material = new THREE.MultiMaterial(materials);
+//     car = new THREE.Mesh(geometry, material);
+//     scene.add( car );
+//     console.log(car);
+//     car.scale.set(10,10,10);
+//     car.position.x = 10;
+
+//   });
+
+var car;
+var loader = new THREE.JSONLoader();
+
+ Coin = function(){
+var xheart = 0;
+var yheart = 0;
+var heartShape = new THREE.Shape();
+heartShape.moveTo( xheart + 25, yheart + 25 );
+heartShape.bezierCurveTo( xheart + 25, yheart + 25, xheart + 20, yheart, xheart, yheart );
+heartShape.bezierCurveTo( xheart - 30, yheart, xheart - 30, yheart + 35,xheart - 30,yheart + 35 );
+heartShape.bezierCurveTo( xheart - 30, yheart + 55, xheart - 10, yheart + 77, xheart + 25, yheart + 95 );
+heartShape.bezierCurveTo( xheart + 60, yheart + 77, xheart + 80, yheart + 55, xheart + 80, yheart + 35 );
+heartShape.bezierCurveTo( xheart + 80, yheart + 35, xheart + 80, yheart, xheart + 50, yheart );
+heartShape.bezierCurveTo( xheart + 35, yheart, xheart + 25, yheart + 25, xheart + 25, yheart + 25 );
+
+  var geom = new THREE.ExtrudeGeometry(heartShape, {
+    amount: 16, 
+    bevelEnabled: true, 
+    bevelSegments: 2, 
+    steps: 2, 
+    bevelSize: 1, 
+    bevelThickness: 1 
+  });
   var mat = new THREE.MeshPhongMaterial({
     //color:0x009999,
-    color: 0xf35454, 
+    color: Colors.red, 
     shininess:0,
     specular:0xffffff,
 
     shading:THREE.FlatShading
   });
+  //var loader = new THREE.JSONLoader().load("models/heart.js", function(geometry, materials){
+    
+  // loader.load("models/heart.js", function(geometry, materials){
+  //     var material = new THREE.MultiMaterial(materials);
+  //   //car.scale.set(5,5,5);
+  //    this.mesh = new THREE.Mesh(geometry, material);
+  //    this.mesh.position.y = 10;
+  //    this.mesh.scale.set(5,5,5);
+  //    scene.add(this.mesh);
+  //      console.log(this.mesh);
+  //   });   
+  // //this.mesh = new THREE.Mesh(geom,mat);
   this.mesh = new THREE.Mesh(geom,mat);
   this.mesh.castShadow = true;
   this.angle = 0;
   this.dist = 0;
+  this.mesh.scale.set(0.09,0.09,0.09);    
+    
 }
 
-CoinsHolder = function (nCoins){
+ CoinsHolder = function (nCoins){
   this.mesh = new THREE.Object3D();
+  //scene.add (this.mesh);
   this.coinsInUse = [];
   this.coinsPool = [];
   for (var i=0; i<nCoins; i++){
     var coin = new Coin();
     this.coinsPool.push(coin);
+    //console.log(CoinsHolder);
   }
 }
 
 CoinsHolder.prototype.spawnCoins = function(){
-
+  // //how much coins it will produce
   var nCoins = 1 + Math.floor(Math.random()*10);
+  // the height
   var d = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 2) * (game.planeAmpHeight-20);
+  // like a wavelenth..how it lines up
   var amplitude = 10 + Math.round(Math.random()*10);
+  
   for (var i=0; i<nCoins; i++){
     var coin;
     if (this.coinsPool.length) {
@@ -636,7 +691,7 @@ CoinsHolder.prototype.rotateCoins = function(){
     if (d<game.coinDistanceTolerance){
       this.coinsPool.unshift(this.coinsInUse.splice(i,1)[0]);
       this.mesh.remove(coin.mesh);
-      particlesHolder.spawnParticles(coin.mesh.position.clone(), 5, 0x009999, .8);
+      particlesHolder.spawnParticles(coin.mesh.position.clone(), 5, Colors.red, .8);
       addEnergy();
       i--;
     }else if (coin.angle > Math.PI){
@@ -654,36 +709,49 @@ CoinsHolder.prototype.rotateCoins = function(){
 var AirPlane = function(){
   this.mesh = new THREE.Object3D();
     this.mesh.name = "AirPlane";
-  
+   
   // Create the cabin
-  var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
+  var geomCockpit = new THREE.ConeGeometry(4.5, 23, 18, 1, false, 0, 6.3);
     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
   cockpit.castShadow = true;
     cockpit.receiveShadow = true;
+     cockpit.rotation.z = Math.PI / 2;
     this.mesh.add(cockpit);
 
-  // Create Tailplane
-  var geomTailPlane = new THREE.BoxGeometry(15,20,5,1,1,1);
-  var matTailPlane = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
-  var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
-  tailPlane.position.set(-35,25,0);
-  tailPlane.castShadow = true;
-  tailPlane.receiveShadow = true;
-  this.mesh.add(tailPlane);
+  // // Create Tailplane
+  // var geomTailPlane = new THREE.BoxGeometry(15,20,5,1,1,1);
+  // var matTailPlane = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+  // var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+  // tailPlane.position.set(-35,25,0);
+  // tailPlane.castShadow = true;
+  // tailPlane.receiveShadow = true;
+  // this.mesh.add(tailPlane);
 
 };
+// var car;
+// //My Custom Geometry//
+// var myHeart = function(){
+//   var loader = new THREE.JSONLoader().load("models/heart.js", function(geometry, materials){
+    
+//   var material = new THREE.MultiMaterial(materials);
+//     car = new THREE.Mesh(geometry, material);
+//     scene.add( car );
+//     console.log(car);
+//     car.scale.set(10,10,10);
+//     car.position.x = 10;
+
+//   });
+
+// }
 
 // 3D Object instantiation/create function
 // Instantiate the Objects and add it to the scene:
-
 var sea;
 function createSea(){
   sea = new Sea();
-
   // push it a little bit at the bottom of the scene
   sea.mesh.position.y = -600;
-
   // add the mesh of the sea to the scene
   scene.add(sea.mesh);
 }
@@ -698,15 +766,14 @@ function createSky(){
  var airplane;
 function createPlane(){
   airplane = new AirPlane();
-  airplane.mesh.scale.set(.25,.25,.25);
+  airplane.mesh.scale.set(2.5,2.5,2.5);
   airplane.mesh.position.y = 100;
   scene.add(airplane.mesh);
 }
  
 function createCoins(){
-
   coinsHolder = new CoinsHolder(20);
-  scene.add(coinsHolder.mesh)
+  scene.add(coinsHolder.mesh);
 }
 
 function createEnnemies(){
@@ -759,7 +826,7 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
   this.mesh.position.y += (this.tPosY - this.mesh.position.y)*deltaTime*game.planeMoveSensivity;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x)*deltaTime*game.planeMoveSensivity;
 
-  this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*deltaTime*game.planeRotXSensivity;
+  this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*deltaTime*game.planeRotZSensivity;
   this.mesh.rotation.x = (this.mesh.position.y - this.tPosY)*deltaTime*game.planeRotZSensivity;
   
   //var targetCameraZ = normalize(game.planeSpeed, game.planeMinSpeed, game.planeMaxSpeed, game.cameraNearPos, game.cameraFarPos);
@@ -777,7 +844,6 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
 
 
 function myFunction(myStateX, myStateY){
-      
       
       var xTarget = (myStateX-windowHalfX);
       var yTarget = (myStateY-windowHalfY);
@@ -880,7 +946,7 @@ function updateEnergy(){
   game.energy -= game.speed*deltaTime*game.ratioSpeedEnergy;
   game.energy = Math.max(0, game.energy);
   // energyBar.style.right = (100-game.energy)+"%";
-  energyBar.style.right = (100000-game.energy)+"%";
+  energyBar.style.right = (100-game.energy)+"%";
   energyBar.style.backgroundColor = (game.energy<50)? "#f25346" : "#68c3c0";
 
   if (game.energy<30){
@@ -945,6 +1011,8 @@ function init(event){
   createCoins();
   createEnnemies();
   createParticles();
+
+
   // document.addEventListener('mousemove', handleMouseMove, false);
   // document.addEventListener('touchstart', handleTouchStart, false);
   // document.addEventListener('touchend', handleTouchEnd, false);
