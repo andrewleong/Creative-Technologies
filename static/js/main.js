@@ -711,12 +711,11 @@ var AirPlane = function(){
     this.mesh.name = "AirPlane";
    
   // Create the cabin
-  var geomCockpit = new THREE.ConeGeometry(4.5, 23, 18, 1, false, 0, 6.3);
+  var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3);
     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
   cockpit.castShadow = true;
     cockpit.receiveShadow = true;
-     cockpit.rotation.z = Math.PI / 2;
     this.mesh.add(cockpit);
 
   // // Create Tailplane
@@ -766,8 +765,9 @@ function createSky(){
  var airplane;
 function createPlane(){
   airplane = new AirPlane();
-  airplane.mesh.scale.set(2.5,2.5,2.5);
+  airplane.mesh.scale.set(1.5,1.5,1.5);
   airplane.mesh.position.y = 100;
+  airplane.mesh.rotation.z = Math.PI / 2;
   scene.add(airplane.mesh);
 }
  
@@ -826,8 +826,8 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
   this.mesh.position.y += (this.tPosY - this.mesh.position.y)*deltaTime*game.planeMoveSensivity;
   this.mesh.position.x += (this.tPosX - this.mesh.position.x)*deltaTime*game.planeMoveSensivity;
 
-  this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*deltaTime*game.planeRotZSensivity;
-  this.mesh.rotation.x = (this.mesh.position.y - this.tPosY)*deltaTime*game.planeRotZSensivity;
+ // this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*deltaTime*game.planeRotXSensivity;
+ // this.mesh.rotation.x = (this.mesh.position.y - this.tPosY)*deltaTime*game.planeRotZSensivity;
   
   //var targetCameraZ = normalize(game.planeSpeed, game.planeMinSpeed, game.planeMaxSpeed, game.cameraNearPos, game.cameraFarPos);
   
