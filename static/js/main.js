@@ -112,8 +112,8 @@ function resetGame(){
           distanceForLevelUpdate:1000,
 
           planeDefaultHeight:100,
-          planeAmpHeight:65,
-          planeAmpWidth:175,
+          planeAmpHeight:60,
+          planeAmpWidth:105,
           planeMoveSensivity:0.005,
           planeRotXSensivity:0.0008,
           planeRotZSensivity:0.0004,
@@ -479,7 +479,7 @@ EnnemiesHolder.prototype.spawnEnnemies = function(){
     }
 
     ennemy.angle = - (i*0.1);
-    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 4) * (game.planeAmpHeight-20);
+    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 3) * (game.planeAmpHeight-20);
     ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
     ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
 
