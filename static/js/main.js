@@ -112,7 +112,7 @@ function resetGame(){
           distanceForLevelUpdate:1000,
 
           planeDefaultHeight:100,
-          planeAmpHeight:45,
+          planeAmpHeight:65,
           planeAmpWidth:175,
           planeMoveSensivity:0.005,
           planeRotXSensivity:0.0008,
