@@ -969,8 +969,8 @@ function addEnergy(){
 }
 
 function removeEnergy(){
-  // game.energy -= game.ennemyValue;
-  game.energy -= 0.001;
+  game.energy -= game.ennemyValue;
+  //game.energy -= 0.001;
   game.energy = Math.max(0, game.energy);
 }
 
