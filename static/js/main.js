@@ -91,12 +91,14 @@ function resetGame(){
           baseSpeed:.00035,
           targetBaseSpeed:.00035,
 
-          // incrementSpeedByTime:.0000025,
-          // incrementSpeedByLevel:.000005,
-          // distanceForSpeedUpdate:100,
-          incrementSpeedByTime:.000000025,
-          incrementSpeedByLevel:.00000005,
-          distanceForSpeedUpdate:1000,
+          incrementSpeedByTime:.0000025,
+          incrementSpeedByLevel:.000005,
+          distanceForSpeedUpdate:100,
+
+          //Hehe my increment
+          // incrementSpeedByTime:.000000025,
+          // incrementSpeedByLevel:.00000005,
+          // distanceForSpeedUpdate:1000,
 
           speedLastUpdate:0,
 
@@ -110,7 +112,7 @@ function resetGame(){
           distanceForLevelUpdate:1000,
 
           planeDefaultHeight:100,
-          planeAmpHeight:75,
+          planeAmpHeight:45,
           planeAmpWidth:175,
           planeMoveSensivity:0.005,
           planeRotXSensivity:0.0008,
@@ -477,7 +479,7 @@ EnnemiesHolder.prototype.spawnEnnemies = function(){
     }
 
     ennemy.angle = - (i*0.1);
-    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 2) * (game.planeAmpHeight-20);
+    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 4) * (game.planeAmpHeight-20);
     ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
     ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
 
@@ -766,7 +768,8 @@ function createSky(){
 function createPlane(){
   airplane = new AirPlane();
   airplane.mesh.scale.set(1.5,1.5,1.5);
-  airplane.mesh.position.y = 100;
+  //airplane.mesh.position.y = 100;
+  airplane.mesh.position.y = game.planeDefaultHeight;
   airplane.mesh.rotation.z = Math.PI / 2;
   scene.add(airplane.mesh);
 }
