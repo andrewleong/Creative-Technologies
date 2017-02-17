@@ -176,7 +176,7 @@ var AirPlane = function(){
   
   // Create the cabin
     // var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
-    var geomCockpit = new THREE.ConeGeometry(5, 15, 8, 1, false, 0, 6.3);
+    var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3)
     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
     cockpit.castShadow = true;

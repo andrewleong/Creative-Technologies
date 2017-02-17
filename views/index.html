@@ -4,6 +4,16 @@
 <title>Test</title>
 <style>
 
+@font-face {
+    font-family: 'icingsregular';
+    src: url('fonts/icings.ttf') format('truetype'),
+    	 url('fonts/icings.woff2') format('woff2'),
+         url('fonts/icings.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 .title {
 	text-align:center;	
 }
@@ -67,21 +77,24 @@ h7 {
 
 .header {
 	position: absolute;
-	top: 6vh;
+	top: 1vh;
 	left: 0;
 	width: 100%;
 	text-align: center;
 	pointer-events: none;
 	z-index: 1100;
 	color:#fff;
+	display:inline-block;
+	clear:both;
 }
 
 .header h1 {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'icingsregular';
 	font-size: 3.5em;
 	line-height: 1;
 	margin: 0;
 	letter-spacing: -0.025em;
+	float:left;
 }
 
 .header h1 span {
@@ -101,11 +114,17 @@ h7 {
 	text-transform: uppercase;
 }
 
+#game-logo img{
+	width:120px;
+	float:left;
+	margin-right:20px;
+}
 .score {
-	width: 100%;
-	margin: 2em 0 0;
-	text-align: center;
+	/*width: 100%;*/
+	/*margin: 2em 0 0;*/
 	white-space: nowrap;
+	float:right;
+	margin:10px 30px 0 0;
 }
 
 .score__content {
@@ -121,7 +140,8 @@ h7 {
 }
 
 .score__label {
-	font-size: 9px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
 	position: relative;
 	margin: 0 0 0.5em 0;
 	text-align: center;
@@ -131,7 +151,7 @@ h7 {
 }
 
 .score__value {
-	font-family: 'Playfair Display';
+	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	color: #fff;
 }
@@ -195,12 +215,12 @@ h7 {
 	display: none;
 	text-indent: 0.5em;
 	letter-spacing: 0.5em;
-	color: #d1b790;
+	color: #ffffff;
 }
 
 .message--instructions {
-	font-family: 'Playfair Display';
-	font-size: 0.85em;
+	font-family: 'Arial';
+	font-size: 1.75em;
 	bottom: 8vh;
 	letter-spacing: 0.2em;
 	color: red;
@@ -208,7 +228,7 @@ h7 {
 
 .message--instructions span {
 	display: block;
-	color: green;
+	color: orange;
 	white-space: nowrap;
 }
 
@@ -266,8 +286,10 @@ h7 {
 	</div> -->
 	<div class="game-holder" id="gameHolder">
 			<div class="header">
-				<h1>Share your love</h1>
-				
+				<!-- <div class="header-container"> -->
+				<div id="game-logo"><img src="images/logo.png"/></div>
+				<h1>SHARE YOUR LOVE</h1>
+				<!-- </div> -->
 				<div class="score" id="score">
 					<div class="score__content" id="level">
 						<div class="score__label">level</div>
@@ -290,8 +312,8 @@ h7 {
 				</div>
 			</div>
 			<div class="world" id="world"></div>
-			<div class="message message--replay" id="replayMessage">Click to Replay</div>
-			<div class="message message--instructions" id="instructions">Collect the red love icons<span>avoid the green obstacles</span></div>
+			<div class="message message--replay" id="replayMessage">Tap to Replay</div>
+			<div class="message message--instructions" id="instructions">Collect the Red love icons<span>Avoid the Orange Fireballs</span></div>
 		</div>
 	<div id="game">
 		<!-- <div id="field">
