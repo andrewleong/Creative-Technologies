@@ -31,14 +31,14 @@
           var LongUrl = myQR_URL;
           var request = gapi.client.urlshortener.url.insert({
           'resource': {
-          'longUrl': Url
+          'longUrl': LongUrl
         }
       });
 
       request.execute(function(response) {
 
         if (response.id != null) {
-          str = "<b>Long URL:</b>" + Url + "<br>";
+          str = "<b>Long URL:</b>" + LongUrl + "<br>";
           str += "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
           document.getElementById("qr_url").innerHTML = str;
           } 
