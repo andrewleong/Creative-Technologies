@@ -15,6 +15,8 @@
     for(var i=0; i<ranLength; i++) {
         uniqueId += allChars[Math.floor(Math.random() * allChars.length)];
     }
+
+    var Url = (baseUrl + "/mobile/" + uniqueId);
     
     $(document).ready(function() {
 
@@ -23,7 +25,7 @@
         //var myQR_URL = baseUrl + "/mobile/" + uniqueId;  
         //console.log(myQR_URL);
         
-        var Url = (baseUrl + "/mobile/" + uniqueId);
+       
 
          function makeRequest() {
           var request = gapi.client.urlshortener.url.insert({
@@ -49,7 +51,7 @@
         gapi.client.load('urlshortener', 'v1', function() { document.getElementById("qr_url").innerHTML = ""; });
       }
       window.onload = load;
-      setTimeout(function() { makeRequest(); }, 1000); 
+      setTimeout(function() { makeRequest(); }, 5000); 
         //Display QR URL in browser
        // document.getElementById("qr_url").innerHTML = myQR_URL;
         
