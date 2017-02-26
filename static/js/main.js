@@ -51,7 +51,7 @@
         gapi.client.load('urlshortener', 'v1');
       }
       window.onload = load;
-      setTimeout(function() { makeRequest(); }, 5000); 
+      setTimeout(function() { makeRequest(); }, 3000); 
         //Display QR URL in browser
        // document.getElementById("qr_url").innerHTML = myQR_URL;
         
