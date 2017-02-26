@@ -20,8 +20,9 @@
 
         $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
         //Variable for long URL
-        var myQR_URL = baseUrl + "/mobile/" + uniqueId;  
+        //var myQR_URL = baseUrl + "/mobile/" + uniqueId;  
         //console.log(myQR_URL);
+        
         var Url = (baseUrl + "/mobile/" + uniqueId);
 
          function makeRequest() {
