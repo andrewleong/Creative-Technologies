@@ -34,9 +34,9 @@
           // 'resource': {
           // 'longUrl': LongUrl
         //}
-           console.log(request);
-      });
 
+      });
+     console.log(request);
       request.execute(function(response) {
 
         if (response.id != null) {
