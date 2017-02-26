@@ -20,8 +20,42 @@
     
     $(document).ready(function() {
 
-        $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);  
-        console.log(baseUrl + "/mobile/" + uniqueId);
+        $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
+        //Variable for long URL
+        var myQR_URL = baseUrl + "/mobile/" + uniqueId;  
+        
+        console.log(myQR_URL);
+
+
+        function makeRequest() {
+          var LongUrl = myQR_URL;
+          var request = gapi.client.urlshortener.url.insert({
+          'resource': {
+          'longUrl': Url
+        }
+      });
+
+      request.execute(function(response) {
+
+        if (response.id != null) {
+          str = "<b>Long URL:</b>" + Url + "<br>";
+          str += "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
+          document.getElementById("qr_url").innerHTML = str;
+          } 
+        else {
+        alert("Error: creating short url \n" + response.error);
+        }
+        });
+      }
+
+      function load() {
+        gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
+        gapi.client.load('urlshortener', 'v1', function() { document.getElementById("qr_url").innerHTML = ""; });
+      }
+      window.onload = load;
+      makeRequest();  
+        //Display QR URL in browser
+       // document.getElementById("qr_url").innerHTML = myQR_URL;
         
         var socket = io.connect();
 
