@@ -30,9 +30,11 @@
         function makeRequest() {
           var LongUrl = myQR_URL;
           var request = gapi.client.urlshortener.url.insert({
-          'resource': {
-          'longUrl': LongUrl
+            
+          // 'resource': {
+          // 'longUrl': LongUrl
         }
+        console.log(request);
       });
 
       request.execute(function(response) {
