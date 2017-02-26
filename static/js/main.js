@@ -11,8 +11,6 @@
     var ranLength = 50;
     
     var uniqueId = "";
-
-    //console.log("heheheh testing");
     
     for(var i=0; i<ranLength; i++) {
         uniqueId += allChars[Math.floor(Math.random() * allChars.length)];
@@ -23,39 +21,34 @@
         $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
         //Variable for long URL
         var myQR_URL = baseUrl + "/mobile/" + uniqueId;  
-        
-        console.log(myQR_URL);
+        //console.log(myQR_URL);
+        var Url = (baseUrl + "/mobile/" + uniqueId);
 
-
-        function makeRequest() {
-          var LongUrl = myQR_URL;
+         function makeRequest() {
           var request = gapi.client.urlshortener.url.insert({
-            
-          // 'resource': {
-          // 'longUrl': LongUrl
-        //}
-
-      });
-     console.log(request);
+          'resource': {
+          'longUrl': Url
+          }
+        });
       request.execute(function(response) {
 
-        if (response.id != null) {
-          str = "<b>Long URL:</b>" + LongUrl + "<br>";
-          str += "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
-          document.getElementById("qr_url").innerHTML = str;
-          } 
-        else {
-        alert("Error: creating short url \n" + response.error);
-        }
-        });
+      if (response.id != null) {
+      //str = "<b>Long URL:</b>" + Url + "<br>";
+      str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
+      console.log(str);
+      //document.getElementById("result").innerHTML = str;
       }
-
+      else {
+      alert("Error: creating short url \n" + response.error);
+      }
+      });
+  }
       function load() {
         gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
         gapi.client.load('urlshortener', 'v1', function() { document.getElementById("qr_url").innerHTML = ""; });
       }
       window.onload = load;
-      makeRequest();  
+      setTimeout(function() { makeRequest(); }, 1000); 
         //Display QR URL in browser
        // document.getElementById("qr_url").innerHTML = myQR_URL;
         
