@@ -39,7 +39,7 @@
       //str = "<b>Long URL:</b>" + Url + "<br>";
       str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
       console.log(str);
-      //document.getElementById("result").innerHTML = str;
+      document.getElementById("qr_url").innerHTML = str;
       }
       else {
       alert("Error: creating short url \n" + response.error);
@@ -48,7 +48,7 @@
   }
       function load() {
         gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
-        gapi.client.load('urlshortener', 'v1', function() { document.getElementById("qr_url").innerHTML = ""; });
+        gapi.client.load('urlshortener', 'v1');
       }
       window.onload = load;
       setTimeout(function() { makeRequest(); }, 5000); 
