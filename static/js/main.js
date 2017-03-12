@@ -887,15 +887,15 @@ function setNewPosition(myStateX, myStateY){
       xTarget = (myStateX-windowHalfX);
       yTarget = (myStateY-windowHalfY);
      
-      
+      airplane.updatePlane(xTarget, yTarget); 
+  
+      renderer.render(scene, camera);
+      requestAnimationFrame(loop); 
  }
 
 function loop(){
 
-  airplane.updatePlane(xTarget, yTarget); 
-  
-  renderer.render(scene, camera);
-  requestAnimationFrame(loop);
+
 
   newTime = new Date().getTime();
   deltaTime = newTime-oldTime;
