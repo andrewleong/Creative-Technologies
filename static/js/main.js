@@ -83,31 +83,31 @@
 
     /* GOOGLE SHORTERNER CODE */
         //Shorten URL function
-          function makeRequest() {
-              var request = gapi.client.urlshortener.url.insert({
-              'resource': {
-              'longUrl': Url
-              }
-            });
-            request.execute(function(response) {
+          // function makeRequest() {
+          //     var request = gapi.client.urlshortener.url.insert({
+          //     'resource': {
+          //     'longUrl': Url
+          //     }
+          //   });
+          //   request.execute(function(response) {
 
-            if (response.id != null) {
-            //str = "<b>Long URL:</b>" + Url + "<br>";
-            str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
-            console.log(str);
-            document.getElementById("qr_url").innerHTML = str;
-            }
-            else {
-            alert("Error: creating short url \n" + response.error);
-            }
-            });
-          }
-            function load() {
-              gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
-              gapi.client.load('urlshortener', 'v1');
-            }
-            window.onload = load;
-            setTimeout(function() { makeRequest(); }, 700); 
+          //   if (response.id != null) {
+          //   //str = "<b>Long URL:</b>" + Url + "<br>";
+          //   str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
+          //   console.log(str);
+          //   document.getElementById("qr_url").innerHTML = str;
+          //   }
+          //   else {
+          //   alert("Error: creating short url \n" + response.error);
+          //   }
+          //   });
+          // }
+          //   function load() {
+          //     gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
+          //     gapi.client.load('urlshortener', 'v1');
+          //   }
+          //   window.onload = load;
+          //   setTimeout(function() { makeRequest(); }, 700); 
     /* GOOGLE SHORTENER CODE END */
 
         //MY INSTRUCTIONS HERE

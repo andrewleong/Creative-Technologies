@@ -48,7 +48,14 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-
+    //THIS IS WHEN THE GAME STARTS
+    socket.on('GameStart', function(data) {
+        if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
+            deskSocket.emit('DeskGameStart', data);
+            mobileSocket.emit('MobileGameStart', data);
+        }
+    });
+    
     socket.on('updatePosition', function(data){
         var newMobileX = data.mobileX;
         var newMobileY = data.mobileY;
@@ -70,13 +77,7 @@ io.sockets.on('connection', function(socket) {
     //     }
     // });
 
-    //THIS IS WHEN THE GAME STARTS
-    socket.on('GameStart', function(data) {
-        if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
-            deskSocket.emit('DeskGameStart', data);
-            mobileSocket.emit('MobileGameStart', data);
-        }
-    });
+    
 
     /* THIS IS VIDEO*/
     // socket.on('change first video', function(data) {
