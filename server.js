@@ -24,7 +24,7 @@ var regUsers = {};
 
 io.sockets.on('connection', function(socket) {
     var deskSocket;
-    var mobileSocket
+    var mobileSocket;
 
     socket.on('desktop-register', function(data) {
         regUsers[data.id] = deskSocket = socket;
@@ -34,24 +34,20 @@ io.sockets.on('connection', function(socket) {
     
     socket.on('mobile-register', function(data) {
         mobileSocket = socket;
-
+        //If registered users's id is not undefined then the desktop socket will connect to the mobile socket
         if(typeof(regUsers[data.id]) !== "undefined") {
             deskSocket = regUsers[data.id];
             console.log("Mobile connected");
-            deskSocket.emit('mobile-on');
-            mobileSocket.emit('start');
+
+            //DesktopSocket send to desktop first function, same with mobile
+            deskSocket.emit('deskShowInstructions');
+            mobileSocket.emit('mobileShowInstructions');
 
             //
             //mobileSocket.emit('goTouch');
         }
-    });
+    }.bind(this));
 
-    // socket.on('pushData', function(data) {
-
-    //         deskSocket.emit('receiver', data);
-    //         console.log(data.hello);
-            
-    //    }); 
 
     socket.on('updatePosition', function(data){
         var newMobileX = data.mobileX;
@@ -59,9 +55,8 @@ io.sockets.on('connection', function(socket) {
 
         //setInterval(function(){
         //deskSocket.emit('lol', {deskX: mobileX, deskY: mobileY });
-        deskSocket.emit('lol', newMobileX, newMobileY);
+        deskSocket.emit('newPosition', newMobileX, newMobileY);
         //}, 1000);
-
         console.log(newMobileX);
         console.log(newMobileY);
     }.bind(this));
@@ -69,9 +64,17 @@ io.sockets.on('connection', function(socket) {
 
     /*THIS IS MOBILE ORIENTATION */
     /*Orientation was triggered from mobile js then if desktop socket is not null then trigger the desktop orientation */
-    socket.on('mobile-orientation', function(orientation) {
+    // socket.on('mobile-orientation', function(orientation) {
+    //     if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
+    //         deskSocket.emit('orientation', orientation);
+    //     }
+    // });
+
+    //THIS IS WHEN THE GAME STARTS
+    socket.on('GameStart', function(data) {
         if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
-            deskSocket.emit('orientation', orientation);
+            deskSocket.emit('DeskGameStart', data);
+            mobileSocket.emit('MobileGameStart', data);
         }
     });
 

@@ -8,16 +8,37 @@
         var uniqueId = $("body").attr('data-id');
         console.log("document ready or connected");
        
-        
+        //Mobile socket sends server saying register its id with the unique ID
         socket.emit('mobile-register', {id: uniqueId});
 
-        $(".button").on("click", function() {
-        //player.loadVideoById("Vw4KVoEVcr0", 0, "default");
-        socket.emit('change first video');
-        console.log("clicked");
-    });
+        socket.on('mobileShowInstructions', function(data) {
+            
+              $(".button").on("click", function() {
+              //Tell the server to tell desktop to Start the game
+              socket.emit('GameStart', data);
+              console.log("clicked");
+          });
+                // socket.emit('mobile-orientation', orientation);       
+        });
 
+        socket.on('MobileGameStart', function(data) {
+            $("#Mobile-Container").slideUp(function() { 
+              $(window).trigger('init'); 
+              console.log("Let the Games Begin");
+            });           
+        });
+
+    //     $(".button").on("click", function() {
         
+    //     socket.emit('GameStart');
+    //     console.log("clicked");
+    // });
+
+//Emits update function
+function setUpdatePosition(){
+  socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} ); 
+  console.log("update position emitted");     
+}
 
 //COLORS
 var Colors = {
@@ -36,7 +57,12 @@ var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, cont
 //SCREEN & MOUSE VARIABLES
 var HEIGHT, WIDTH, windowHalfX, windowHalfY, mousePosMobile = {x:0,y:0};
 
+// X and Y target point for mobile
+var xTargetMobile;
+var yTargetMobile;
 //INIT THREE JS, SCREEN AND MOUSE EVENTS
+
+$(window).bind('load', function (e) {
 
 function createScene() {
     
@@ -201,21 +227,13 @@ AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
 
 function loop(){
 // update the plane on each frame
-    var xTargetMobile = (mousePosMobile.x-windowHalfX);
-    var yTargetMobile= (mousePosMobile.y-windowHalfY);
+    xTargetMobile = (mousePosMobile.x-windowHalfX);
+    yTargetMobile= (mousePosMobile.y-windowHalfY);
 
     airplane.updatePlane(xTargetMobile, yTargetMobile);
     
-    //socket.emit('updatePosition', {mobileX: xTargetMobile, mobileY: yTargetMobile} );
-    socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} );
-
+    setUpdatePosition();
     
-  //updatePlane();
-    //myPlaneUpdate();
-    
-    //console.log(xTargetMobile);
-   
-   //socket.emit('pushData', { hello: xTargetMobile});
 
     renderer.render(scene, camera);
     
@@ -236,19 +254,23 @@ function normalize(v,vmin,vmax,tmin, tmax){
   return tv;
 }
 
-function init(event){
+
+
+$(window).bind('init', function (e) {
   createScene();
   createLights();
   createPlane();
   //createCone();
   loop();
-}
+  $(window).trigger('load');
+  console.log("scene created");
+});
 
-window.addEventListener('load', init, false);
+//window.addEventListener('load', init, false);
 
 
-console.log("scene created");
 
+}); //end of gameStartMobile
 
 
 // socket.on('goTouch', function(data) {
@@ -258,14 +280,18 @@ console.log("scene created");
 
 
 
-        socket.on('start', function(data) {
-            MobileReader.bindOrientation({
-            	callback: function(orientation) {
-            		socket.emit('mobile-orientation', orientation);
-                    $(".count").text(parseInt($(".count").text()) + 1);
-            	},
-            	interval: 100
-            });
-        });
-    });
+        // socket.on('start', function(data) {
+        //     MobileReader.bindOrientation({
+        //     	callback: function(orientation) {
+        //     		socket.emit('mobile-orientation', orientation);
+        //             $(".count").text(parseInt($(".count").text()) + 1);
+        //     	},
+        //     	interval: 100
+        //     });
+        // });
+         
+
+      
+         //$(window).bind('GameStart', MainGame);
+    }); //End of $(document).ready(function()
 })();
