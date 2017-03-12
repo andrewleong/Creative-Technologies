@@ -33,7 +33,7 @@
         socket.on('deskShowInstructions', function(data) {
 
             $("#MainPage").slideUp(function() { 
-              $(window).trigger('Instructions-Desk'); 
+             // $(window).trigger('Instructions-Desk'); 
               console.log("Instructions-Desk");
             });
             //$("#MainPage").slideDown(function() { $(window).trigger('content-ready'); }); 

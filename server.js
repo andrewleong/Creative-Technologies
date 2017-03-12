@@ -46,7 +46,7 @@ io.sockets.on('connection', function(socket) {
             //
             //mobileSocket.emit('goTouch');
         }
-    }.bind(this));
+    });
 
 
     socket.on('updatePosition', function(data){
