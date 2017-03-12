@@ -107,13 +107,13 @@
               gapi.client.load('urlshortener', 'v1');
             }
             window.onload = load;
-            setTimeout(function() { makeRequest(); }, 500); 
+            setTimeout(function() { makeRequest(); }, 700); 
     /* GOOGLE SHORTENER CODE END */
 
         //MY INSTRUCTIONS HERE
-       var myInstructions = function(){
-          console.log("Showing instructions");
-       }
+       // var myInstructions = function(){
+       //    console.log("Showing instructions");
+       // }
         
      
 
