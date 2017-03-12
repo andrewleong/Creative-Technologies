@@ -889,12 +889,11 @@ function setNewPosition(myStateX, myStateY){
      
       airplane.updatePlane(xTarget, yTarget); 
   
-      
+      renderer.render(scene, camera);
+      requestAnimationFrame(loop); 
  }
 
 function loop(){
-
-
 
   newTime = new Date().getTime();
   deltaTime = newTime-oldTime;
@@ -957,17 +956,22 @@ function loop(){
   
   sea.mesh.rotation.z += game.speed*deltaTime;//*game.seaRotationSpeed;
 
-  if ( sea.mesh.rotation.z > 2*Math.PI)  sea.mesh.rotation.z -= 2*Math.PI;
+  
 
   //ambientLight.intensity += (.5 - ambientLight.intensity)*deltaTime*0.005;
 
   coinsHolder.rotateCoins();
   ennemiesHolder.rotateEnnemies();
 
-  sky.moveClouds();
-  sea.moveWaves();
+  
 
 }
+ 
+ function movingBG(){
+  if ( sea.mesh.rotation.z > 2*Math.PI)  sea.mesh.rotation.z -= 2*Math.PI;
+  sky.moveClouds();
+  sea.moveWaves();
+ }
 
 function updateDistance(){
   game.distance += game.speed*deltaTime*game.ratioSpeedDistance;
@@ -1059,6 +1063,9 @@ $(window).bind('init', function (e) {
   createParticles();
 
   loop();
+  movingBG();
+
+requestAnimationFrame(movingBG);
 
    $(window).trigger('load');
    //Set new coordinates function     
@@ -1066,8 +1073,7 @@ $(window).bind('init', function (e) {
         myStateX = newMobileX;
         myStateY = newMobileY;
         setNewPosition(myStateX, myStateY);
-        renderer.render(scene, camera);
-      requestAnimationFrame(loop); 
+        
     });
   console.log("init functioned")
 });
