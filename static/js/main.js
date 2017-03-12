@@ -889,8 +889,7 @@ function setNewPosition(myStateX, myStateY){
      
       airplane.updatePlane(xTarget, yTarget); 
   
-      renderer.render(scene, camera);
-      requestAnimationFrame(loop); 
+      
  }
 
 function loop(){
@@ -1067,6 +1066,8 @@ $(window).bind('init', function (e) {
         myStateX = newMobileX;
         myStateY = newMobileY;
         setNewPosition(myStateX, myStateY);
+        renderer.render(scene, camera);
+      requestAnimationFrame(loop); 
     });
   console.log("init functioned")
 });
