@@ -22,7 +22,7 @@
         });
 
         socket.on('MobileGameStart', function(data) {
-            $("#Mobile-Container").slideUp(function() { 
+            $("#Mobile-Instruction").slideUp(function() { 
               $(window).trigger('init'); 
               console.log("Let the Games Begin");
             });           

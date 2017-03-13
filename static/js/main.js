@@ -889,11 +889,13 @@ function setNewPosition(myStateX, myStateY){
      
       airplane.updatePlane(xTarget, yTarget); 
   
-      renderer.render(scene, camera);
-      requestAnimationFrame(loop); 
+    renderer.render(scene, camera);
+      
  }
 
 function loop(){
+
+     requestAnimationFrame(loop);
 
   newTime = new Date().getTime();
   deltaTime = newTime-oldTime;
@@ -971,6 +973,7 @@ function loop(){
   if ( sea.mesh.rotation.z > 2*Math.PI)  sea.mesh.rotation.z -= 2*Math.PI;
   sky.moveClouds();
   sea.moveWaves();
+  requestAnimationFrame(movingBG);
  }
 
 function updateDistance(){
@@ -1041,6 +1044,8 @@ function normalize(v,vmin,vmax,tmin, tmax){
 
 
 $(window).bind('init', function (e) {
+
+
   gameMusic.play(); 
   // UI
   fieldDistance = document.getElementById("distValue");
@@ -1065,7 +1070,7 @@ $(window).bind('init', function (e) {
   loop();
   movingBG();
 
-requestAnimationFrame(movingBG);
+  
 
    $(window).trigger('load');
    //Set new coordinates function     
