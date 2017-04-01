@@ -4,7 +4,8 @@
     //Music
     var gameMusic = new Audio('sound/Game.mp3');
 
-    var baseUrl = document.location.protocol + "//" + document.location.host
+    //var baseUrl = document.location.protocol + "//" + document.location.host
+    var baseUrl = document.location.protocol + "//" + "192.168.1.71:3000"
     //var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
     
     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -46,6 +47,10 @@
             });           
         });
 
+         // function goSocialMedia(){
+         //  console.log("hey its working");
+          
+         // }
 
         //Mobile told server to trigger this Orientation Change in PC browser to trigger for game
         // socket.on('orientation', function(orientation) {
@@ -55,59 +60,36 @@
         // socket.on('receiver', function(data) {
         //     console.log(data);      
         // });
-        /* FPS MONITOR */
-     //Frame Per Second Monitor   
-        var stats = new Stats();
-            stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-            //document.body.appendChild( stats.dom );
-            
-            stats.domElement.style.position = 'fixed';
-            stats.domElement.style.left = '0px';
-            stats.domElement.style.bottom = '0px';
-         
-          document.body.appendChild( stats.domElement );
-
-            function FPS() {
-
-                stats.begin();
-
-                // monitored code goes here
-
-                stats.end();
-
-                requestAnimationFrame( FPS );
-
-            }
-            requestAnimationFrame( FPS );
-    /* FPS MONITOR END */
+       
 
     /* GOOGLE SHORTERNER CODE */
         //Shorten URL function
-          // function makeRequest() {
-          //     var request = gapi.client.urlshortener.url.insert({
-          //     'resource': {
-          //     'longUrl': Url
-          //     }
-          //   });
-          //   request.execute(function(response) {
+        
+          function makeRequest() {
+              var request = gapi.client.urlshortener.url.insert({
+              'resource': {
+              'longUrl': Url
+              }
+            });
+            request.execute(function(response) {
 
-          //   if (response.id != null) {
-          //   //str = "<b>Long URL:</b>" + Url + "<br>";
-          //   str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
-          //   console.log(str);
-          //   document.getElementById("qr_url").innerHTML = str;
-          //   }
-          //   else {
-          //   alert("Error: creating short url \n" + response.error);
-          //   }
-          //   });
-          // }
-          //   function load() {
-          //     gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
-          //     gapi.client.load('urlshortener', 'v1');
-          //   }
-          //   window.onload = load;
-          //   setTimeout(function() { makeRequest(); }, 700); 
+            if (response.id != null) {
+            //str = "<b>Long URL:</b>" + Url + "<br>";
+            str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
+            console.log(str);
+            document.getElementById("qr_url").innerHTML = str;
+            }
+            else {
+            alert("Error: creating short url \n" + response.error);
+            }
+            });
+          }
+            function load() {
+              gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
+              gapi.client.load('urlshortener', 'v1');
+            }
+            window.onload = load;
+            setTimeout(function() { makeRequest(); }, 5000); 
     /* GOOGLE SHORTENER CODE END */
 
         //MY INSTRUCTIONS HERE
@@ -117,9 +99,18 @@
         
      
 
-    
 
-//COLORS
+
+
+
+
+
+
+
+
+$(window).bind('load', function (e) {
+
+  //COLORS
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -142,29 +133,11 @@ var ennemiesPool = [];
 var particlesPool = [];
 var particlesInUse = [];
 
-var fieldDistance, energyBar, replayMessage, fieldLevel, levelCircle;
-
-// THREEJS RELATED Scene VARIABLES
-var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, container;
-
-//SCREEN & MOUSE VARIABLES
-var HEIGHT, WIDTH, windowHalfX, windowHalfY;
-
-//var mousePos = {x:0,y:0}
-var mousePos = {x:0,y:0};
-
-//Coordinates of player    
-var myStateX = {};
-var myStateY = {};
-
-//X and Y target of the game object
-var xTarget;
-var yTarget
+var fieldDistance, energyBar, replayMessage, fieldLevel, levelCircle, myCounter, completed_header;
 
 
 
 
-$(window).bind('load', function (e) {
 
 function resetGame(){
   game = {speed:0,
@@ -221,13 +194,16 @@ function resetGame(){
           // cameraNearPos:150,
           // cameraSensivity:0.002,
 
+          //my coin counter
+          counter: 0,
           coinDistanceTolerance:15,
           coinValue:3,
           coinsSpeed:.5,
           coinLastSpawn:0,
           distanceForCoinsSpawn:50,
 
-          ennemyDistanceTolerance:10,
+          //Enemy collision distance
+          ennemyDistanceTolerance:30,
           ennemyValue:10,
           ennemiesSpeed:.6,
           ennemyLastSpawn:0,
@@ -238,7 +214,41 @@ function resetGame(){
   fieldLevel.innerHTML = Math.floor(game.level);
 }
 
+//Coordinates of player    
+var myStateX = {};
+var myStateY = {};
 
+  //Set new coordinates function     
+       socket.on('newPosition', function(newMobileX, newMobileY) {   
+        myStateX = newMobileX;
+        myStateY = newMobileY;
+        setNewPosition(myStateX, myStateY);
+        
+    });
+
+// THREEJS RELATED Scene VARIABLES
+var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, container;
+
+//SCREEN & MOUSE VARIABLES
+var HEIGHT, WIDTH, windowHalfX, windowHalfY;
+
+//var mousePos = {x:0,y:0}
+var mousePos = {x:0,y:0};    
+
+//FPS stats monitor
+var stats;
+var container;
+// Create a dov to contain everything
+    container = document.createElement('div');
+    document.body.appendChild(container);
+// function createStats() {
+//   stats = new Stats();
+//   stats.domElement.style.position = 'absolute';
+//   //stats.domElement.style.left = '0px';
+//   stats.domElement.style.bottom = '0px';
+//   stats.domElement.style.zIndex = '100000';
+//   container.appendChild(stats.domElement);
+// } 
 function createScene() {
   // Get the width and the height of the screen,
   // use them to set up the aspect ratio of the camera 
@@ -313,13 +323,13 @@ function createLights() {
   hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9);
 
   // an ambient light modifies the global color of a scene and makes the shadows softer
-  ambientLight = new THREE.AmbientLight(0xfcc3ee, .5);
+  ambientLight = new THREE.AmbientLight(0xfcc3ee, .1);
 
   // A directional light shines from a specific direction.It acts like the sun, that means that all the rays produced are parallel. 
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
 
   // Set the direction of the light  
-  shadowLight.position.set(350, 350, 350);
+  shadowLight.position.set(450, 350, 350);
 
   // Allow shadow casting 
   shadowLight.castShadow = true;
@@ -504,6 +514,7 @@ Ennemy = function(){
     shading:THREE.FlatShading
   });
   this.mesh = new THREE.Mesh(geom,mat);
+  this.mesh.scale.set(2,2,2);
   this.mesh.castShadow = true;
   this.angle = 0;
   this.dist = 0;
@@ -526,9 +537,10 @@ EnnemiesHolder.prototype.spawnEnnemies = function(){
     }
 
     ennemy.angle = - (i*0.1);
-    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 3) * (game.planeAmpHeight-20);
+    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 3) * (game.planeAmpHeight-50);
     ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
     ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
+
 
     this.mesh.add(ennemy.mesh);
     this.ennemiesInUse.push(ennemy);
@@ -548,13 +560,14 @@ EnnemiesHolder.prototype.rotateEnnemies = function(){
     ennemy.mesh.rotation.y += Math.random()*.1;
 
     //var globalEnnemyPosition =  ennemy.mesh.localToWorld(new THREE.Vector3());
-    var diffPos = airplane.mesh.position.clone().sub(ennemy.mesh.position.clone());
+    var diffPos = ice_cream.position.clone().sub(ennemy.mesh.position.clone());
     var d = diffPos.length();
     if (d<game.ennemyDistanceTolerance){
       particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.orange, 3);
 
       ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
       this.mesh.remove(ennemy.mesh);
+      //WHen player got hit, player position runs
       game.planeCollisionSpeedX = 100 * diffPos.x / d;
       game.planeCollisionSpeedY = 100 * diffPos.y / d;
       //ambientLight.intensity = 2;
@@ -581,7 +594,7 @@ Particle = function(){
   });
   this.mesh = new THREE.Mesh(geom,mat);
 }
-
+//For the Love objects explosion
 Particle.prototype.explode = function(pos, color, scale){
   var _this = this;
   var _p = this.mesh.parent;
@@ -735,14 +748,17 @@ CoinsHolder.prototype.rotateCoins = function(){
     coin.mesh.rotation.y += Math.random()*.1;
 
     //var globalCoinPosition =  coin.mesh.localToWorld(new THREE.Vector3());
-    var diffPos = airplane.mesh.position.clone().sub(coin.mesh.position.clone());
+    var diffPos = ice_cream.position.clone().sub(coin.mesh.position.clone());
     var d = diffPos.length();
+    //If collided coins
     if (d<game.coinDistanceTolerance){
       this.coinsPool.unshift(this.coinsInUse.splice(i,1)[0]);
       this.mesh.remove(coin.mesh);
       particlesHolder.spawnParticles(coin.mesh.position.clone(), 5, Colors.red, .8);
       addEnergy();
       i--;
+      countCoins();
+      
     }else if (coin.angle > Math.PI){
       this.coinsPool.unshift(this.coinsInUse.splice(i,1)[0]);
       this.mesh.remove(coin.mesh);
@@ -755,18 +771,21 @@ CoinsHolder.prototype.rotateCoins = function(){
 
 // 3D Models Airplane
 
-var AirPlane = function(){
-  this.mesh = new THREE.Object3D();
-    this.mesh.name = "AirPlane";
+// var AirPlane = function(){
+//   this.mesh = new THREE.Object3D();
+//     // this.mesh.name = "AirPlane";
    
-  // Create the cabin
-  var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3);
-    var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
-    var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
-  cockpit.castShadow = true;
-    cockpit.receiveShadow = true;
-    this.mesh.add(cockpit);
-};
+//   // Create the cabin
+//   var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3);
+//     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+//     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+//   cockpit.castShadow = true;
+//     cockpit.receiveShadow = true;
+//     this.mesh.add(cockpit);
+// };
+
+
+
 // var car;
 // //My Custom Geometry//
 // var myHeart = function(){
@@ -801,16 +820,46 @@ function createSky(){
   scene.add(sky.mesh);
 }
 
- var airplane;
+//  var airplane;
+// function createPlane(){
+//   airplane = new AirPlane();
+//   airplane.mesh.scale.set(1.5,1.5,1.5);
+//   //airplane.mesh.position.y = 100;
+//   airplane.mesh.position.y = game.planeDefaultHeight;
+//   airplane.mesh.rotation.z = Math.PI / 2;
+//   scene.add(airplane.mesh);
+// }
+
+var ice_cream;
 function createPlane(){
-  airplane = new AirPlane();
-  airplane.mesh.scale.set(1.5,1.5,1.5);
-  //airplane.mesh.position.y = 100;
-  airplane.mesh.position.y = game.planeDefaultHeight;
-  airplane.mesh.rotation.z = Math.PI / 2;
-  scene.add(airplane.mesh);
+ loader.load("models/haha.js", function(geometry, materials){
+
+  var material = new THREE.MultiMaterial(materials);
+  ice_cream = new THREE.Mesh(geometry, material);
+  ice_cream.scale.set(20,20,20);
+    
+  ice_cream.position.y = game.planeDefaultHeight;
+  //ice_cream.rotation.z = 80;
+  ice_cream.rotation.z = Math.PI / -2;
+   ice_cream.castShadow = true;
+   ice_cream.receiveShadow = true;
+  scene.add(ice_cream);
+  });
 }
- 
+// function createPlane(){
+//  var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3);
+//    var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+//      ice_cream = new THREE.Mesh(geomCockpit, matCockpit);
+//    ice_cream.castShadow = true;
+//     ice_cream.receiveShadow = true;
+//     ice_cream.scale.set(3,3,3); 
+//    ice_cream.rotation.z = Math.PI / 2; 
+//      scene.add(ice_cream);
+// }
+
+
+
+
 function createCoins(){
   coinsHolder = new CoinsHolder(20);
   scene.add(coinsHolder.mesh);
@@ -849,22 +898,23 @@ function createParticles(){
 //   //var touchTargetY = normalize(touchPos.y,-.75,.75,25, 175);
 //   //var touchTargetX = normalize(touchPos.x,-.75,.75,-100, 100);
 // }
-AirPlane.prototype.updatePlane = function(xTarget, yTarget){
+ function updatePlane (xTarget, yTarget){
 
+    if(ice_cream !== undefined){
   game.planeSpeed = normalize(xTarget,-.5,.5,game.planeMinSpeed, game.planeMaxSpeed);
     
-  this.tPosY = normalize(yTarget,-.5,.25, game.planeDefaultHeight+game.planeAmpHeight, game.planeDefaultHeight-game.planeAmpHeight);
-  this.tPosX = normalize(xTarget,-.5,.5,-game.planeAmpWidth*.8, game.planeAmpWidth);
+  ice_cream.tPosY = normalize(yTarget,-.5,.25, game.planeDefaultHeight+game.planeAmpHeight, game.planeDefaultHeight-game.planeAmpHeight);
+  ice_cream.tPosX = normalize(xTarget,-.5,.5,-game.planeAmpWidth*.8, game.planeAmpWidth);
 
   game.planeCollisionDisplacementX += game.planeCollisionSpeedX;
-  this.tPosX += game.planeCollisionDisplacementX;
+  ice_cream.tPosX += game.planeCollisionDisplacementX;
 
 
   game.planeCollisionDisplacementY += game.planeCollisionSpeedY;
-  this.tPosY += game.planeCollisionDisplacementY;
+  ice_cream.tPosY += game.planeCollisionDisplacementY;
 
-  this.mesh.position.y += (this.tPosY - this.mesh.position.y)*deltaTime*game.planeMoveSensivity;
-  this.mesh.position.x += (this.tPosX - this.mesh.position.x)*deltaTime*game.planeMoveSensivity;
+  ice_cream.position.y += (ice_cream.tPosY - ice_cream.position.y)*deltaTime*game.planeMoveSensivity;
+  ice_cream.position.x += (ice_cream.tPosX - ice_cream.position.x)*deltaTime*game.planeMoveSensivity;
 
  // this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*deltaTime*game.planeRotXSensivity;
  // this.mesh.rotation.x = (this.mesh.position.y - this.tPosY)*deltaTime*game.planeRotZSensivity;
@@ -879,23 +929,23 @@ AirPlane.prototype.updatePlane = function(xTarget, yTarget){
   game.planeCollisionDisplacementX += (0-game.planeCollisionDisplacementX)*deltaTime *0.01;
   game.planeCollisionSpeedY += (0-game.planeCollisionSpeedY)*deltaTime * 0.03;
   game.planeCollisionDisplacementY += (0-game.planeCollisionDisplacementY)*deltaTime *0.01;
-
+  }
 } 
 
 function setNewPosition(myStateX, myStateY){
       
-      xTarget = (myStateX-windowHalfX);
-      yTarget = (myStateY-windowHalfY);
+    var xTarget = (myStateX-windowHalfX);
+     var yTarget = (myStateY-windowHalfY);
      
-      airplane.updatePlane(xTarget, yTarget); 
-  
-    renderer.render(scene, camera);
-      
+     updatePlane(xTarget, yTarget);     
  }
 
+var reqLoop;
 function loop(){
+  renderer.render(scene, camera);
+  reqLoop = requestAnimationFrame(loop);
 
-     requestAnimationFrame(loop);
+  //stats.update();
 
   newTime = new Date().getTime();
   deltaTime = newTime-oldTime;
@@ -932,19 +982,19 @@ function loop(){
     //updatePlane();
     updateDistance();
     updateEnergy();
-    countCoins();
+   
 
     game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02;
     game.speed = game.baseSpeed * game.planeSpeed;
 
   }else if(game.status=="gameover"){
     game.speed *= .99;
-    airplane.mesh.rotation.z += (-Math.PI/2 - airplane.mesh.rotation.z)*.0002*deltaTime;
-    airplane.mesh.rotation.x += 0.0003*deltaTime;
+   ice_cream.rotation.z += (-Math.PI/2 - ice_cream.rotation.z)*.0002*deltaTime;
+   ice_cream.rotation.x += 0.0003*deltaTime;
     game.planeFallSpeed *= 1.05;
-    airplane.mesh.position.y -= game.planeFallSpeed*deltaTime;
+   ice_cream.position.y -= game.planeFallSpeed*deltaTime;
 
-    if (airplane.mesh.position.y <-200){
+    if (ice_cream.position.y <-200){
       showReplay();
       game.status = "waitingReplay";
 
@@ -965,9 +1015,9 @@ function loop(){
   coinsHolder.rotateCoins();
   ennemiesHolder.rotateEnnemies();
 
+}//end of loop
   
 
-}
  
  function movingBG(){
   if ( sea.mesh.rotation.z > 2*Math.PI)  sea.mesh.rotation.z -= 2*Math.PI;
@@ -1005,8 +1055,11 @@ function updateEnergy(){
 }
 
 function countCoins(){
+  game.counter ++;
+  myCounter.innerHTML = game.counter;
+  
+  console.log(game.counter);
 
-  console.log("Count the coins" + game.coinValue);
 }
 
 function addEnergy(){
@@ -1025,7 +1078,18 @@ function removeEnergy(){
 }
 
 function showReplay(){
-  replayMessage.style.display="block";
+  //replayMessage.style.display="block";
+  //alert("Please play again later");
+    if(game.counter >= 10){
+    socket.emit('goSocialMedia');
+    cancelAnimationFrame(reqLoop);
+    $("#social-media").css("z-index","30000");
+    completed_header.innerText = "Congratulations you have collected" + ' ' + game.counter + ' ' + "points!! \n"  + "Look at phone.";
+    
+    }else{
+      $("#game-over").css("z-index","30000");
+          console.log("failed");
+    }
 }
 
 function hideReplay(){
@@ -1041,13 +1105,12 @@ function normalize(v,vmin,vmax,tmin, tmax){
   return tv;
 }
 
-
-
+//Bind the initialization function
 $(window).bind('init', function (e) {
-
-
   gameMusic.play(); 
   // UI
+  myCounter = document.getElementById("counterValue");
+  completed_header = document.getElementById("completed-header");
   fieldDistance = document.getElementById("distValue");
   energyBar = document.getElementById("energyBar");
   replayMessage = document.getElementById("replayMessage");
@@ -1057,6 +1120,8 @@ $(window).bind('init', function (e) {
 
   resetGame();
 
+  //Create stuff
+  //createStats();
   createScene();
   createLights();
   createPlane();
@@ -1067,19 +1132,13 @@ $(window).bind('init', function (e) {
   createEnnemies();
   createParticles();
 
+  //Loops
   loop();
   movingBG();
 
-  
-
+  //Inside the init function, triggers the load function
    $(window).trigger('load');
-   //Set new coordinates function     
-       socket.on('newPosition', function(newMobileX, newMobileY) {   
-        myStateX = newMobileX;
-        myStateY = newMobileY;
-        setNewPosition(myStateX, myStateY);
-        
-    });
+   
   console.log("init functioned")
 });
 

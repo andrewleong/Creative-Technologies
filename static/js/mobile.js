@@ -1,10 +1,12 @@
 (function() {
     
-    var baseUrl = document.location.protocol + "//" + document.location.host
+     var baseUrl = document.location.protocol + "//" + document.location.host
     
+
     $(document).ready(function() {
-        //var socket = io.connect('10.167.119.52:8080');
+        
         var socket = io.connect();
+       //var socket = io.connect('192.168.1.71:3000');
         var uniqueId = $("body").attr('data-id');
         console.log("document ready or connected");
        
@@ -28,16 +30,24 @@
             });           
         });
 
-    //     $(".button").on("click", function() {
-        
-    //     socket.emit('GameStart');
-    //     console.log("clicked");
-    // });
+          //Receiving from server (social media)
+        socket.on('SocialMediaMobile', function(data) {
+              $("#Reward-Page").css("z-index","30000");
+              $("#Reward-Page").css("overflow-y","visible");
+              $("#Reward-Page").css("height","auto","important");
+        });
+
+        //When user clicks FB post
+        $("#FB-Button").on('click',function(){
+              $("#FB").css("z-index","300000");
+              $("#FB").css("overflow-y","visible");
+              console.log("facebook image");
+        });
 
 //Emits update function
 function setUpdatePosition(){
   socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} ); 
-  console.log("update position emitted");     
+  //console.log("update position emitted");     
 }
 
 //COLORS
@@ -184,45 +194,125 @@ function createLights() {
 //     this.mesh.add(cone); 
 // };        
 
-// 3D Models Airplane
-var airplane;
 
-function createPlane(){
-  airplane = new AirPlane();
-  // airplane.mesh.scale.set(.25,.25,.25);
-  airplane.mesh.scale.set(2,2,2);
-  airplane.mesh.position.y = 100;
-  airplane.mesh.rotation.z = Math.PI / 2;
-  scene.add(airplane.mesh);
-}
 
-var AirPlane = function(){
-    this.mesh = new THREE.Object3D();
-    this.mesh.name = "AirPlane";
+
+// // 3D Models Airplane
+// var airplane;
+
+// // function createPlane(){
+// //   airplane = new hi();
+// //   // airplane.mesh.scale.set(.25,.25,.25);
+// //   airplane.mesh.name = "hey";
+// //   airplane.mesh.scale.set(2,2,2);
+// //   airplane.mesh.position.y = 100;
+// //   airplane.mesh.rotation.z = Math.PI / 2;
+// //   scene.add(airplane.mesh);
+// // }
+// function createPlane(){
+//  var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
+// var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+// var airplane = new THREE.Mesh( geometry, material );
+// airplane.position.y = 100;
+// scene.add( airplane );
+// }
+
+// console.log(airplane);
+
+// var hi = function(){
+//     x = new THREE.Object3D();
+//     x.name = "hello";
   
-  // Create the cabin
-    // var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
-    var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3)
-    var matCockpit = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
-    var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
-    cockpit.castShadow = true;
-    cockpit.receiveShadow = true;
-    this.mesh.add(cockpit);
+//   // Create the cabin
+//     // var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
+//     var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3)
+//     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
+//     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+//     cockpit.castShadow = true;
+//     cockpit.receiveShadow = true;
+//     x.add(cockpit);
+//     console.log(hi);
+// };
 
-};
 
+// var loader = new THREE.JSONLoader();
+
+// var hi; 
+ 
+//  // var hi2 = function(){
+//  //    hi2 = new THREE.Object3D();
+//  // // this.name = "hi2";
+//  //  }
+// function createPlane(){
+//      //hi = new hi2();
+    
+//             loader.load("heart.js", function(geometry, materials){
+
+              
+
+//                 var material = new THREE.MultiMaterial(materials);
+
+//                 //hi= new THREE.Mesh( geometry, new THREE.MeshFaceMaterial(geometry.materials));
+//                  hi = new THREE.Mesh(geometry, material);
+                
+//                 //hi.position.x -= 5.0;
+//                 hi.scale.x = hi.scale.y = hi.scale.z = 10.05;
+//                  hi.position.y = 100;
+//                //hi.rotation.x += 0.01;
+//                 scene.add(hi);
+//                 console.log(hi);
+//                 //make sure mesh is loaded before renderering
+//                updatePlane();
+//             });       
+//   }
+
+ 
 
 //updating plane function
-AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
+// AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
   
-  this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-  this.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
+//   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
+//   this.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
+
+//   // Move the plane at each frame by adding a fraction of the remaining distance
+//   this.mesh.position.y += (this.tPosY - this.mesh.position.y) *0.1;
+//   this.mesh.position.x += (this.tPosX - this.mesh.position.x) *0.1;
+//   // Rotate the plane proportionally to the remaining distance
+//     //this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*0.0128;
+// }
+
+var loader = new THREE.JSONLoader();
+
+
+var cube;
+
+
+function createPlane(){
+ loader.load("haha.js", function(geometry, materials){
+
+   var material = new THREE.MultiMaterial(materials);
+   cube = new THREE.Mesh(geometry, material);
+   cube.scale.set(15,15,15);  
+ cube.position.y = 200;
+cube.rotation.z = 80.1;
+cube.castShadow = true;
+cube.receiveShadow = true;
+scene.add(cube);
+ });
+  }
+
+//updating plane function
+function updatePlane (xTargetMobile, yTargetMobile){
+  if(cube !== undefined){
+  cube.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
+    cube.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
 
   // Move the plane at each frame by adding a fraction of the remaining distance
-  this.mesh.position.y += (this.tPosY - this.mesh.position.y) *0.1;
-  this.mesh.position.x += (this.tPosX - this.mesh.position.x) *0.1;
+  cube.position.y += (cube.tPosY - cube.position.y) *0.1;
+  cube.position.x += (cube.tPosX - cube.position.x) *0.1;
   // Rotate the plane proportionally to the remaining distance
     //this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*0.0128;
+    }
 }
 
 function loop(){
@@ -230,8 +320,8 @@ function loop(){
     xTargetMobile = (mousePosMobile.x-windowHalfX);
     yTargetMobile= (mousePosMobile.y-windowHalfY);
 
-    airplane.updatePlane(xTargetMobile, yTargetMobile);
-    
+    updatePlane(xTargetMobile, yTargetMobile);
+    //hi.updatePlane(xTargetMobile, yTargetMobile);
     setUpdatePosition();
     
 

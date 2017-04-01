@@ -2,6 +2,59 @@
 <html>
 <head>
 <style>
+ #warning-message { display: none; }
+
+ @media only screen and (orientation:portrait){
+
+ #Mobile-Container { display:none; }
+
+ #warning-message { display:block; }
+ }
+
+@media only screen and (orientation:landscape){
+
+ #warning-message { display:none; }
+ }
+
+@font-face {
+    font-family: 'icingsregular';
+    src: url('fonts/icings.ttf') format('truetype'),
+    	 url('fonts/icings.woff2') format('woff2'),
+         url('fonts/icings.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/*body{
+	overflow-y: hidden;
+}*/
+h1{
+	font-family: 'icingsregular';
+	font-size: 40px;
+	color: white;
+	margin: 0;
+	margin-top:10px;
+	text-align: center;
+}
+h5{
+	font-family: 'icingsregular';
+	font-size: 30px;
+	color: white;
+	margin-top:10px;
+	text-align: center;
+}
+/*Cornetto Message*/
+h4{
+	font-family: 'Roboto', sans-serif;
+	font-size:18px;
+	color:white;
+	line-height: 25px;
+}
+
+
+img{
+	width:30%;
+}
 .world {
 	position: absolute;
 	width: 100%;
@@ -9,6 +62,7 @@
 	overflow: hidden;
 	background: -webkit-linear-gradient(#3ac2e4, #009cd6);
 	background: linear-gradient(#3ac2e4, #009cd6);
+	z-index:10002;
 }
 
 #Mobile-Container{
@@ -30,26 +84,26 @@
  	z-index:10005; text-align: center;
 }
 
-.button{ position: absolute; width:150px; height:50px; margin:0 auto; display: inline-block; bottom:10%;}
+.button{ position: absolute; width:150px; height:50px; margin:0 auto; left:0; right:0; bottom:10%;}
 
 .hand-swipe-container{ position: absolute; z-index:10007; width:100%; text-align: center; top:10%; }
 
 .hand-swipe {
 	display: inline-block;
-    width: 926px;
-    height: 297px;
-   	background-image:url(../mobile/images/hi2.png);
+    width: 408px;
+    height: 142px;
+   	background-image:url(../mobile/images/ice_cream_sprite2.png);
     
-    -webkit-animation: play 3.40s steps(97) infinite;
+    -webkit-animation: play 4s steps(102) infinite;
        -/*moz-animation: play .8s steps(10) infinite;
         -ms-animation: play .8s steps(10) infinite;
          -o-animation: play .8s steps(10) infinite;*/
-            animation: play 3.40s steps(97) infinite;
+            animation: play 4s steps(102) infinite;
 }
 
 @-webkit-keyframes play {
    from { background-position:    0px; }
-     to { background-position: -89822px; }
+     to { background-position: -41616px; }
 }
 
 /*@-moz-keyframes play {
@@ -69,7 +123,60 @@
 
 @keyframes play {
    from { background-position:    0px; }
-     to { background-position: -89822px; }
+     to { background-position: -41616px; }
+}
+
+#Reward-Page { 
+	background: -moz-radial-gradient(center, ellipse cover, #22aadc 0%, #1d57a5 100%); /* ff3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #22aadc), color-stop(100%, #1d57a5)); /* safari4+,chrome */
+	background: -webkit-radial-gradient(center, ellipse cover, #22aadc 0%, #1d57a5 100%); /* safari5.1+,chrome10+ */
+	background: -o-radial-gradient(center, ellipse cover, #22aadc 0%, #1d57a5 100%); /* opera 11.10+ */
+	background: -ms-radial-gradient(center, ellipse cover, #22aadc 0%, #1d57a5 100%); /* ie10+ */
+	background: radial-gradient(ellipse at center, #22aadc 0%, #1d57a5 100%); /* w3c */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#22aadc', endColorstr='#1d57a5',GradientType=1 ); /* ie6-9 */
+ 	
+ 	z-index:10001; text-align: center;
+ 	overflow-y: hidden;
+}
+.Reward-Msg-Container{
+	margin-bottom: 5%;
+}
+
+#ice-cream-won img{
+	float:left;
+	margin-left: 10%;
+}
+
+#Cornetto-Msg{
+	display: inline-block;
+	width:300px;
+	float: left;
+}
+
+#Wishes-Text{
+	display: inline-block;
+}
+#Wishes-TextArea{
+	display: block;
+	width: 300px; 
+	min-height:100px; 
+	margin:0 auto;
+}
+
+#FB-Button{
+	display: inline-block;
+	margin-top: 5%;
+	margin-bottom: 10%;
+}
+
+/*Arrow Scroll Down*/
+.arrow {
+	display: inline;
+    width:0px;
+    height:0px;
+    border-left:12px solid transparent;
+    border-right:12px solid transparent;
+    border-top:12px solid #fff;
 }
 
 
@@ -78,6 +185,8 @@
 <body>
 	 <!--<span class="count">0</span> <span class="sent">messages sent.</span>
 	 <button class="button">BUTTON</button> -->
+	 <div id="warning-message">this website is only viewable in landscape mode</div>
+
 	 <div id="Mobile-Container">
 	 	<section id="Mobile-Instruction">
 	 		
@@ -88,6 +197,38 @@
 		</section>
 
 	 <div class="world" id="world"></div>
-	 </div>
+	 <section id="Reward-Page">
+
+	 		<div class="congratulations">
+	 			<h1>Congratulations!</h1>
+	 			<h5>You have received a free Cornetto Ice Cream!</h5>
+	 			<div class="Reward-Msg-Container">
+	 				<div id="ice-cream-won"><img src="images/cornetto.png"/></div>
+	 				<div id="Cornetto-Msg"><h4>Exams could be a stressful period for you and your friends. Show them your love by gifting them this ice cream and send them best wishes for their upcoming exams.</h4>
+	 					<div class="arrow"></div>
+	 				</div>
+	 			<br style="clear: left;" />	
+	 			</div>	
+	 			
+	 			
+	 			<div id="Wishes-Header"><h5>Type your wishes here</h5></div>
+	 			<form id="Wishes-Text">
+        			<textarea type="text" id="Wishes-TextArea" />@Aaron Davies #Cornetto #ShareYourLove Hey mate, just want to say best of luck in your ATWD2 exam! Here's an ice cream for ya, Enjoy!!</textarea>
+        			<div id="FB-Button"><img src="images/fb-post.png"/></div>
+    			</form>	
+    			
+	 		</div>
+	 </section>
+	 <section id="FB" style="z-index: 1; overflow-y: hidden;"> 
+	 	<div id="FB-Img">
+
+	 		<img src="images/facebook-feed.jpg" usemap="#planetmap" style="width:100%;"/>
+	 		<map name="planetmap" style="background: black;">
+ 	 			<area shape="rect" coords="0,0,1740,1626" alt="Sun" href="3D.html">
+			</map>
+	 	</div>
+	 </section>
+	</div>
+	
 </body>
 </html>

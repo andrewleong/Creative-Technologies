@@ -19,12 +19,14 @@ server.listen(process.env.PORT || 3000);
 
 console.log("Hello I am Listening to port " + 3000);
 
-
+//My registered users
 var regUsers = {};
+//These sockets have to be global to establish the two way communication
+var deskSocket;
+var mobileSocket;
 
 io.sockets.on('connection', function(socket) {
-    var deskSocket;
-    var mobileSocket;
+    
 
     socket.on('desktop-register', function(data) {
         regUsers[data.id] = deskSocket = socket;
@@ -38,7 +40,7 @@ io.sockets.on('connection', function(socket) {
         if(typeof(regUsers[data.id]) !== "undefined") {
             deskSocket = regUsers[data.id];
             console.log("Mobile connected");
-
+             //console.log(mobileSocket);
             //DesktopSocket send to desktop first function, same with mobile
             deskSocket.emit('deskShowInstructions');
             mobileSocket.emit('mobileShowInstructions');
@@ -47,16 +49,27 @@ io.sockets.on('connection', function(socket) {
             //mobileSocket.emit('goTouch');
         }
     });
+    
+    //When user successfully collected points
+    socket.on('goSocialMedia', function(data) {
+        //mobileSocket = socket;
+        //mobileSocket.emit('SocialMediaMobile');    
+        if(typeof(mobileSocket) !== "undefined") {
+           mobileSocket.emit('SocialMediaMobile');
+        }
+    });
 
     //THIS IS WHEN THE GAME STARTS
     socket.on('GameStart', function(data) {
         if(typeof(deskSocket) !== "undefined" && deskSocket !== null) {
-            deskSocket.emit('DeskGameStart', data);
-            mobileSocket.emit('MobileGameStart', data);
+            deskSocket.emit('DeskGameStart');
+            mobileSocket.emit('MobileGameStart');
+           
         }
-    });
+    }.bind(this));
+
     
-    socket.on('updatePosition', function(data){
+   socket.on('updatePosition', function(data){
         var newMobileX = data.mobileX;
         var newMobileY = data.mobileY;
 
@@ -64,10 +77,11 @@ io.sockets.on('connection', function(socket) {
         //deskSocket.emit('lol', {deskX: mobileX, deskY: mobileY });
         deskSocket.emit('newPosition', newMobileX, newMobileY);
         //}, 1000);
-        console.log(newMobileX);
-        console.log(newMobileY);
+        // console.log(newMobileX);
+        // console.log(newMobileY);
     }.bind(this));
 
+    
 
     /*THIS IS MOBILE ORIENTATION */
     /*Orientation was triggered from mobile js then if desktop socket is not null then trigger the desktop orientation */

@@ -147,6 +147,10 @@ h7 {
 	font-size: 30px;
 }
 
+.score__value--counter {
+	font-size: 30px;
+}
+
 .level-circle {
 	position: absolute;
 	left: 50%;
@@ -279,19 +283,27 @@ h7 {
 				<div id="game-logo"><img src="images/logo.png"/></div>
 				<h1>SHARE YOUR LOVE</h1>
 				<!-- </div> -->
+				
 				<div class="score" id="score">
 					<div class="score__content" id="level">
 						<div class="score__label">level</div>
 						<div class="score__value score__value--level" id="levelValue">1</div>
-						<svg class="level-circle" id="levelCircle" viewbox="0 0 200 200">
-							<circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#fff" stroke-width="24px" />
-							<circle id="levelCircleStroke" r="80" cx="100" cy="100" fill="none" #f25346 stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502" />
-						</svg>
+							<svg class="level-circle" id="levelCircle" viewbox="0 0 200 200">
+								<circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#fff" stroke-width="24px" />
+								<circle id="levelCircleStroke" r="80" cx="100" cy="100" fill="none" #f25346 stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502" />
+							</svg>
 					</div>
+
+					<div class="score__content" id="counter">
+						<div class="score__label">Points</div>
+						<div class="score__value score__value--counter" id="counterValue">0</div>
+					</div>
+
 					<div class="score__content" id="dist">
 						<div class="score__label">distance</div>
 						<div class="score__value score__value--dist" id="distValue">000</div>
 					</div>
+
 					<div class="score__content" id="energy">
 						<div class="score__label">melting</div>
 						<div class="score__value score__value--energy" id="energyValue">
@@ -304,10 +316,14 @@ h7 {
 			<div class="message message--replay" id="replayMessage">Tap to Replay</div>
 			<div class="message message--instructions" id="instructions">Collect the Red love icons<span>Avoid the Orange Fireballs</span></div>
 		</div>
-		  
-<!--</div>--> <!-- End of Main container -->
+</section>
 
+<section id="social-media">
+	<div id="completed"><h8 id="completed-header"></h8></div>			
+</section>
 
+<section id="game-over">
+	<div id="failed"><h8>Opps! You have failed to collect enough love!<br/>Please Come back later and try again.</h8></div>			
 </section>
 <!-- <script src="/js/game.js"></script> -->
 </div><!-- End of Big-Container -->

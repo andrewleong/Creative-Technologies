@@ -68,7 +68,33 @@ section{
 
  #MyInstructions { width: 100%; text-align: center; position: absolute; top:30%; }
 
- #GamePage { background: purple; z-index:10003;}
+ #social-media { 
+ 	background: -moz-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* ff3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #df226e), color-stop(100%, #a41c2c)); /* safari4+,chrome */
+	background: -webkit-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* safari5.1+,chrome10+ */
+	background: -o-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* opera 11.10+ */
+	background: -ms-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* ie10+ */
+	background: radial-gradient(ellipse at center, #df226e 0%, #a41c2c 100%); /* w3c */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df226e', endColorstr='#a41c2c',GradientType=1 ); /* ie6-9 */	
+ 	z-index:10002;
+ }
+
+#completed { width: 100%; text-align: center; position: absolute; top:30%; }
+
+#game-over { 
+ 	background: -moz-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* ff3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #df226e), color-stop(100%, #a41c2c)); /* safari4+,chrome */
+	background: -webkit-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* safari5.1+,chrome10+ */
+	background: -o-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* opera 11.10+ */
+	background: -ms-radial-gradient(center, ellipse cover, #df226e 0%, #a41c2c 100%); /* ie10+ */
+	background: radial-gradient(ellipse at center, #df226e 0%, #a41c2c 100%); /* w3c */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#df226e', endColorstr='#a41c2c',GradientType=1 ); /* ie6-9 */	
+ 	z-index:10002;
+ }
+
+#failed { width: 100%; text-align: center; position: absolute; top:30%; }
+
+#GamePage { background: purple; z-index:10003;}
 
 #main-container {
 	background: green;
