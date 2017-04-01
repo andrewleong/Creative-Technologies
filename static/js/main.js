@@ -4,8 +4,8 @@
     //Music
     var gameMusic = new Audio('sound/Game.mp3');
 
-    //var baseUrl = document.location.protocol + "//" + document.location.host
-    var baseUrl = document.location.protocol + "//" + "192.168.1.71:3000"
+    var baseUrl = document.location.protocol + "//" + document.location.host
+    //var baseUrl = document.location.protocol + "//" + "192.168.1.71:3000"
     //var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
     
     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -64,7 +64,7 @@
 
     /* GOOGLE SHORTERNER CODE */
         //Shorten URL function
-        
+
           function makeRequest() {
               var request = gapi.client.urlshortener.url.insert({
               'resource': {
