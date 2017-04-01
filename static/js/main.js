@@ -1085,7 +1085,7 @@ function showReplay(){
     cancelAnimationFrame(reqLoop);
     $("#social-media").css("z-index","30000");
     completed_header.innerText = "Congratulations you have collected" + ' ' + game.counter + ' ' + "points!! \n"  + "Look at phone.";
-    
+    console.log("congrats");
     }else{
       $("#game-over").css("z-index","30000");
           console.log("failed");
