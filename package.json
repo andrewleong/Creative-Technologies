@@ -1,6 +1,6 @@
 {
-  "name": "Digital Out of Home Campaign",
-  "description": "Share Your Love",
+ "name": "mobile-interactive",
+  "description": "Control a webpage with your phone!",
   "version": "0.0.1",
   "dependencies": {
     "express": "^4.14.0",
