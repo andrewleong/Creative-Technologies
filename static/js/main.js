@@ -1,18 +1,19 @@
-
 (function() {
 
-    //Music
+    //== Music ==//
     var gameMusic = new Audio('sound/Game.mp3');
 
+    //== The main URL location.protocol is http: and location.host is the uri like localhost ==// 
     var baseUrl = document.location.protocol + "//" + document.location.host
     //var baseUrl = document.location.protocol + "//" + "192.168.1.71:3000"
-    //var baseUrl = "https://creative-technologies-3000.herokuapp.com" 
     
+    //== Variable for unique ID generator ==// 
     var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     var ranLength = 50;
     
     var uniqueId = "";
     
+    //== Generates Unique ID ==//
     for(var i=0; i<ranLength; i++) {
         uniqueId += allChars[Math.floor(Math.random() * allChars.length)];
     }
@@ -20,47 +21,30 @@
     $(document).ready(function() {
 
         var Url = (baseUrl + "/mobile/" + uniqueId);
-        $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
-        //Variable for long URL
-        //var myQR_URL = baseUrl + "/mobile/" + uniqueId;  
         console.log(Url);
+
+        $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
         
+        //== connect to mobile socket ==//
         var socket = io.connect();
 
+        //== Desktop socket sends server saying register its id with the unique ID ==//
         socket.emit('desktop-register', {id: uniqueId});
 
-        //Server says create mobile-on function when user is registered.
-        //Triggers the Game Content in mobile-on function
+        //== Server says display instructions on desktop function when user is registered. ==//
         socket.on('deskShowInstructions', function(data) {
 
-            $("#MainPage").slideUp(function() { 
-             // $(window).trigger('Instructions-Desk'); 
-              console.log("Instructions-Desk");
-            });
-            //$("#MainPage").slideDown(function() { $(window).trigger('content-ready'); }); 
+            $("#MainPage").slideUp(function() { });
+  
         });
 
+        //== Server says remove instructions and trigger Game start on desktop ==//
          socket.on('DeskGameStart', function(data) {
             $("#Instructions").slideUp(function() { 
               $(window).trigger('init'); 
               console.log("Let the Games Begin");
             });           
         });
-
-         // function goSocialMedia(){
-         //  console.log("hey its working");
-          
-         // }
-
-        //Mobile told server to trigger this Orientation Change in PC browser to trigger for game
-        // socket.on('orientation', function(orientation) {
-        //     $(window).trigger('orientation-change', orientation);
-        // })
-
-        // socket.on('receiver', function(data) {
-        //     console.log(data);      
-        // });
-       
 
     /* GOOGLE SHORTERNER CODE */
         //Shorten URL function
@@ -92,25 +76,9 @@
           //   setTimeout(function() { makeRequest(); }, 5000); 
     /* GOOGLE SHORTENER CODE END */
 
-        //MY INSTRUCTIONS HERE
-       // var myInstructions = function(){
-       //    console.log("Showing instructions");
-       // }
-        
-     
-
-
-
-
-
-
-
-
-
-
 $(window).bind('load', function (e) {
 
-  //COLORS
+//== ThreeJs color variable code == //
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -124,20 +92,16 @@ var Colors = {
     orange:0xff5d00,
 };
 
-// GAME VARIABLES
+//== THREE JS GAME VARIABLES ==//
 var game;
 var deltaTime = 0;
 var newTime = new Date().getTime();
 var oldTime = new Date().getTime();
-var ennemiesPool = [];
+var obstaclesPool = [];
 var particlesPool = [];
 var particlesInUse = [];
 
-var fieldDistance, energyBar, replayMessage, fieldLevel, levelCircle, myCounter, completed_header;
-
-
-
-
+var fieldDistance, energyBar, fieldLevel, levelCircle, myCounter, completed_header;
 
 function resetGame(){
   game = {speed:0,
@@ -149,11 +113,6 @@ function resetGame(){
           incrementSpeedByTime:.00000025,
           incrementSpeedByLevel:.000005,
           distanceForSpeedUpdate:100,
-
-          //Hehe my increment
-          // incrementSpeedByTime:.000000025,
-          // incrementSpeedByLevel:.00000005,
-          // distanceForSpeedUpdate:1000,
 
           speedLastUpdate:0,
 
@@ -176,25 +135,20 @@ function resetGame(){
           planeMinSpeed:1.2,
           planeMaxSpeed:1.6,
           planeSpeed:0,
-          planeCollisionDisplacementX:0,
-          planeCollisionSpeedX:0,
 
+          planeCollisionDisplacementX:0,
           planeCollisionDisplacementY:0,
+          planeCollisionSpeedX:0,
           planeCollisionSpeedY:0,
 
           seaRadius:600,
           seaLength:800,
-          //seaRotationSpeed:0.006,
+  
           wavesMinAmp : 5,
           wavesMaxAmp : 20,
           wavesMinSpeed : 0.001,
           wavesMaxSpeed : 0.003,
 
-          // cameraFarPos:500,
-          // cameraNearPos:150,
-          // cameraSensivity:0.002,
-
-          //my coin counter
           counter: 0,
           coinDistanceTolerance:15,
           coinValue:3,
@@ -203,52 +157,38 @@ function resetGame(){
           distanceForCoinsSpawn:50,
 
           //Enemy collision distance
-          ennemyDistanceTolerance:30,
-          ennemyValue:10,
-          ennemiesSpeed:.6,
-          ennemyLastSpawn:0,
-          distanceForEnnemiesSpawn:50,
+          obstaclesDistanceTolerance:30,
+          obstaclesValue:10,
+          obstaclesSpeed:.6,
+          obstaclesLastSpawn:0,
+          distanceForObstaclesSpawn:50,
 
           status : "playing",
+         
          };
+
   fieldLevel.innerHTML = Math.floor(game.level);
 }
 
-//Coordinates of player    
+//== Variable Coordinates of player ==//    
 var myStateX = {};
 var myStateY = {};
 
-  //Set new coordinates function     
-       socket.on('newPosition', function(newMobileX, newMobileY) {   
-        myStateX = newMobileX;
-        myStateY = newMobileY;
-        setNewPosition(myStateX, myStateY);
-        
-    });
+//== Received new coordinates of player then setNewPosition ==//    
+  socket.on('newPosition', function(newMobileX, newMobileY) {   
+      myStateX = newMobileX;
+      myStateY = newMobileY;
+      setNewPosition(myStateX, myStateY);  
+  });
 
-// THREEJS RELATED Scene VARIABLES
+//== THREEJS RELATED Scene VARIABLES ==//
 var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, container;
 
-//SCREEN & MOUSE VARIABLES
+//== SCREEN & MOUSE VARIABLES ==//
 var HEIGHT, WIDTH, windowHalfX, windowHalfY;
 
-//var mousePos = {x:0,y:0}
 var mousePos = {x:0,y:0};    
 
-//FPS stats monitor
-var stats;
-var container;
-// Create a dov to contain everything
-    container = document.createElement('div');
-    document.body.appendChild(container);
-// function createStats() {
-//   stats = new Stats();
-//   stats.domElement.style.position = 'absolute';
-//   //stats.domElement.style.left = '0px';
-//   stats.domElement.style.bottom = '0px';
-//   stats.domElement.style.zIndex = '100000';
-//   container.appendChild(stats.domElement);
-// } 
 function createScene() {
   // Get the width and the height of the screen,
   // use them to set up the aspect ratio of the camera 
@@ -269,41 +209,41 @@ function createScene() {
     aspectRatio,
     nearPlane,
     farPlane
-    );
+  );
 
-  // Add a fog effect to the scene; same color as the
-  // background color used in the style sheet
+  //== Add a fog effect to the scene; same color as the background color used in the style sheet ==//
   // scene.fog = new THREE.Fog(0xf7d9aa, 100,950);
   scene.fog = new THREE.Fog(0xc8eefb, 100,950);
 
-  // Set the position of the camera
+  //== Set the position of the camera ==//
   camera.position.x = 0;
   camera.position.z = 200;
   camera.position.y = game.planeDefaultHeight;
 
-  // Allow transparency to show the gradient background we defined in the CSS / Activate the anti-aliasing; this is less performant, but, as our project is low-poly based, it should be fine
+  //== Allow transparency to show the gradient background we defined in the CSS / Activate the anti-aliasing; this is less performant, 
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-  // Define the size of the renderer; in this case, it will fill the entire screen
+  //== Define the size of the renderer; in this case, it will fill the entire screen ==//
   renderer.setSize(WIDTH, HEIGHT);
 
-  // Enable shadow rendering
+  //== Enable shadow rendering ==//
   renderer.shadowMap.enabled = true;
 
-  // Add the DOM element of the renderer to the container we created in the HTML
+  //== Add the DOM element of the renderer to the container we created in the HTML ==//
   container = document.getElementById('world');
   container.appendChild(renderer.domElement);
   
   windowHalfX = WIDTH / 4;
   windowHalfY = HEIGHT / 4;
 
-  // Listen to the screen: if the user resizes it we have to update the camera and the renderer size
+  //== Listen to the screen: if the user resizes it we have to update the camera and the renderer size ==//
   window.addEventListener('resize', handleWindowResize, false);
 }
 
-// HANDLE SCREEN EVENTS
+//== HANDLE SCREEN EVENTS ==//
 function handleWindowResize() {
-  // update height and width of the renderer and the camera
+  
+  //== update height and width of the renderer and the camera ==//
   HEIGHT = window.innerHeight;
   WIDTH = window.innerWidth;
   windowHalfX = WIDTH / 4;
@@ -313,28 +253,28 @@ function handleWindowResize() {
   camera.updateProjectionMatrix();
 }
 
-// HANDLE LIGHTS
+//== HANDLE LIGHTS ==//
 
 var ambientLight, hemisphereLight, shadowLight;
 
 function createLights() {
 
-  // A hemisphere light is a gradient colored light; the first parameter is the sky color, the second parameter is the ground color, the third parameter is the intensity of the light
+  //== A hemisphere light is a gradient colored light; the first parameter is the sky color, the second parameter is the ground color, the third parameter is the intensity of the light ==//
   hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9);
 
-  // an ambient light modifies the global color of a scene and makes the shadows softer
+  //== an ambient light modifies the global color of a scene and makes the shadows softer ==//
   ambientLight = new THREE.AmbientLight(0xfcc3ee, .1);
 
-  // A directional light shines from a specific direction.It acts like the sun, that means that all the rays produced are parallel. 
+  //== A directional light shines from a specific direction.It acts like the sun, that means that all the rays produced are parallel. ==// 
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
 
-  // Set the direction of the light  
+  //== Set the direction of the light ==// 
   shadowLight.position.set(450, 350, 350);
 
-  // Allow shadow casting 
+  //== Allow shadow casting ==//
   shadowLight.castShadow = true;
 
-  // define the visible area of the projected shadow
+  //== define the visible area of the projected shadow ==//
   shadowLight.shadow.camera.left = -400;
   shadowLight.shadow.camera.right = 400;
   shadowLight.shadow.camera.top = 400;
@@ -342,59 +282,56 @@ function createLights() {
   shadowLight.shadow.camera.near = 1;
   shadowLight.shadow.camera.far = 1000;
 
-  // define the resolution of the shadow; the higher the better,but also the more expensive and less performant
+  //== define the resolution of the shadow; the higher the better,but also the more expensive and less performant ==//
   shadowLight.shadow.mapSize.width = 2048;
   shadowLight.shadow.mapSize.height = 2048;
 
-  // to activate the lights, just add them to the scene
+  //== to activate the lights, just add them to the scene ==//
   scene.add(hemisphereLight);
   scene.add(shadowLight);
   scene.add(ambientLight);
 
 }
 
-// Building the 3D OBJECTS
+//== Building the 3D OBJECTS ==//
 
 //SEA Model
-// First let's define a Sea object :
+
 Sea = function(){
   
-  // create the geometry (shape) of the cylinder;
-  // the parameters are: 
-  // radius top, radius bottom, height, number of segments on the radius, number of segments vertically
+  //== create the geometry (shape) of the cylinder the parameters are: radius top, radius bottom, height, number of segments on the radius, number of segments vertically ==//
   var geom = new THREE.CylinderGeometry(600,600,800,40,10);
   
-  // rotate the geometry on the x axis
+  //== rotate the geometry on the x axis ==//
   geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
 
-  // important: by merging vertices we ensure the continuity of the waves
+  //== important: by merging vertices we ensure the continuity of the waves ==//
   geom.mergeVertices();
 
-  // get the vertices
+  //== get the vertices ==//
   var l = geom.vertices.length;
 
-  // create an array to store new data associated to each vertex
+  //== create an array to store new data associated to each vertex ==//
   this.waves = [];
 
   for (var i=0; i<l; i++){
     
-    // get each vertex
+    //== get each vertex ==//
     var v = geom.vertices[i];
 
-    // store some data associated to it
-    this.waves.push({y:v.y,
-                     x:v.x,
-                     z:v.z,
-                     // a random angle
+    //== store some data associated to it ==//
+    this.waves.push({y:v.y, x:v.x, z:v.z,
+                     
+                     //== a random angle ==//
                      ang:Math.random()*Math.PI*2,
-                     // a random distance
+                     //== a random distance ==//
                      amp:5 + Math.random()*15,
-                     // a random speed between 0.016 and 0.048 radians / frame
+                     //== a random speed between 0.016 and 0.048 radians / frame ==//
                      speed:0.016 + Math.random()*0.032
                     });
   };
   
-  // create the material 
+  //== create the material ==// 
   var mat = new THREE.MeshPhongMaterial({
     color:Colors.pink,
     transparent:true,
@@ -402,43 +339,41 @@ Sea = function(){
     shading:THREE.FlatShading,
   });
 
-  // To create an object in Three.js, we have to create a mesh 
-  // which is a combination of a geometry and some material
+  //== To create an object in Three.js, a mesh needs to be created which is a combination of a geometry and some material ==//
   this.mesh = new THREE.Mesh(geom, mat);
 
-  // Allow the sea to receive shadows
+  //== Allow the mesh to receive shadows ==//
   this.mesh.receiveShadow = true; 
 }
 
-// now we create the function that will be called in each frame to update the position of the vertices to simulate the waves
+//== now create the function that will be called in each frame to update the position of the vertices to simulate the waves ==//
 Sea.prototype.moveWaves = function (){
   
-  // get the vertices
+  //== get the vertices ==//
   var verts = this.mesh.geometry.vertices;
   var l = verts.length;
   
   for (var i=0; i<l; i++){
     var v = verts[i];
     
-    // get the data associated to it
+    //== get the data associated to it ==//
     var vprops = this.waves[i];
     
-    // update the position of the vertex
+    //== update the position of the vertex ==//
     v.x = vprops.x + Math.cos(vprops.ang)*vprops.amp;
     v.y = vprops.y + Math.sin(vprops.ang)*vprops.amp;
 
-    // increment the angle for the next frame
+    //== increment the angle for the next frame ==//
     vprops.ang += vprops.speed;
 
   }
 
-  // Tell the renderer that the geometry of the sea has changed.In fact, in order to maintain the best level of performance,three.js caches the geometries and ignores any changes,unless we add this line
+  //== Tell the renderer that the geometry of the sea has changed.In fact, in order to maintain the best level of performance,three.js caches the geometries and ignores any changes
   this.mesh.geometry.verticesNeedUpdate=true;
-
   sea.mesh.rotation.z += .005;
 }
 
-//Sky
+//== Sky ==//
 Sky = function(){
   this.mesh = new THREE.Object3D();
   this.nClouds = 20;
@@ -503,9 +438,8 @@ Cloud.prototype.rotate = function(){
   }
 }
 
-
-// ----ENEMIES------//
-Ennemy = function(){
+//== Obstacles ==//
+Obstacles = function(){
   var geom = new THREE.TetrahedronGeometry(8,2);
   var mat = new THREE.MeshPhongMaterial({
     color:Colors.orange,
@@ -520,63 +454,63 @@ Ennemy = function(){
   this.dist = 0;
 }
 
-EnnemiesHolder = function (){
+ObstaclesHolder = function (){
   this.mesh = new THREE.Object3D();
-  this.ennemiesInUse = [];
+  this.obstaclesInUse = [];
 }
 
-EnnemiesHolder.prototype.spawnEnnemies = function(){
-  var nEnnemies = game.level;
+ObstaclesHolder.prototype.spawnObstacles = function(){
+  var nObstacles = game.level;
 
-  for (var i=0; i<nEnnemies; i++){
-    var ennemy;
-    if (ennemiesPool.length) {
-      ennemy = ennemiesPool.pop();
+  for (var i=0; i<nObstacles; i++){
+    var obstacles;
+    if (obstaclesPool.length) {
+      obstacles = obstaclesPool.pop();
     }else{
-      ennemy = new Ennemy();
+      obstacles = new Obstacles();
     }
 
-    ennemy.angle = - (i*0.1);
-    ennemy.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 3) * (game.planeAmpHeight-50);
-    ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
+    obstacles.angle = - (i*0.1);
+    obstacles.distance = game.seaRadius + game.planeDefaultHeight + (-1 + Math.random() * 3) * (game.planeAmpHeight-50);
+    obstacles.mesh.position.y = -game.seaRadius + Math.sin(obstacles.angle)*obstacles.distance;
+    obstacles.mesh.position.x = Math.cos(obstacles.angle)*obstacles.distance;
 
 
-    this.mesh.add(ennemy.mesh);
-    this.ennemiesInUse.push(ennemy);
+    this.mesh.add(obstacles.mesh);
+    this.obstaclesInUse.push(obstacles);
   }
 }
 
-EnnemiesHolder.prototype.rotateEnnemies = function(){
-  for (var i=0; i<this.ennemiesInUse.length; i++){
-    var ennemy = this.ennemiesInUse[i];
-    ennemy.angle += game.speed*deltaTime*game.ennemiesSpeed;
+ObstaclesHolder.prototype.rotateObstacles = function(){
+  for (var i=0; i<this.obstaclesInUse.length; i++){
+    var obstacles = this.obstaclesInUse[i];
+    obstacles.angle += game.speed*deltaTime*game.obstaclesSpeed;
 
-    if (ennemy.angle > Math.PI*2) ennemy.angle -= Math.PI*2;
+    if (obstacles.angle > Math.PI*2) obstacles.angle -= Math.PI*2;
 
-    ennemy.mesh.position.y = -game.seaRadius + Math.sin(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.position.x = Math.cos(ennemy.angle)*ennemy.distance;
-    ennemy.mesh.rotation.z += Math.random()*.1;
-    ennemy.mesh.rotation.y += Math.random()*.1;
+    obstacles.mesh.position.y = -game.seaRadius + Math.sin(obstacles.angle)*obstacles.distance;
+    obstacles.mesh.position.x = Math.cos(obstacles.angle)*obstacles.distance;
+    obstacles.mesh.rotation.z += Math.random()*.1;
+    obstacles.mesh.rotation.y += Math.random()*.1;
 
-    //var globalEnnemyPosition =  ennemy.mesh.localToWorld(new THREE.Vector3());
-    var diffPos = ice_cream.position.clone().sub(ennemy.mesh.position.clone());
+    var diffPos = ice_cream.position.clone().sub(obstacles.mesh.position.clone());
     var d = diffPos.length();
-    if (d<game.ennemyDistanceTolerance){
-      particlesHolder.spawnParticles(ennemy.mesh.position.clone(), 15, Colors.orange, 3);
+    if (d<game.obstaclesDistanceTolerance){
+      particlesHolder.spawnParticles(obstacles.mesh.position.clone(), 15, Colors.orange, 3);
 
-      ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
-      this.mesh.remove(ennemy.mesh);
-      //WHen player got hit, player position runs
+      obstaclesPool.unshift(this.obstaclesInUse.splice(i,1)[0]);
+      this.mesh.remove(obstacles.mesh);
+      
+      //== WHen player got hit, player position runs out of post ==//
       game.planeCollisionSpeedX = 100 * diffPos.x / d;
       game.planeCollisionSpeedY = 100 * diffPos.y / d;
-      //ambientLight.intensity = 2;
-
+      
       removeEnergy();
       i--;
-    }else if (ennemy.angle > Math.PI){
-      ennemiesPool.unshift(this.ennemiesInUse.splice(i,1)[0]);
-      this.mesh.remove(ennemy.mesh);
+    
+    }else if (obstacles.angle > Math.PI){
+      obstaclesPool.unshift(this.obstaclesInUse.splice(i,1)[0]);
+      this.mesh.remove(obstacles.mesh);
       i--;
     }
   }
@@ -831,8 +765,9 @@ function createSky(){
 // }
 
 var ice_cream;
+
 function createPlane(){
- loader.load("models/haha.js", function(geometry, materials){
+ loader.load("models/ice_cream.js", function(geometry, materials){
 
   var material = new THREE.MultiMaterial(materials);
   ice_cream = new THREE.Mesh(geometry, material);
@@ -846,33 +781,20 @@ function createPlane(){
   scene.add(ice_cream);
   });
 }
-// function createPlane(){
-//  var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3);
-//    var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
-//      ice_cream = new THREE.Mesh(geomCockpit, matCockpit);
-//    ice_cream.castShadow = true;
-//     ice_cream.receiveShadow = true;
-//     ice_cream.scale.set(3,3,3); 
-//    ice_cream.rotation.z = Math.PI / 2; 
-//      scene.add(ice_cream);
-// }
-
-
-
 
 function createCoins(){
   coinsHolder = new CoinsHolder(20);
   scene.add(coinsHolder.mesh);
 }
 
-function createEnnemies(){
+function createObstacles(){
   for (var i=0; i<10; i++){
-    var ennemy = new Ennemy();
-    ennemiesPool.push(ennemy);
+    var obstacles = new Obstacles();
+    obstaclesPool.push(obstacles);
   }
-  ennemiesHolder = new EnnemiesHolder();
+  obstaclesHolder = new ObstaclesHolder();
   //ennemiesHolder.mesh.position.y = -game.seaRadius;
-  scene.add(ennemiesHolder.mesh)
+  scene.add(obstaclesHolder.mesh)
 }
 
 function createParticles(){
@@ -884,8 +806,6 @@ function createParticles(){
   //ennemiesHolder.mesh.position.y = -game.seaRadius;
   scene.add(particlesHolder.mesh)
 }
-    
-
 
 //Standby
 // AirPlane.prototype.updatePlane = function(xTarget, yTarget){
@@ -916,15 +836,6 @@ function createParticles(){
   ice_cream.position.y += (ice_cream.tPosY - ice_cream.position.y)*deltaTime*game.planeMoveSensivity;
   ice_cream.position.x += (ice_cream.tPosX - ice_cream.position.x)*deltaTime*game.planeMoveSensivity;
 
- // this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*deltaTime*game.planeRotXSensivity;
- // this.mesh.rotation.x = (this.mesh.position.y - this.tPosY)*deltaTime*game.planeRotZSensivity;
-  
-  //var targetCameraZ = normalize(game.planeSpeed, game.planeMinSpeed, game.planeMaxSpeed, game.cameraNearPos, game.cameraFarPos);
-  
-  //camera.fov = normalize(mousePos.x,-1,1,40, 80);
-  //camera.updateProjectionMatrix ()
-  //camera.position.y += (airplane.mesh.position.y - camera.position.y)*deltaTime*game.cameraSensivity;
-
   game.planeCollisionSpeedX += (0-game.planeCollisionSpeedX)*deltaTime * 0.03;
   game.planeCollisionDisplacementX += (0-game.planeCollisionDisplacementX)*deltaTime *0.01;
   game.planeCollisionSpeedY += (0-game.planeCollisionSpeedY)*deltaTime * 0.03;
@@ -935,17 +846,15 @@ function createParticles(){
 function setNewPosition(myStateX, myStateY){
       
     var xTarget = (myStateX-windowHalfX);
-     var yTarget = (myStateY-windowHalfY);
-     
-     updatePlane(xTarget, yTarget);     
+    var yTarget = (myStateY-windowHalfY);
+    
+    updatePlane(xTarget, yTarget);     
  }
 
 var reqLoop;
 function loop(){
   renderer.render(scene, camera);
   reqLoop = requestAnimationFrame(loop);
-
-  //stats.update();
 
   newTime = new Date().getTime();
   deltaTime = newTime-oldTime;
@@ -964,10 +873,9 @@ function loop(){
       game.targetBaseSpeed += game.incrementSpeedByTime*deltaTime;
     }
 
-
-    if (Math.floor(game.distance)%game.distanceForEnnemiesSpawn == 0 && Math.floor(game.distance) > game.ennemyLastSpawn){
-      game.ennemyLastSpawn = Math.floor(game.distance);
-      ennemiesHolder.spawnEnnemies();
+    if (Math.floor(game.distance)%game.distanceForObstaclesSpawn == 0 && Math.floor(game.distance) > game.obstaclesLastSpawn){
+      game.obstaclesLastSpawn = Math.floor(game.distance);
+      obstaclesHolder.spawnObstacles();
     }
 
     if (Math.floor(game.distance)%game.distanceForLevelUpdate == 0 && Math.floor(game.distance) > game.levelLastUpdate){
@@ -978,8 +886,6 @@ function loop(){
       game.targetBaseSpeed = game.initSpeed + game.incrementSpeedByLevel*game.level
     }
 
-
-    //updatePlane();
     updateDistance();
     updateEnergy();
    
@@ -995,25 +901,21 @@ function loop(){
    ice_cream.position.y -= game.planeFallSpeed*deltaTime;
 
     if (ice_cream.position.y <-200){
-      showReplay();
-      game.status = "waitingReplay";
+      showFinishGame();
+      game.status = "waitingStatus";
 
     }
-  }else if (game.status=="waitingReplay"){
+  }else if (game.status=="waitingStatus"){
 
   }
 
-  //airplane.propeller.rotation.x +=.2 + 
   game.planeSpeed * deltaTime*.005;
   
   sea.mesh.rotation.z += game.speed*deltaTime;//*game.seaRotationSpeed;
 
-  
-
-  //ambientLight.intensity += (.5 - ambientLight.intensity)*deltaTime*0.005;
 
   coinsHolder.rotateCoins();
-  ennemiesHolder.rotateEnnemies();
+  obstaclesHolder.rotateObstacles();
 
 }//end of loop
   
@@ -1070,30 +972,25 @@ function addEnergy(){
 }
 
 function removeEnergy(){
-  game.energy -= game.ennemyValue;
+  game.energy -= game.obstaclesValue;
   var gotHitSound = new Audio('sound/got_hit.wav');
   gotHitSound.play();
   //game.energy -= 0.001;
   game.energy = Math.max(0, game.energy);
 }
 
-function showReplay(){
-  //replayMessage.style.display="block";
-  //alert("Please play again later");
+function showFinishGame(){
+
     if(game.counter >= 10){
-    socket.emit('goSocialMedia');
-    cancelAnimationFrame(reqLoop);
-    $("#social-media").css("z-index","30000");
-    completed_header.innerText = "Congratulations you have collected" + ' ' + game.counter + ' ' + "points!! \n"  + "Look at phone.";
-    console.log("congrats");
+      socket.emit('goSocialMedia');
+      cancelAnimationFrame(reqLoop);
+      $("#social-media").css("z-index","30000");
+      completed_header.innerText = "Congratulations you have collected" + ' ' + game.counter + ' ' + "points!! \n"  + "Look at phone.";
+      console.log("congrats");
     }else{
       $("#game-over").css("z-index","30000");
           console.log("failed");
     }
-}
-
-function hideReplay(){
-  replayMessage.style.display="none";
 }
 
 function normalize(v,vmin,vmax,tmin, tmax){
@@ -1113,15 +1010,12 @@ $(window).bind('init', function (e) {
   completed_header = document.getElementById("completed-header");
   fieldDistance = document.getElementById("distValue");
   energyBar = document.getElementById("energyBar");
-  replayMessage = document.getElementById("replayMessage");
   fieldLevel = document.getElementById("levelValue");
   levelCircle = document.getElementById("levelCircleStroke");
-  //$(window).bind('myGame', newCoordinates);
 
   resetGame();
 
   //Create stuff
-  //createStats();
   createScene();
   createLights();
   createPlane();
@@ -1129,7 +1023,7 @@ $(window).bind('init', function (e) {
   createSky();
 
   createCoins();
-  createEnnemies();
+  createObstacles();
   createParticles();
 
   //Loops
@@ -1140,18 +1034,12 @@ $(window).bind('init', function (e) {
    $(window).trigger('load');
    
   console.log("init functioned")
-});
 
-//window.addEventListener('load', init, false);
+    });
 
-//$(window).bind('content-ready', init);
-          
- /* End of MyGame */
+//== End of MyGame ==//
 
   });//end of gameStart   
     
-    /* BINDING EVENTS */
-    //$(window).bind('Instructions-Desk', myInstructions);
-    // $(window).bind('GameStart', init);
   });
 })();

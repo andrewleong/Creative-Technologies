@@ -1,28 +1,32 @@
 (function() {
-    
+      
+     //== The main URL location.protocol is http: and location.host is the uri like localhost ==// 
      var baseUrl = document.location.protocol + "//" + document.location.host
     
-
     $(document).ready(function() {
         
+        //== connect to mobile socket ==//
         var socket = io.connect();
-       //var socket = io.connect('192.168.1.71:3000');
+        //var socket = io.connect('192.168.1.71:3000');
+
+        //== embed the unique id to the body on mobile html dynamically ==//
         var uniqueId = $("body").attr('data-id');
-        console.log("document ready or connected");
-       
-        //Mobile socket sends server saying register its id with the unique ID
+        
+        //== Mobile socket sends server saying register its id with the unique ID ==//
         socket.emit('mobile-register', {id: uniqueId});
 
+        //== Received request from server, show instructions on phone ==//
         socket.on('mobileShowInstructions', function(data) {
             
               $(".button").on("click", function() {
-              //Tell the server to tell desktop to Start the game
+
+              //== Tell the server to tell desktop to Start the game ==//
               socket.emit('GameStart', data);
-              console.log("clicked");
-          });
-                // socket.emit('mobile-orientation', orientation);       
+              
+              });              
         });
 
+        //== Received request from server, remove instructions and trigger start game ==//
         socket.on('MobileGameStart', function(data) {
             $("#Mobile-Instruction").slideUp(function() { 
               $(window).trigger('init'); 
@@ -30,27 +34,27 @@
             });           
         });
 
-          //Receiving from server (social media)
+        //== Receiving from server, open social media for reward ==//
         socket.on('SocialMediaMobile', function(data) {
               $("#Reward-Page").css("z-index","30000");
               $("#Reward-Page").css("overflow-y","visible");
               $("#Reward-Page").css("height","auto","important");
         });
 
-        //When user clicks FB post
+        //== When user clicks FB Post button, go to facebook ==//
         $("#FB-Button").on('click',function(){
               $("#FB").css("z-index","300000");
               $("#FB").css("overflow-y","visible");
               console.log("facebook image");
         });
 
-//Emits update function
+//== Emits user's finger position to server ==//
 function setUpdatePosition(){
   socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} ); 
   //console.log("update position emitted");     
 }
 
-//COLORS
+//== ThreeJs color variable code == //
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -61,21 +65,20 @@ var Colors = {
     yellow:0xffdc34,
 };
 
-// THREEJS RELATED Scene VARIABLES
+//== THREEJS RELATED Scene VARIABLES ==//
 var scene, camera, fieldOfView, aspectRatio, nearPlane, farPlane, renderer, container;
 
-//SCREEN & MOUSE VARIABLES
+//== SCREEN & MOUSE VARIABLES ==//
 var HEIGHT, WIDTH, windowHalfX, windowHalfY, mousePosMobile = {x:0,y:0};
 
-// X and Y target point for mobile
+//== X and Y target point for mobile ==//
 var xTargetMobile;
 var yTargetMobile;
-//INIT THREE JS, SCREEN AND MOUSE EVENTS
 
+//== INIT THREE JS, SCREEN AND MOUSE EVENTS ==//
 $(window).bind('load', function (e) {
-
-function createScene() {
-    
+  
+function createScene() {  
   scene = new THREE.Scene();    
   HEIGHT = window.innerHeight;
   WIDTH = window.innerWidth;
@@ -102,15 +105,16 @@ function createScene() {
     
   windowHalfX = WIDTH / 2;
   windowHalfY = HEIGHT / 2;
+
   window.addEventListener('resize', handleWindowResize, false);
 
-    document.addEventListener('mousemove', handleMouseMove, false);
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchend', handleTouchEnd, false);
-    document.addEventListener('touchmove',handleTouchMove, false);
+  document.addEventListener('mousemove', handleMouseMove, false);
+  document.addEventListener('touchstart', handleTouchStart, false);
+  document.addEventListener('touchend', handleTouchEnd, false);
+  document.addEventListener('touchmove',handleTouchMove, false);
 }
 
-// HANDLE SCREEN EVENTS
+//== HANDLE SCREEN EVENTS ==//
 function handleWindowResize() {
   HEIGHT = window.innerHeight;
   WIDTH = window.innerWidth;
@@ -121,7 +125,7 @@ function handleWindowResize() {
   camera.updateProjectionMatrix();
 }
 
-//HANDLE ALL MOUSE/TOUCH STUFF
+//== HANDLE ALL MOUSE/TOUCH STUFF ==//
 function handleMouseMove(event) {
   mousePosMobile = {x:event.clientX, y:event.clientY};
 }
@@ -144,12 +148,10 @@ function handleTouchMove(event) {
   }
 }
 
-// LIGHTS
-
+//== SET UP LIGHTS ==//
 var ambientLight, hemisphereLight, shadowLight;
 
 function createLights() {
-
   hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9)
   shadowLight = new THREE.DirectionalLight(0xffffff, .9);
   shadowLight.position.set(150, 350, 350);
@@ -167,174 +169,59 @@ function createLights() {
   scene.add(shadowLight);
 }
 
-
-// //My Ice cream Cone OMGGGG SO SMALL
-// var icecream;
-
-// function createCone(){
-//       icecream = new IceCream();
-//       icecream.mesh.scale.set(.25,.25,.25);
-//       icecream.mesh.position.y = 10;
-//       icecream.mesh.position.z = 100;
-
-//       icecream.mesh.rotation.z = Math.PI / -2;
-
-//       scene.add(icecream.mesh);
-//  }   
-
-//  var IceCream = function(){
-//     this.mesh = new THREE.Object3D();
-//     this.mesh.name = "IceCream";
-
-//     var conegeometry = new THREE.CylinderGeometry(10,.10,50,32,1, true);
-//     var conematerial = new THREE.MeshPhongMaterial({color:Colors.pink, shading:THREE.FlatShading});
-//     var cone = new THREE.Mesh(conegeometry, conematerial);
-//     cone.castShadow = true;
-//     cone.receiveShadow = true;
-//     this.mesh.add(cone); 
-// };        
-
-
-
-
-// // 3D Models Airplane
-// var airplane;
-
-// // function createPlane(){
-// //   airplane = new hi();
-// //   // airplane.mesh.scale.set(.25,.25,.25);
-// //   airplane.mesh.name = "hey";
-// //   airplane.mesh.scale.set(2,2,2);
-// //   airplane.mesh.position.y = 100;
-// //   airplane.mesh.rotation.z = Math.PI / 2;
-// //   scene.add(airplane.mesh);
-// // }
-// function createPlane(){
-//  var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-// var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-// var airplane = new THREE.Mesh( geometry, material );
-// airplane.position.y = 100;
-// scene.add( airplane );
-// }
-
-// console.log(airplane);
-
-// var hi = function(){
-//     x = new THREE.Object3D();
-//     x.name = "hello";
-  
-//   // Create the cabin
-//     // var geomCockpit = new THREE.BoxGeometry(60,50,50,1,1,1);
-//     var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3)
-//     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
-//     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
-//     cockpit.castShadow = true;
-//     cockpit.receiveShadow = true;
-//     x.add(cockpit);
-//     console.log(hi);
-// };
-
-
-// var loader = new THREE.JSONLoader();
-
-// var hi; 
- 
-//  // var hi2 = function(){
-//  //    hi2 = new THREE.Object3D();
-//  // // this.name = "hi2";
-//  //  }
-// function createPlane(){
-//      //hi = new hi2();
-    
-//             loader.load("heart.js", function(geometry, materials){
-
-              
-
-//                 var material = new THREE.MultiMaterial(materials);
-
-//                 //hi= new THREE.Mesh( geometry, new THREE.MeshFaceMaterial(geometry.materials));
-//                  hi = new THREE.Mesh(geometry, material);
-                
-//                 //hi.position.x -= 5.0;
-//                 hi.scale.x = hi.scale.y = hi.scale.z = 10.05;
-//                  hi.position.y = 100;
-//                //hi.rotation.x += 0.01;
-//                 scene.add(hi);
-//                 console.log(hi);
-//                 //make sure mesh is loaded before renderering
-//                updatePlane();
-//             });       
-//   }
-
- 
-
-//updating plane function
-// AirPlane.prototype.updatePlane = function(xTargetMobile, yTargetMobile){
-  
-//   this.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-//   this.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
-
-//   // Move the plane at each frame by adding a fraction of the remaining distance
-//   this.mesh.position.y += (this.tPosY - this.mesh.position.y) *0.1;
-//   this.mesh.position.x += (this.tPosX - this.mesh.position.x) *0.1;
-//   // Rotate the plane proportionally to the remaining distance
-//     //this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*0.0128;
-// }
-
+//== Variable JSONLOADER for custom model ==//
 var loader = new THREE.JSONLoader();
 
+//== Player character ==//
+var ice;
 
-var cube;
-
-
-function createPlane(){
- loader.load("haha.js", function(geometry, materials){
-
-   var material = new THREE.MultiMaterial(materials);
-   cube = new THREE.Mesh(geometry, material);
-   cube.scale.set(15,15,15);  
- cube.position.y = 200;
-cube.rotation.z = 80.1;
-cube.castShadow = true;
-cube.receiveShadow = true;
-scene.add(cube);
- });
-  }
-
-//updating plane function
-function updatePlane (xTargetMobile, yTargetMobile){
-  if(cube !== undefined){
-  cube.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
-    cube.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
-
-  // Move the plane at each frame by adding a fraction of the remaining distance
-  cube.position.y += (cube.tPosY - cube.position.y) *0.1;
-  cube.position.x += (cube.tPosX - cube.position.x) *0.1;
-  // Rotate the plane proportionally to the remaining distance
-    //this.mesh.rotation.z = (this.tPosY - this.mesh.position.y)*0.0128;
-    }
+//== Create the ice cream model ==//
+function createIceCream(){
+  
+  loader.load("ice_cream.js", function(geometry, materials){
+  var material = new THREE.MultiMaterial(materials);
+   
+  ice = new THREE.Mesh(geometry, material);
+  ice.scale.set(15,15,15);  
+  ice.position.y = 200;
+  ice.rotation.z = 80.1;
+  ice.castShadow = true;
+  ice.receiveShadow = true;
+  scene.add(ice);
+  });
 }
 
+//== updating iceCream position function ==//
+function updateIceCream (xTargetMobile, yTargetMobile){
+    
+if(ice !== undefined){
+      
+  ice.tPosY = normalize(yTargetMobile, -.5,.25, 175, 25);
+  ice.tPosX = normalize(xTargetMobile, -1, 1,-100, 100);
+
+  //== Move the player at each frame by adding a fraction of the remaining distance ==//
+  ice.position.y += (ice.tPosY - ice.position.y) *0.1;
+  ice.position.x += (ice.tPosX - ice.position.x) *0.1;
+  
+  }
+}
+
+//== updates on each frame ==//
 function loop(){
-// update the plane on each frame
+
     xTargetMobile = (mousePosMobile.x-windowHalfX);
     yTargetMobile= (mousePosMobile.y-windowHalfY);
 
-    updatePlane(xTargetMobile, yTargetMobile);
-    //hi.updatePlane(xTargetMobile, yTargetMobile);
+    updateIceCream(xTargetMobile, yTargetMobile);
+   
     setUpdatePosition();
     
-
     renderer.render(scene, camera);
     
     requestAnimationFrame(loop);
 }
 
- //var myPlaneUpdate = function(){
-
-    
- //}
-
+//== Set matrix for position normalization ==//
 function normalize(v,vmin,vmax,tmin, tmax){
   var nv = Math.max(Math.min(v,vmax), vmin);
   var dv = vmax-vmin;
@@ -344,44 +231,23 @@ function normalize(v,vmin,vmax,tmin, tmax){
   return tv;
 }
 
-
-
+//== Bind init function ==//
 $(window).bind('init', function (e) {
+  
   createScene();
   createLights();
-  createPlane();
-  //createCone();
+  createIceCream();
+
   loop();
+
+  //== Triggers load function above ==//
   $(window).trigger('load');
   console.log("scene created");
-});
 
-//window.addEventListener('load', init, false);
+  });
 
+}); //== end of load function ==//
+        
+}); //End of $(document).ready(function()
 
-
-}); //end of gameStartMobile
-
-
-// socket.on('goTouch', function(data) {
-//      airplane.updatePlane(xTargetMobile, yTargetMobile);
-
-//     });
-
-
-
-        // socket.on('start', function(data) {
-        //     MobileReader.bindOrientation({
-        //     	callback: function(orientation) {
-        //     		socket.emit('mobile-orientation', orientation);
-        //             $(".count").text(parseInt($(".count").text()) + 1);
-        //     	},
-        //     	interval: 100
-        //     });
-        // });
-         
-
-      
-         //$(window).bind('GameStart', MainGame);
-    }); //End of $(document).ready(function()
 })();
