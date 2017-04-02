@@ -104,7 +104,7 @@ function createScene() {
   container.appendChild(renderer.domElement);
     
   windowHalfX = WIDTH / 2.5;
-  windowHalfY = HEIGHT / 2.5;
+  windowHalfY = HEIGHT / 2;
 
   window.addEventListener('resize', handleWindowResize, false);
 
@@ -119,7 +119,7 @@ function handleWindowResize() {
   HEIGHT = window.innerHeight;
   WIDTH = window.innerWidth;
   windowHalfX = WIDTH / 2.5;
-  windowHalfY = HEIGHT / 2.5;
+  windowHalfY = HEIGHT / 2;
   renderer.setSize(WIDTH, HEIGHT);
   camera.aspect = WIDTH / HEIGHT;
   camera.updateProjectionMatrix();
