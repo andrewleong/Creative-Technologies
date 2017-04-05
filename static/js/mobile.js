@@ -1,3 +1,7 @@
+//==REFERENCES & SOURCES USED==//
+
+//--Wegner, J. (2013). An Experiment In Mobile Controllers [blog]. Available from: http://wegnerdesign.com/blog/an-experiment-in-mobile-controllers/[Accessed: 4 April 2017].--//
+
 (function() {
       
      //== The main URL location.protocol is http: and location.host is the uri like localhost ==// 
@@ -53,6 +57,10 @@ function setUpdatePosition(){
   socket.emit('updatePosition', {mobileX: mousePosMobile.x, mobileY: mousePosMobile.y} ); 
   //console.log("update position emitted");     
 }
+
+//==REFERENCES & SOURCES USED==//
+
+//-- Maaloul, K. (2016).The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js [online]. Available from: https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/[Accessed: 4 April 2017]. --//
 
 //== ThreeJs color variable code == //
 var Colors = {

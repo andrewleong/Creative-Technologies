@@ -1,7 +1,10 @@
+//==REFERENCES & SOURCES USED==//
+
+//--Wegner, J. (2013). An Experiment In Mobile Controllers [blog]. Available from http://wegnerdesign.com/blog/an-experiment-in-mobile-controllers/[Accessed: 4 April 2017].--//
+
 //== Using Express in Node JS ==//
 var express = require('express'), app = express(), server = require('http').createServer(app), io = require('socket.io').listen(server);
 
-//== ==//
 //== Setting the Views and Static files ==//
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/static'));

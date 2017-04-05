@@ -1,3 +1,9 @@
+//==REFERENCES & SOURCES USED==//
+
+//--Wegner, J. (2013). An Experiment In Mobile Controllers [blog]. Available from http://wegnerdesign.com/blog/an-experiment-in-mobile-controllers/[Accessed: 4 April 2017].--//
+
+//-- Vevo (2017). When Can I See You Again? (From Wreck it Ralph) - Owl City.[online] Available from: https://www.vevo.com/watch/owl-city/when-can-i-see-you-again-(fromwreck-it-ralph)/USWV21222257[Accessed 5 Apr. 2017].--//
+
 (function() {
 
     //== Music ==//
@@ -46,35 +52,9 @@
             });           
         });
 
-    /* GOOGLE SHORTERNER CODE */
-        //Shorten URL function
+//==REFERENCES & SOURCES USED==//
 
-          // function makeRequest() {
-          //     var request = gapi.client.urlshortener.url.insert({
-          //     'resource': {
-          //     'longUrl': Url
-          //     }
-          //   });
-          //   request.execute(function(response) {
-
-          //   if (response.id != null) {
-          //   //str = "<b>Long URL:</b>" + Url + "<br>";
-          //   str = "<b>Test Short URL:</b> <a href='" + response.id + "'>" + response.id + "</a><br>";
-          //   console.log(str);
-          //   document.getElementById("qr_url").innerHTML = str;
-          //   }
-          //   else {
-          //   alert("Error: creating short url \n" + response.error);
-          //   }
-          //   });
-          // }
-          //   function load() {
-          //     gapi.client.setApiKey('AIzaSyB1NDxFT-kRyvpz9wclVDAUFiNLwLMqvak');
-          //     gapi.client.load('urlshortener', 'v1');
-          //   }
-          //   window.onload = load;
-          //   setTimeout(function() { makeRequest(); }, 5000); 
-    /* GOOGLE SHORTENER CODE END */
+//-- Maaloul, K. (2016).The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js [online]. Available from: https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/[Accessed: 4 April 2017]. --// 
 
 $(window).bind('load', function (e) {
 
@@ -110,7 +90,7 @@ function resetGame(){
           targetBaseSpeed:.00035,
 
           //incrementSpeedByTime:.0000025,
-          incrementSpeedByTime:.00000025,
+          incrementSpeedByTime:.0000025,
           incrementSpeedByLevel:.000005,
           distanceForSpeedUpdate:100,
 
@@ -150,15 +130,15 @@ function resetGame(){
           wavesMaxSpeed : 0.003,
 
           counter: 0,
-          coinDistanceTolerance:15,
+          coinDistanceTolerance:40,
           coinValue:3,
           coinsSpeed:.5,
           coinLastSpawn:0,
           distanceForCoinsSpawn:50,
 
           //Enemy collision distance
-          obstaclesDistanceTolerance:30,
-          obstaclesValue:10,
+          obstaclesDistanceTolerance:40,
+          obstaclesValue:20,
           obstaclesSpeed:.6,
           obstaclesLastSpawn:0,
           distanceForObstaclesSpawn:50,
@@ -571,19 +551,7 @@ ParticlesHolder.prototype.spawnParticles = function(pos, density, color, scale){
   }
 }
 
-//Coins are the hearts collectibles
-// var loader = new THREE.JSONLoader().load("models/heart.js", function(geometry, materials){
-    
-//   var material = new THREE.MultiMaterial(materials);
-//     car = new THREE.Mesh(geometry, material);
-//     scene.add( car );
-//     console.log(car);
-//     car.scale.set(10,10,10);
-//     car.position.x = 10;
 
-//   });
-
-var car;
 var loader = new THREE.JSONLoader();
 
  Coin = function(){
@@ -614,18 +582,7 @@ heartShape.bezierCurveTo( xheart + 35, yheart, xheart + 25, yheart + 25, xheart 
 
     shading:THREE.FlatShading
   });
-  //var loader = new THREE.JSONLoader().load("models/heart.js", function(geometry, materials){
-    
-  // loader.load("models/heart.js", function(geometry, materials){
-  //     var material = new THREE.MultiMaterial(materials);
-  //   //car.scale.set(5,5,5);
-  //    this.mesh = new THREE.Mesh(geometry, material);
-  //    this.mesh.position.y = 10;
-  //    this.mesh.scale.set(5,5,5);
-  //    scene.add(this.mesh);
-  //      console.log(this.mesh);
-  //   });   
-  // //this.mesh = new THREE.Mesh(geom,mat);
+  
   this.mesh = new THREE.Mesh(geom,mat);
   this.mesh.castShadow = true;
   this.angle = 0;
@@ -703,38 +660,6 @@ CoinsHolder.prototype.rotateCoins = function(){
 
 // ----ENEMIES ENDED------//
 
-// 3D Models Airplane
-
-// var AirPlane = function(){
-//   this.mesh = new THREE.Object3D();
-//     // this.mesh.name = "AirPlane";
-   
-//   // Create the cabin
-//   var geomCockpit = new THREE.ConeGeometry(6.5, 23, 18, 1, false, 0, 6.3);
-//     var matCockpit = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
-//     var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
-//   cockpit.castShadow = true;
-//     cockpit.receiveShadow = true;
-//     this.mesh.add(cockpit);
-// };
-
-
-
-// var car;
-// //My Custom Geometry//
-// var myHeart = function(){
-//   var loader = new THREE.JSONLoader().load("models/heart.js", function(geometry, materials){
-    
-//   var material = new THREE.MultiMaterial(materials);
-//     car = new THREE.Mesh(geometry, material);
-//     scene.add( car );
-//     console.log(car);
-//     car.scale.set(10,10,10);
-//     car.position.x = 10;
-
-//   });
-
-// }
 
 // 3D Object instantiation/create function
 // Instantiate the Objects and add it to the scene:
@@ -754,15 +679,6 @@ function createSky(){
   scene.add(sky.mesh);
 }
 
-//  var airplane;
-// function createPlane(){
-//   airplane = new AirPlane();
-//   airplane.mesh.scale.set(1.5,1.5,1.5);
-//   //airplane.mesh.position.y = 100;
-//   airplane.mesh.position.y = game.planeDefaultHeight;
-//   airplane.mesh.rotation.z = Math.PI / 2;
-//   scene.add(airplane.mesh);
-// }
 
 var ice_cream;
 
@@ -807,17 +723,6 @@ function createParticles(){
   scene.add(particlesHolder.mesh)
 }
 
-//Standby
-// AirPlane.prototype.updatePlane = function(xTarget, yTarget){
-  
-//   this.tPosY = normalize(yTarget, -.5,.25, 175, 25);
-//   this.tPosX = normalize(xTarget, -.5,.5,-100, 100);
-//   this.mesh.position.y += (this.tPosY - this.mesh.position.y) /20;
-//   this.mesh.position.x += (this.tPosX - this.mesh.position.x) /20;
-
-//   //var touchTargetY = normalize(touchPos.y,-.75,.75,25, 175);
-//   //var touchTargetX = normalize(touchPos.x,-.75,.75,-100, 100);
-// }
  function updatePlane (xTarget, yTarget){
 
     if(ice_cream !== undefined){
