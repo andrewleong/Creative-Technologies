@@ -28,8 +28,21 @@
     
     $(document).ready(function() {
 
+        jQuery.urlShortener.settings.apiKey='AIzaSyAJxTUHTSPxpJ7iOwE033TCB-TxnSj8y0g';
+
         var Url = (baseUrl + "/mobile/" + uniqueId);
         console.log(Url);
+
+        jQuery.urlShortener({
+            longUrl: Url,
+            success: function (shortUrl) {
+                $("#qr_url").html(shortUrl);
+            },
+            error: function(err)
+            {
+                alert(JSON.stringify(err));
+            }
+      });
 
         // $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
         $("#qr").qrcode(Url);
