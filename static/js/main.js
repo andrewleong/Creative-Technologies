@@ -14,22 +14,25 @@
     //var baseUrl = document.location.protocol + "//" + "192.168.1.71:3000"
     
     //== Variable for unique ID generator ==// 
-    var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    var ranLength = 50;
+    // var allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    // var ranLength = 50;
     
-    var uniqueId = "";
+    // var uniqueId = "";
+
+    var uniqueId = "cornetto";
     
     //== Generates Unique ID ==//
-    for(var i=0; i<ranLength; i++) {
-        uniqueId += allChars[Math.floor(Math.random() * allChars.length)];
-    }
+    // for(var i=0; i<ranLength; i++) {
+    //     uniqueId += allChars[Math.floor(Math.random() * allChars.length)];
+    // }
     
     $(document).ready(function() {
 
         var Url = (baseUrl + "/mobile/" + uniqueId);
         console.log(Url);
 
-        $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
+        // $("#qr").qrcode(baseUrl + "/mobile/" + uniqueId);
+        $("#qr").qrcode(Url);
         
         //== connect to mobile socket ==//
         var socket = io.connect();
