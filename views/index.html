@@ -22,11 +22,13 @@ h8 {
 	font-family: 'icingsregular';
 	font-weight: 700;
 	font-size:52px;
+	text-shadow: 3px 0px 0px rgba(0,0,0,.1);
 }
 h7 {
 	color:white;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:28px;
+	text-shadow: 3px 0px 0px rgba(0,0,0,.1);
 }
 #wall-logo {
 	text-align:left;	
@@ -78,6 +80,7 @@ h7 {
 	margin: 0;
 	letter-spacing: -0.025em;
 	float:left;
+	text-shadow: 3px 0px 0px rgba(0,0,0,.1);
 }
 
 .header h1 span {
@@ -213,6 +216,30 @@ h7 {
 	}
 }
 
+#show-qr {
+	width: 500px;
+    margin: 0 auto;
+}
+
+#qr_url{
+	width: 100%;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    text-shadow: 3px 0px 0px rgba(0,0,0,.1);
+}
+
+.container-left {
+	float:left;
+	width: 50%;
+}
+
+.container-right {
+	float:right;
+	width: 50%;
+}
+
 </style>
 </head>
 <body>
@@ -223,19 +250,25 @@ h7 {
 
 	<div id="wall-logo"><img src="images/wall-logo.png"/></div>
 
-	<div id="cornetto-logo"><img src="images/logo.png"/></div>
+	<div class="container-left">
+		<div id="cornetto-logo"><img src="images/logo.png"/></div>
 
-	<div class="title"> <h8>SHARE YOUR LOVE</h8> </div>
+		<div class="title"> <h8>SHARE YOUR LOVE</h8> </div>
 
-	<div id="show-qr">
-		<div id="qr"></div>
+		<div id="show-qr">
+			<h7>Hey You! Take out your smartphone &#38; enter this link in Google -</h7>
+			<div id="qr"></div>
+		</div>
+
+		<div class="sub-heading"><h7>Or Scan the QR code to play the game...</h7></div>
+		<div id="qr_url"></div>
+
+		<div id="classic-cornetto"><img src="images/classic-cornetto.png"/></div>
+	</div>	
+	<div class="container-right">
+		<div id="tv"><img src="images/tv.png"/></div>
+		<div id="phone"><img src="images/phone.png"/></div>
 	</div>
-
-	<div class="sub-heading"><h7>Scan the QR code to play the game..</h7></div>
-	<div id="qr_url"></div>
-
-	<div id="classic-cornetto"><img src="images/classic-cornetto.png"/></div>
-
 </section>
 
 <section id="Instructions">
