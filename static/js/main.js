@@ -925,7 +925,8 @@ function normalize(v,vmin,vmax,tmin, tmax){
 
 //Bind the initialization function
 $(window).bind('init', function (e) {
-  gameMusic.play(); 
+  gameMusic.play();
+  gameMusic.loop = true; 
   // UI
   myCounter = document.getElementById("counterValue");
   completed_header = document.getElementById("completed-header");
