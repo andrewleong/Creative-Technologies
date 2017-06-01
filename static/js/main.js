@@ -106,7 +106,7 @@ function resetGame(){
           targetBaseSpeed:.00035,
 
           //incrementSpeedByTime:.0000025,
-          incrementSpeedByTime:.0000025,
+          incrementSpeedByTime:.00000025,
           incrementSpeedByLevel:.000005,
           distanceForSpeedUpdate:100,
 
@@ -902,7 +902,7 @@ function removeEnergy(){
 
 function showFinishGame(){
 
-    if(game.counter >= 10){
+    if(game.counter >= 20){
       socket.emit('goSocialMedia');
       cancelAnimationFrame(reqLoop);
       $("#social-media").css("z-index","30000");
