@@ -902,7 +902,7 @@ function removeEnergy(){
 
 function showFinishGame(){
 
-    if(game.counter >= 20){
+    if(game.counter >= 30){
       socket.emit('goSocialMedia');
       cancelAnimationFrame(reqLoop);
       $("#social-media").css("z-index","30000");
