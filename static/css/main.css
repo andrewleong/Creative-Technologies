@@ -42,7 +42,7 @@ section{
 }
 
 #classic-cornetto{
-	position: absolute;
+	/*position: absolute;*/
 	width:250px;
 	left:10%;
 	bottom:10%;
