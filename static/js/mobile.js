@@ -42,6 +42,7 @@
         socket.on('SocialMediaMobile', function(data) {
               $("#Reward-Page").css("z-index","30000");
               $("#Reward-Page").css("overflow-y","visible");
+              $("html").css("overflow-y","visible");
               $("#Reward-Page").css("height","auto","important");
         });
 
