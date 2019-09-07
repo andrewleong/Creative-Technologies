@@ -1,38 +1,45 @@
-# Readme Instructions and Steps.
+# A real-time multi-screen experience web
 
+## Running the server
 
-###Student Name: Andrew Leong
-###Student ID: 15034579
-###Email: Andrew2.Leong@live.uwe.ac.uk
-###Personal Email: andrewleong14@gmail.com
-###Phone No: 07874302023
+- This app is no longer available in heroku as I stopped purchasing the hobby dynos, so it can only run in localhost.
+- Git clone this repo, then run the command `node server.js` to start the server, you will see the message "Desktop connected" in terminal.
+- On your desktop browser, navigate to http://localhost:3000/
 
-##Instructions and Steps
+## Connecting with second browser
 
-1)	Before opening the prototype link, a mobile phone with QR scanner app is required. An Android phone would be ideal as it was used to test this project.
+- If you have no mobile phone, you can skip the steps below. Just copy the url provided on the screen and paste in a new browser tab. You might want to shrink the tab or use two desktop screens. Use your mouse to move the object.
 
-2)	For Android phone, please set your phone’s default browser to “Google Chrome”. Then go to this link, [chrome://flags/#disable-pull-to-refresh-effect](chrome://flags/#disable-pull-to-refresh-effect). 
+1) An Android phone was used to test this project, so if it doesn't work on other devices you can try android phones.
 
-You will see a highlighted yellow line that says Pull-to-refresh effect Android. Click DISABLE. This disables your browser’s ability to refresh when you scroll down with your finger. 
+2) Make sure your phone and desktop are connected to the same wifi network, open your phone browser to input the link provided on the screen or use a QR scanner app.
 
-The purpose is to prevent your finger from accidentally refreshing the browser that will cause a disconnection between the desktop browser and mobile browser.
+3) In the url, please replace the keyword `localhost` with your current IP address, for example: 192.168.l.555.
 
-3)	After you have completed these steps, you can access the Heroku link provided in the report.
+4) The full url should look like http://192.168.l.555:3000/mobile/cornetto
 
-4)	To enable the feature again, go back to the same link above and click enable. 
+5) Your mobile phone will then be connected to the desktop.
 
-##Unexpected application crashes 
-1)	The application works perfectly fine, if there are any unexpected application crashes or not being able to work, please contact me.
+## Different browser or device behaviour impacts experience
 
+- It seems that android phones have various default browsers that may impact the experience, due to pulling the browser from top to bottom causing a page reload, which disconnects the phone from the desktop.
 
-##Playing the Game
+- If that is the case, please set your phone’s default browser to “Google Chrome”. Then go to this link, [chrome://flags/#disable-pull-to-refresh-effect](chrome://flags/#disable-pull-to-refresh-effect).
+
+- You will see a highlighted yellow line that says Pull-to-refresh effect Android. Click DISABLE. This disables your browser’s ability to refresh when you scroll down with your finger.
+
+- The purpose is to prevent your finger from accidentally refreshing the browser that will cause a disconnection between the desktop browser and mobile browser.
+
+- To enable the feature again, go back to the same link above and click enable.
+
+## Playing the game
+
 These steps assumed you have opened the project and have played the game. This is a brief walkthrough for the game.
 
-1)	To win the game, you have to collect a minimum of 10 heart game object (10 points). After that, to proceed to the winning page, your ice cream game object needs to be fully melted (died). To do that, either hit the orange fire balls (obstacles) or don’t collect more hearts, overtime your ice cream will melt. If you have failed to collect a minimum of 10 points and have melted, it will direct you to the losing page, which will prompt you to come back later to try again.
+1) To win the game, you have to collect a minimum of 10 heart game object (10 points). After that, to proceed to the winning page, your ice cream game object needs to be fully melted (died). To do that, either hit the orange fire balls (obstacles) or don’t collect more hearts, overtime your ice cream will melt. If you have failed to collect a minimum of 10 points and have melted, it will direct you to the losing page, which will prompt you to come back later to try again.
 
-2)	In the winning page, it will show a Congratulations page with the number of points you collected. On your mobile phone, it will display a page and shows you have won a Free Cornetto Ice cream. On the bottom of the page shows a mock up Facebook Post where you can click the POST button. 
+2) In the winning page, it will show a Congratulations page with the number of points you collected. On your mobile phone, it will display a page and shows you have won a Free Cornetto Ice cream. On the bottom of the page shows a mock up Facebook Post where you can click the POST button.
 
+3) It will redirect you to an image of the Facebook feed, showing you have sent your friend an ice cream with wishes.
 
-3)	It will direct you to an image of the Facebook feed, showing you have sent your friend an ice cream with wishes. You can click on the image page that directs you to the page where you can view as the friend’s perspective (The friend you sent free ice cream to). It is the final page where you can see the Cornetto barcode voucher.   
-
- 
+4) You can click on the image to view in your friend’s perspective, whom received free redeemable barcodes for the ice cream.

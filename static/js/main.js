@@ -7,7 +7,7 @@
 (function () {
 
     //== Music ==//
-	var gameMusic = new Audio('sound/Game.mp3');
+    var gameMusic = new Audio('sound/Game.mp3');
 
     //== The main URL location.protocol is http: and location.host is the uri like localhost ==//
     var baseUrl = document.location.protocol + "//" + document.location.host
